@@ -1,0 +1,10 @@
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring15_25ns_merged/CMSSW745_Data2015_ZprimeMuMu_13TeV_ZToMuMu_NNPDF30_13TeV-powheg_M_120_200.root 100000
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring15_25ns_merged/CMSSW745_Data2015_ZprimeMuMu_13TeV_ZToMuMu_NNPDF30_13TeV-powheg_M_1400_2300.root 99600
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring15_25ns_merged/CMSSW745_Data2015_ZprimeMuMu_13TeV_ZToMuMu_NNPDF30_13TeV-powheg_M_200_400.root 100000
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring15_25ns_merged/CMSSW745_Data2015_ZprimeMuMu_13TeV_ZToMuMu_NNPDF30_13TeV-powheg_M_2300_3500.root 97600
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring15_25ns_merged/CMSSW745_Data2015_ZprimeMuMu_13TeV_ZToMuMu_NNPDF30_13TeV-powheg_M_3500_4500.root 100000
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring15_25ns_merged/CMSSW745_Data2015_ZprimeMuMu_13TeV_ZToMuMu_NNPDF30_13TeV-powheg_M_400_800.root 100000
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring15_25ns_merged/CMSSW745_Data2015_ZprimeMuMu_13TeV_ZToMuMu_NNPDF30_13TeV-powheg_M_4500_6000.root 100000
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring15_25ns_merged/CMSSW745_Data2015_ZprimeMuMu_13TeV_ZToMuMu_NNPDF30_13TeV-powheg_M_50_120.root 2901229
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring15_25ns_merged/CMSSW745_Data2015_ZprimeMuMu_13TeV_ZToMuMu_NNPDF30_13TeV-powheg_M_6000_Inf.root 91400
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring15_25ns_merged/CMSSW745_Data2015_ZprimeMuMu_13TeV_ZToMuMu_NNPDF30_13TeV-powheg_M_800_1400.root 100000

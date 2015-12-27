@@ -1,0 +1,1 @@
+DYJetsToTauTau_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 6156428 1 6156428 2008.4
