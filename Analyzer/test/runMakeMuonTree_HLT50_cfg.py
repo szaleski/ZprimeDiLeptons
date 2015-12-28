@@ -60,8 +60,8 @@ process.METSignificance.srcPFCandidates      = cms.InputTag('particleFlow')
 
 # Global tag
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, 'MCRUN2_74_V9', '')
-# process.GlobalTag = GlobalTag(process.GlobalTag, '74X_dataRun2_Prompt_v0', '')
+# process.GlobalTag = GlobalTag(process.GlobalTag, 'MCRUN2_74_V9', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, '74X_dataRun2_Prompt_v0', '')
 
 process.maketreeMuon = cms.EDAnalyzer("MaketreeMuons",
     outputFile               = cms.string('CMSSW745_Data2015_ZprimeMuMu_13TeV_tree.root'),
