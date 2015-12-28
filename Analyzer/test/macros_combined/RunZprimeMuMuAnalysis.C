@@ -50,8 +50,6 @@ int main(int argc, char ** argv){
   float nskim[nlines];
   float xsection[nlines];
 
-  cout << "Sample is" << endl;
-
   for(int i=0;i<nlines;i++){
     fdata >> samples[i] >> ninput[i] >> nhlt[i] >> nskim[i] >> xsection[i];
     cout << "Sample=" << samples[i] << " Ninput=" << ninput[i] << " NHLT=" << nhlt[i] << " NSkim=" << nskim[i] << " Xsection(pb)=" << xsection[i] << endl;
@@ -60,14 +58,12 @@ int main(int argc, char ** argv){
   //
   float lumifb=0.;
 
-  //if (mcconf.find("Spring15")<5) lumifb=0.049982;
-  //if (mcconf.find("Spring15")<5) lumifb=0.050852; // 2015B
-  //if (mcconf.find("Spring15")<5) lumifb=0.077346; // 2015B+2015C
   if (mcconf.find("Spring15_combined")<5) lumifb=2.7933; // 2015B+2015C+2015D
 
-  string site="Bari";
+  string site=argv[8];
+  //string site="Bari";
 
- // Run on data
+  // Run on data
  
   for(int i=0;i<nlines;i++){
     
@@ -77,23 +73,16 @@ int main(int argc, char ** argv){
     
     TString dirInput;
     if (site.find("CERN")<5){
-      if (mcconf.find("Fall11")<5) dirInput="/castor/cern.ch/user/n/ndefilip/Paper/MCFall11";    // to run at CERN
-      else dirInput="/castor/cern.ch/user/n/ndefilip/Paper/MCSummer12";    // to run at CERN
+      dirInput="/castor/cern.ch/user/n/ndefilip/Paper/MCFall11";    // to run at CERN
     }
     else if (site.find("DESY")<5){
-      dirInput="/nfs/dust/test/cmsdas/school16/HZZ4lExercise/"; //to run at DESY
+      dirInput="/nfs/dust/test/cmsdas/school16/ZllExercise/"; //to run at DESY
     }
-    else if (site.find("FNAL")<5 && mcconf.find("Fall11")<5){
-      dirInput="dcap://cmsgridftp.fnal.gov:24125/pnfs/fnal.gov/usr/cms/WAX/11/store/user/cmsdas/2014/HZZ4lExercise//Fall11";
+    else if (site.find("FNAL")<5 && mcconf.find("Spring15_combined")<5){
+      dirInput="/eos/uscms/store/user/cmsdas/2016/LONG_EXERCISES/ZprimeDiLeptons/Spring15_25ns_merged";
     }
-    else if (site.find("FNAL")<5 && mcconf.find("Summer12")<5 ){
-      dirInput="dcap://cmsgridftp.fnal.gov:24125/pnfs/fnal.gov/usr/cms/WAX/11/store/user/cmsdas/2014/HZZ4lExercise//Summer12";
-    }
-    else if (mcconf.find("Fall11")<5){
-      dirInput="/lustre/cms/store/user/defilip/Fall11_445_paper_step_analysis_merged";
-    }
-    else if (mcconf.find("Summer12")<5){
-      dirInput="/lustre/cms/store/user/defilip/Summer12_53X_paper_step_analysis_merged";
+    else if (site.find("FNAL")<5 && mcconf.find("2015")<5){
+      dirInput="/eos/uscms/store/user/cmsdas/2016/LONG_EXERCISES/ZprimeDiLeptons/Data2015_ZprimeMuMu_13TeV_merged";
     }
     else if (mcconf.find("Spring15_combined")<5){
       dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring15_25ns_merged";
