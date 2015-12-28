@@ -30,26 +30,13 @@ process.maxEvents = cms.untracked.PSet(
 process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(10000)  
 
 process.source = cms.Source("PoolSource", fileNames = cms.untracked.vstring(
-#'file:pickevents_256729_612_898506503.root'
-#'file:pickevents_256941_217_310981654.root'
-#'file:pickevents_256676_238_340224775.root'
-#'file:fevt_260424_115_211873064.root'
-#'file:pickevents_259683_73_120918950.root'
-#'file:pickevents_257613_979_1512626426.root'
-#'file:pickevents_257968_268_387574044.root'
 'file:pickevents_256734_75_93945569.root'
-#'file:pickevents_260627_1632_2969419431.root'
-#'file:pickevents_260627_1179_2177306937.root'
-#'file:pickevents_260627_1775_3199077339.root'
-#'file:pickevents_256677_337_345331220.root'
-#'file:pickevents_257613_461_725033741.root'
  )
 )
 
 ##-------- Electron events of interest --------
 process.HLTEle =cms.EDFilter("HLTHighLevel",
      TriggerResultsTag = cms.InputTag("TriggerResults","","HLT"),
-     # HLTPaths = cms.vstring("HLT_Mu45_eta2p1_v1","HLT_Mu50_v1"),
      HLTPaths = cms.vstring("HLT_Mu50_v*"),
      eventSetupPathsKey = cms.string(''),
      andOr = cms.bool(True), #----- True = OR, False = AND between the HLTPaths
@@ -92,10 +79,7 @@ process.maketreeMuon = cms.EDAnalyzer("MaketreeMuons",
     Jets                     = cms.InputTag("ak4PFJets"),                                   
     # Trigger matching                                           
     triggerEvent          = cms.InputTag("hltTriggerSummaryAOD","","HLT"),
-    # triggerFilter         = cms.vstring('hltL3fL1sMu16orMu25L1f0L2f10QL3Filtered45e2p1Q','hltL3fL1sMu16orMu25L1f0L2f10QL3Filtered50Q'),
-    # triggerFilter         = cms.vstring('hltL3fL1sMu16orMu25L1f0L2f10QL3Filtered45e2p1Q'),                                  
     triggerFilter         = cms.vstring('hltL3fL1sMu16orMu25L1f0L2f10QL3Filtered50Q'),   
-    #triggerFilter2        = cms.string('hltL3fL1sMu16L1f0L2f16QL3Filtered40Q'),
     maxAbsZ  = cms.double(24),	
     maxd0    = cms.double(2),
     minndof  = cms.int32(4),
