@@ -30,14 +30,6 @@ process.maxEvents = cms.untracked.PSet(
 process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(10000)  
 
 process.source = cms.Source("PoolSource", fileNames = cms.untracked.vstring(
-#'/store/data/Run2015B/SingleMuon/AOD/PromptReco-v1/000/251/638/00000/4E720749-F62A-E511-A3CB-02163E014166.root',
-#'/store/data/Run2015B/SingleMuon/AOD/PromptReco-v1/000/251/562/00000/52C6E715-A12A-E511-8EC6-02163E012603.root'
-
-#'/store/data/Run2015B/SingleMuon/AOD/PromptReco-v1/000/251/162/00000/C2C5E84D-4227-E511-8878-02163E01280D.root'
-
-#'/store/mc/RunIISpring15DR74/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/AODSIM/Asympt50ns_MCRUN2_74_V9A-v2/00000/0033A97B-8707-E511-9D3B-008CFA1980B8.root'
-#'/store/mc/RunIISpring15DR74/TTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/Asympt50ns_MCRUN2_74_V9A-v1/00000/0803A0A4-53FD-E411-8198-002618943983.root'
-#'file:009B2197-1E0B-E511-BE62-00266CFCCD94.root'
 'file:0E580169-0F34-E511-B1B8-B8CA3A709648.root'
  )
 )
@@ -45,7 +37,6 @@ process.source = cms.Source("PoolSource", fileNames = cms.untracked.vstring(
 ##-------- Electron events of interest --------
 process.HLTEle =cms.EDFilter("HLTHighLevel",
      TriggerResultsTag = cms.InputTag("TriggerResults","","HLT"),
-     # HLTPaths = cms.vstring("HLT_Mu45_eta2p1_v1","HLT_Mu50_v1"),
      HLTPaths = cms.vstring("HLT_Mu50_v*"),
      eventSetupPathsKey = cms.string(''),
      andOr = cms.bool(True), #----- True = OR, False = AND between the HLTPaths
@@ -88,11 +79,7 @@ process.maketreeMuon = cms.EDAnalyzer("MaketreeMuons",
     Jets                     = cms.InputTag("ak4PFJets"),                                   
     # Trigger matching                                           
     triggerEvent          = cms.InputTag("hltTriggerSummaryAOD","","HLT"),
-    # triggerFilter         = cms.vstring('hltL3fL1sMu16orMu25L1f0L2f10QL3Filtered45e2p1Q','hltL3fL1sMu16orMu25L1f0L2f10QL3Filtered50Q'),
-    # triggerFilter         = cms.vstring('hltL3fL1sMu16orMu25L1f0L2f10QL3Filtered45e2p1Q'),                                  
-    #triggerFilter         = cms.vstring('hltL3fL1sMu16orMu25L1f0L2f10QL3Filtered50Q'),
     triggerFilter         = cms.vstring('hltL3fL1sMu16orMu25L1f0L2f16QL3Filtered50Q'),
-    #triggerFilter2        = cms.string('hltL3fL1sMu16L1f0L2f16QL3Filtered40Q'),
     maxAbsZ  = cms.double(24),	
     maxd0    = cms.double(2),
     minndof  = cms.int32(4),
