@@ -48,7 +48,7 @@ while [ $n -lt ${nlines} ]; do
   if [ $4 = ${SCERN} ]; then
       cat submit_ZprimeMuMuAnalysis_CERN.sh | sed "s?which?sig?g" | sed "s?site?$1?g" | sed "s?mc?$3?g" |sed "s?year?$2?g" | sed "s?ZprimeMuMuAnalysis?RunZprimeMuMuAnalysis?g" | sed "s?jobdir?jobs/jobsZprimeMuMu?g" | sed "s?histodir?histos/histosZprimeMuMu?g" | sed "s?output?output_${samplename}?g" | sed "s?sig_input.txt?SigCards$3/sig_input_${n}.txt?g" | sed "s?s.log?s_${samplename}.log?g" > jobs/submit_ZprimeMuMuAnalysis_${samplename}.sh
   elif  [ $4 = ${SFNAL} ]; then 
-      cat submit_ZprimeMuMuAnalysis_FNAL.sh | sed "s?lib?$LD_LIBRARY_PATH?g" | sed "s?which?sig?g" | sed "s?site?$4?g" | sed "s?mc?$3?g" |sed "s?year?$2?g" | sed "s?jobdir?jobs/jobsZprimeMuMu_combined?g" | sed "s?histodir?histos/histosZprimeMuMu_combined?g" | sed "s?output?output_${samplename}?g" | sed "s?sig_input.txt?SigCards$3/sig_input_${n}.txt?g" | sed "s?s.log?s_${samplename}.log?g" > jobs/submit_ZprimeMuMuAnalysis_${samplename}.sh
+      cat submit_ZprimeMuMuAnalysis_FNAL.sh  | sed "s?path?$PATH?g"  | sed "s?lib?$LD_LIBRARY_PATH?g" | sed "s?which?sig?g" | sed "s?site?$4?g" | sed "s?mc?$3?g" |sed "s?year?$2?g" | sed "s?jobdir?jobs/jobsZprimeMuMu_combined?g" | sed "s?histodir?histos/histosZprimeMuMu_combined?g" | sed "s?output?output_${samplename}?g" | sed "s?sig_input.txt?sig_input_${n}.txt?g" | sed "s?s.log?s_${samplename}.log?g" > jobs/submit_ZprimeMuMuAnalysis_${samplename}.sh
       cat condor_template.cfg  | sed "s?submit_ZprimeMuMuAnalysis_FNAL?submit_ZprimeMuMuAnalysis_${samplename}?g" | sed "s?sig_input_h150.txt?SigCards$3/sig_input_${n}.txt?g" | sed "s?mail?`whoami`?g" > jobs/condor_ZprimeMuMuAnalysis_${samplename}.cfg      
   elif  [ $4 = ${SDESY} ]; then
      cat submit_ZprimeMuMuAnalysis_DESY.sh | sed "s?which?sig?g" | sed "s?site?$1?g" | sed "s?mc?$3?g" |sed "s?year?$2?g" | sed "s?ZprimeMuMuAnalysis?RunZprimeMuMuAnalysis?g" | sed "s?jobdir?jobs/jobsZprimeMuMu?g" | sed "s?histodir?histos/histosZprimeMuMu?g" | sed "s?output?output_${samplename}?g" | sed "s?sig_input.txt?SigCards$3/sig_input_${n}.txt?g" | sed "s?s.log?s_${samplename}.log?g" > jobs/submit_ZprimeMuMuAnalysis_${samplename}.sh
@@ -66,7 +66,7 @@ while [ $n -lt ${nlines} ]; do
       bsub -q 8nh  submit_ZprimeMuMuAnalysis_${samplename}.sh
   elif  [ $4 = ${SFNAL} ]; then
       echo "Submitting jobs via CONDOR at FNAL"
-      # condor_submit  condor_ZprimeMuMuAnalysis_${samplename}.cfg
+      condor_submit  condor_ZprimeMuMuAnalysis_${samplename}.cfg
   elif  [ $4 = ${SDESY} ]; then
       echo "Submitting jobs via SGE"
       qsub submit_ZprimeMuMuAnalysis_${samplename}.sh   
