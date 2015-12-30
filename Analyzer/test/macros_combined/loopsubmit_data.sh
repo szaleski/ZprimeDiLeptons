@@ -3,7 +3,7 @@
 if [ "$1" == "" ]; then
   if [ "$2" == "" ]; then
     if [ "$3" == "" ]; then
-      if [ "43" == "" ]; then
+      if [ "$3" == "" ]; then
           echo "Please provide arguments to the script: site configuration, data type and MC type"
           echo "Usage bash loopsubmit_data.sh <arg1> <arg2> <arg3> <arg4>"
           exit
