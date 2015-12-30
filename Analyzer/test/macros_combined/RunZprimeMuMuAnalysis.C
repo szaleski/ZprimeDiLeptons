@@ -62,6 +62,7 @@ int main(int argc, char ** argv){
 
   string site=argv[8];
   //string site="Bari";
+  cout << "Site is " << site.c_str() << " MC conf.= " << mcconf.c_str() << " data conf.= " << dataconf.c_str() << endl;
 
   // Run on data
  
@@ -81,7 +82,7 @@ int main(int argc, char ** argv){
     else if (site.find("FNAL")<5 && mcconf.find("Spring15_combined")<5){
       dirInput="/eos/uscms/store/user/cmsdas/2016/LONG_EXERCISES/ZprimeDiLeptons/Spring15_25ns_merged";
     }
-    else if (site.find("FNAL")<5 && mcconf.find("2015")<5){
+    else if (site.find("FNAL")<5 && dataconf.find("2015")<5){
       dirInput="/eos/uscms/store/user/cmsdas/2016/LONG_EXERCISES/ZprimeDiLeptons/Data2015_ZprimeMuMu_13TeV_merged";
     }
     else if (mcconf.find("Spring15_combined")<5){
