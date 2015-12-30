@@ -67,7 +67,7 @@ while [ $n -lt ${nlines} ]; do
       bsub -q 8nh  submit_ZprimeMuMuAnalysis_${samplename}.sh
   elif  [ $4 = ${SFNAL} ]; then
       echo "Submitting jobs via CONDOR at FNAL"
-      # condor_submit  condor_ZprimeMuMuAnalysis_${samplename}.cfg
+      condor_submit  condor_ZprimeMuMuAnalysis_${samplename}.cfg
   elif  [ $4 = ${SDESY} ]; then
       echo "Submitting jobs via SGE"
       qsub submit_ZprimeMuMuAnalysis_${samplename}.sh   
