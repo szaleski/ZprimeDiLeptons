@@ -188,7 +188,7 @@ void PlotStackZprime::plotm4l(std::string histlabel){
   else if (whichenergy.find("13TeV")<100) {
     //text = "#sqrt{s} = 13 TeV, L = 50.852 pb^{-1}" ;
     //text = "#sqrt{s} = 13 TeV, L = 77.346 pb^{-1}" ;
-    text = "#sqrt{s} = 13 TeV, L = 2.673 fb^{-1}" ;
+    text = "#sqrt{s} = 13 TeV, L = 2.8 fb^{-1}" ;
     ll->AddText(0.65, 0.6, text);
   }
   //ll->Draw();
