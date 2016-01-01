@@ -87,8 +87,8 @@ PlotStackZprime::PlotStackZprime(){
   //std::string histolabel = "hPUvertices";    // numPU
   //std::string histolabel = "hPUvertices_ReWeighted";    // numPY reweighted
 	
-  //std::string histolabel = "ZprimeRecomass"; 
-  std::string histolabel = "ZprimeRecomassBinWidth";
+  std::string histolabel = "ZprimeRecomass"; 
+  //std::string histolabel = "ZprimeRecomassBinWidth";
 
   //std::string histolabel = "h1_Den_Pt_w"; 
   //std::string histolabel = "h1_Num_Pt_w"; 
@@ -105,7 +105,7 @@ PlotStackZprime::PlotStackZprime(){
   useDiJetsFromFakeRateFromData=true;
   useWJetsFromFakeRateFromMC=true;
 
-  nRebin=1;
+  nRebin=20;
   std::cout << "Histogram label is= " << histolabel << std::endl;
   
   // Final yields
@@ -254,8 +254,8 @@ void PlotStackZprime::plotm4l(std::string histlabel){
 
   TH2F *hframe=NULL,*hframe2=NULL;
  
-  hframe= new TH2F("hframe","hframe",80,60.,3000.,500,0.0005,50000.);// di-mu  mass nrebin=10  GeV
-  hframe2= new TH2F("hframe2","hframe2",80,60.,3000.,500, 0.5, 2.);// di-mu mass
+  hframe= new TH2F("hframe","hframe",80,60.,4000.,500,0.0005,50000.);// di-mu  mass nrebin=10  GeV
+  hframe2= new TH2F("hframe2","hframe2",80,60.,4000.,500, 0.5, 2.);// di-mu mass
 
 
   if (histlabel.find("ZprimeRecomass")<20 && nRebin==20){
@@ -269,8 +269,8 @@ void PlotStackZprime::plotm4l(std::string histlabel){
   }   
 
   if (histlabel.find("ZprimeRecomass")<20 && nRebin==1){
-    hframe= new TH2F("hframe","hframe",100,60.,3000.,1000,0.0001,50000.);// mZ mumu
-    hframe2= new TH2F("hframe2","hframe2",100, 60., 3000., 1000, 0.5, 2.);// mZ mumu
+    hframe= new TH2F("hframe","hframe",100,60.,4000.,1000,0.0001,50000.);// mZ mumu
+    hframe2= new TH2F("hframe2","hframe2",100, 60., 4000., 1000, 0.5, 2.);// mZ mumu
   }
 
   if (histlabel.find("h1_Den_Pt_w")<10 && nRebin==10){
@@ -419,9 +419,9 @@ void PlotStackZprime::plotm4l(std::string histlabel){
   TH1 *hfourlepbestmass_4l_afterSel_DiJetsFromFakeRateFromData_new_new=NULL;
   if (useDiJetsFromFakeRateFromData==true){
     if (histlabel.find("ZprimeRecomass")<20) {
-      TFile *fDiJets = TFile::Open("plots/FR-DiJets-Data-OS-2800pb-BinWidth.root");
+      TFile *fDiJets = TFile::Open("plots/FR-estimate-DiJets-Data-OS-1GeVBin-2800.root");
       TH1F *hfourlepbestmass_4l_afterSel_DiJetsFromFakeRateFromData = (TH1F*)fDiJets->Get("DataSub");
-      //hfourlepbestmass_4l_afterSel_DiJetsFromFakeRateFromData->SetBins(10000,0.,10000.);
+      hfourlepbestmass_4l_afterSel_DiJetsFromFakeRateFromData->SetBins(10000,0.,10000.);
       //hfourlepbestmass_4l_afterSel_DiJetsFromFakeRateFromData->SetBins(9940,60.,10000.);
 
       hfourlepbestmass_4l_afterSel_DiJetsFromFakeRateFromData_new_new=hfourlepbestmass_4l_afterSel_DiJetsFromFakeRateFromData->Rebin(nRebin,"hfourlepbestmass_4l_afterSel_DiJetsFromFakeRateFromData");    
@@ -438,9 +438,9 @@ void PlotStackZprime::plotm4l(std::string histlabel){
   TH1 *hfourlepbestmass_4l_afterSel_WJetsFromFakeRateFromMC_new_new=NULL;
   if (useWJetsFromFakeRateFromMC==true){
     if (histlabel.find("ZprimeRecomass")<20) {
-      TFile *fWJets = TFile::Open("plots/FR-Wjets-25nsMC-OS-BinWidth-2800pb.root");
+      TFile *fWJets = TFile::Open("plots/FR-estimate-Dijets-Wjets-MC-OS-1GeVBin-2800pb.root");
       TH1F *hfourlepbestmass_4l_afterSel_WJetsFromFakeRateFromMC = (TH1F*)fWJets->Get("WjetsHisto");
-      //hfourlepbestmass_4l_afterSel_WJetsFromFakeRateFromMC->SetBins(10000,0.,10000.);
+      hfourlepbestmass_4l_afterSel_WJetsFromFakeRateFromMC->SetBins(10000,0.,10000.);
       //hfourlepbestmass_4l_afterSel_WJetsFromFakeRateFromMC->SetBins(9940,60.,10000.);
       
       hfourlepbestmass_4l_afterSel_WJetsFromFakeRateFromMC_new_new=hfourlepbestmass_4l_afterSel_WJetsFromFakeRateFromMC->Rebin(nRebin,"hfourlepbestmass_4l_afterSel_WJetsFromFakeRateFromMC");      
