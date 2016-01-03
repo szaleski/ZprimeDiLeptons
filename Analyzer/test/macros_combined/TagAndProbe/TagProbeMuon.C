@@ -147,7 +147,7 @@ void TagProbeMuon::Loop()
     //acceptance conditions
     //if(fabs(genEta1)>etaCut || fabs(genEta2)>etaCut) continue;
     //if(MassGen<60.0) continue;
-    TagandProbeResulta();
+    TagandProbeResults();
   }
   /*
   cout<<"nbTP = "<< nbTP << endl;
@@ -254,7 +254,7 @@ void TagProbeMuon::Loop()
 //                                                                                 =
 //==================================================================================
 //========================== Method to select Tag & Probe passing Probe events ======================= 
-void TagProbeMuon::SelectTagandProbePassingProble(){
+void TagProbeMuon::SelectTagandProbePassingProbe(){
   //find Tag first
   int nbTnP = 0;
   for(unsigned mu=0; mu<Mu_nbMuon->size(); mu++){
@@ -592,8 +592,8 @@ void TagProbeMuon::SelectTagandProbePassingTag(){
   }
 }
 
-void TagProbeMuon::TagandProbeResulta(){
-  SelectTagandProbePassingProble();
+void TagProbeMuon::TagandProbeResults(){
+  SelectTagandProbePassingProbe();
   SelectTagandProbePassingTag();
 }
 //----------------------------------------------------

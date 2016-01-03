@@ -280,9 +280,9 @@ public :
    //========================== Method to select first HEEP Ele =======================
    float Mass(float Et1,float Eta1,float Phi1,float En1,
 	      float Et2,float Eta2,float Phi2,float En2);
-   void SelectTagandProbePassingProble();
+   void SelectTagandProbePassingProbe();
    void SelectTagandProbePassingTag();
-   void TagandProbeResulta();
+   void TagandProbeResults();
    bool SelectFirstGenMu(float &ETMu1,float &PhiSCMu1,
 			 float &EtaSCMu1,float &EnMu1,
 			 int &IDMu1,int &StatMu1,
