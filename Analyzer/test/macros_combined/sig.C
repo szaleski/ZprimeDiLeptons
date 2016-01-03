@@ -147,7 +147,7 @@ void significance(RooWorkspace& w ) {
   gPad->SetLogy(false);
 
   c2->SaveAs("significance.pdf");
-
+  c2->SaveAs("significance.png");
 }
 
 
