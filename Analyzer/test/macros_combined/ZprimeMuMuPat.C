@@ -550,6 +550,7 @@ void ZprimeMuMuPat::PlotRecoInfo(float CosmicMuonRejec, float vertexMassMu,float
   if(fabs(etaMu1)<1.2 && fabs(etaMu2)>1.2){h1_ZprimeRecomassBE_->Fill(vertexMassMu);}
   if(fabs(etaMu1)>1.2 && fabs(etaMu2)<1.2){h1_ZprimeRecomassBE_->Fill(vertexMassMu);}
   if(vertexMassMu>60 && vertexMassMu<120) h1_ZprimeRecomass60to120_->Fill(vertexMassMu);
+  h1_MassRecoGenDif_->Fill((vertexMassMu-MassGenerated)/MassGenerated);
   h1_3Dangle_->Fill(CosmicMuonRejec,weight);
   //part for Pt resolution
   h1_PtResolutionTunePMBT_->Fill((PtTunePMuBestTrack-PtGenerated)/PtGenerated,weight);
