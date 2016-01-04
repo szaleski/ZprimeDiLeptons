@@ -75,7 +75,7 @@ PlotStackZprime::PlotStackZprime(){
   //LoadLib.Load("/cmshome/nicola/slc6/MonoHiggs/Analysis13TeV/CMSSW_7_2_0/lib/slc6_amd64_gcc481/libHiggsHiggs_CS_and_Width.so");
   //getMassWindow(500.);
     
-  inputfile="filelist_zprime_SingleMuon_2015_Spring15_combined_AN_Bari.txt";
+  inputfile="filelist_zprime_SingleMuon_2015_Spring15_combined_AN_FNAL.txt";
   
   setSamplesNames4l(); 
   cout << "\t Analysing samples for " << whichchannel << " analysis" << endl; 
