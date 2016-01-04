@@ -75,7 +75,7 @@ PlotStackZprime::PlotStackZprime(){
   //LoadLib.Load("/cmshome/nicola/slc6/MonoHiggs/Analysis13TeV/CMSSW_7_2_0/lib/slc6_amd64_gcc481/libHiggsHiggs_CS_and_Width.so");
   //getMassWindow(500.);
     
-  inputfile="filelist_zprime_SingleMuon_2015_Spring15_combined_AN_FNAL.txt";
+  inputfile="filelist_zprime_SingleMuon_2015_Spring15_combined_AN_Bari.txt";
   
   setSamplesNames4l(); 
   cout << "\t Analysing samples for " << whichchannel << " analysis" << endl; 
@@ -87,25 +87,26 @@ PlotStackZprime::PlotStackZprime(){
   //std::string histolabel = "hPUvertices";    // numPU
   //std::string histolabel = "hPUvertices_ReWeighted";    // numPY reweighted
 	
-  std::string histolabel = "ZprimeRecomass"; 
+  //std::string histolabel = "ZprimeRecomass"; 
   //std::string histolabel = "ZprimeRecomassBinWidth";
 
-  //std::string histolabel = "h1_Den_Pt_w"; 
-  //std::string histolabel = "h1_Num_Pt_w"; 
-  //std::string histolabel = "h1_mW_T";
-  //std::string histolabel = "h1_MET";
-  //std::string histolabel = "h1_METSign";
-  //std::string histolabel = "h1_METSign_LH";
+  //std::string histolabel = "dPToverPT";
+  //std::string histolabel = "numberOfValidMuonHits"; 
+  //std::string histolabel = "numberOfValidPixelHits";
+  //std::string histolabel = "numberOfMatchedStations";
+  //std::string histolabel = "numberOftrackerLayersWithMeasurement";
+  //std::string histolabel = "trackiso";
+  std::string histolabel = "absdxy";
  
   useLogY = true;
   useLogX = false;
 
   useDYJets=true;
   useDYJetsFromData=false;
-  useDiJetsFromFakeRateFromData=true;
-  useWJetsFromFakeRateFromMC=true;
+  useDiJetsFromFakeRateFromData=false;
+  useWJetsFromFakeRateFromMC=false;
 
-  nRebin=20;
+  nRebin=1;
   std::cout << "Histogram label is= " << histolabel << std::endl;
   
   // Final yields
@@ -273,35 +274,42 @@ void PlotStackZprime::plotm4l(std::string histlabel){
     hframe2= new TH2F("hframe2","hframe2",100, 60., 4000., 1000, 0.5, 2.);// mZ mumu
   }
 
-  if (histlabel.find("h1_Den_Pt_w")<10 && nRebin==10){
-    hframe= new TH2F("hframe","hframe",100,60.,1000.,500,0.001,30000050.);// pT in control region
-    hframe2= new TH2F("hframe2","hframe2",100,60.,1000., 1000, 0.5, 2.);// pT in control region
+  if (histlabel.find("dPToverPT")<10){
+    hframe= new TH2F("hframe","hframe",100,0.0,0.5,500,0.001,30000050.);// dPToverPT in control region
+    hframe2= new TH2F("hframe2","hframe2",100,0.0,0.5, 1000, 0.5, 2.);// dPToverPT in control region
   }
 
-  if (histlabel.find("h1_Num_Pt_w")<10 && nRebin==10){
-    hframe= new TH2F("hframe","hframe",100,60.,1000.,500,0.0001,100000000050.);// pT in control region
-    hframe2= new TH2F("hframe2","hframe2",100,60.,1000., 1000, 0.5, 2.);// pT in control region
+  if (histlabel.find("numberOfValidMuonHits")<10){
+    hframe= new TH2F("hframe","hframe",100,0.,60.,500,0.0001,100000000050.);// numberOfValidMuonHits in control region
+    hframe2= new TH2F("hframe2","hframe2",100,0.,60., 1000, 0.5, 2.);// numberOfValidMuonHits in control region
   }
   
-  if (histlabel.find("h1_mW_T")<10 && nRebin==10){
-    hframe= new TH2F("hframe","hframe",100,0.,1000.,500,0.001,30000050.);// mW_T in control region
-    hframe2= new TH2F("hframe2","hframe2",100,0., 1000., 1000, 0.5, 2.);// mW_T in control region
+  if (histlabel.find("numberOfValidPixelHits")<10){
+    hframe= new TH2F("hframe","hframe",100,0.,10.,500,0.001,30000050.);// numberOfValidPixelHits in control region
+    hframe2= new TH2F("hframe2","hframe2",100,0., 10., 1000, 0.5, 2.);// numberOfValidPixelHits in control region
   }
 
-  if (histlabel.find("h1_MET")<10 && nRebin==10){
-    hframe= new TH2F("hframe","hframe",100,50.,1000.,500,0.0001,100000000050.);// MET in control region
-    hframe2= new TH2F("hframe2","hframe2",100,50., 1000., 1000, 0.5, 2.);// MET in control region
+  if (histlabel.find("numberOfMatchedStations")<10){
+    hframe= new TH2F("hframe","hframe",100,0.,10.,500,0.0001,100000000050.);// numberOfMatchedStations in control region
+    hframe2= new TH2F("hframe2","hframe2",100,0., 10., 1000, 0.5, 2.);// numberOfMatchedStations in control region
   }
   
-  if (histlabel.find("h1_METSign")<10 && nRebin==10){
-    hframe= new TH2F("hframe","hframe",100,50.,1000.,500,0.001,30000050.);// MET_Sign in control region
-    hframe2= new TH2F("hframe2","hframe2",100,50., 1000., 1000, 0.5, 2.);// MET_Sign in control region
+  if (histlabel.find("numberOftrackerLayersWithMeasurement")<10){
+    hframe= new TH2F("hframe","hframe",100,0.,20.,500,0.001,30000050.);// numberOftrackerLayersWithMeasurement in control region
+    hframe2= new TH2F("hframe2","hframe2",100,0., 20., 1000, 0.5, 2.);// numberOftrackerLayersWithMeasurement in control region
   }
 
-  if (histlabel.find("h1_METSign_LH")<10 && nRebin==10){
-    hframe= new TH2F("hframe","hframe",100,50.,1000.,500,0.0001,100000000050.);// MET_Sign in control region
-    hframe2= new TH2F("hframe2","hframe2",100,50., 1000., 1000, 0.5, 2.);// MET_Sign in control region
+  if (histlabel.find("trackiso")<10){
+    hframe= new TH2F("hframe","hframe",100,0.,0.3,500,0.001,100000000050.);// trackiso in control region
+    hframe2= new TH2F("hframe2","hframe2",100,0., 0.3, 1000, 0.5, 2.);// trackiso in control region
   }
+
+  if (histlabel.find("absdxy")<10){
+    hframe= new TH2F("hframe","hframe",100,0.,0.3,500,0.001,100000000050.);// trackiso in control region
+    hframe2= new TH2F("hframe2","hframe2",100,0., 0.3, 1000, 0.5, 2.);// trackiso in control region
+  }
+  
+
   
   if (nRebin==5) hframe->SetYTitle("Events/5 GeV");
   if (nRebin==1) hframe->SetYTitle("Events/1 GeV");
@@ -987,12 +995,12 @@ void PlotStackZprime::plotm4l(std::string histlabel){
 	hfourlepbestmass_4l_afterSel_new_new=hfourlepbestmass_4l_afterSel_new->Rebin(nRebin,histlabel.c_str() /*"hfourlepbestmass_4l_afterSel_new_new"*/);
 	hfourlepbestmass_4l_afterSel_new_qcd->Add(hfourlepbestmass_4l_afterSel_new_new);      
 	//hfourlepbestmass_4l_afterSel_new_new->SetFillStyle(1001); 
-	hfourlepbestmass_4l_afterSel_new_qcd->SetLineColor(1);
+	hfourlepbestmass_4l_afterSel_new_qcd->SetLineColor(kTeal-2);
 	hfourlepbestmass_4l_afterSel_new_qcd->SetFillColor(kTeal-2);
 	hfourlepbestmass_4l_afterSel_new_qcd->SetLineWidth(1);
 
 	char temp[328];
-	sprintf(temp,"%s/output_QCD_Pt_10to15",histosdir.c_str());
+	sprintf(temp,"%s/output_QCD_Pt_1000to1400",histosdir.c_str());
 	
 	cout << "alpha" << temp << datasetnamebkg.find(temp) << endl;
 	//sprintf(temp,"%s",histosdir.c_str());
