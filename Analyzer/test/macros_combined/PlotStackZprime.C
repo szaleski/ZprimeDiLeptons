@@ -96,7 +96,8 @@ PlotStackZprime::PlotStackZprime(){
   //std::string histolabel = "numberOfMatchedStations";
   //std::string histolabel = "numberOftrackerLayersWithMeasurement";
   //std::string histolabel = "trackiso";
-  std::string histolabel = "absdxy";
+  //std::string histolabel = "absdxy";
+  std::string histolabel = "PtID";
  
   useLogY = true;
   useLogX = false;
@@ -307,6 +308,11 @@ void PlotStackZprime::plotm4l(std::string histlabel){
   if (histlabel.find("absdxy")<10){
     hframe= new TH2F("hframe","hframe",100,0.,0.3,500,0.001,100000000050.);// trackiso in control region
     hframe2= new TH2F("hframe2","hframe2",100,0., 0.3, 1000, 0.5, 2.);// trackiso in control region
+  }
+  
+  if (histlabel.find("PtID")<10){
+    hframe= new TH2F("hframe","hframe",100,50.,400.,500,0.001,100000000050.);// pT  in control region
+    hframe2= new TH2F("hframe2","hframe2",100,50.,400., 1000, 0.5, 2.);// pT in control region
   }
   
 
