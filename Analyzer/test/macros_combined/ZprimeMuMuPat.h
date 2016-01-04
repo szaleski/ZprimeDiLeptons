@@ -427,6 +427,7 @@ public :
    TH1F* h1_ZprimeGenEn1_;
    TH1F* h1_ZprimeGenEn2_;
    TH1F* h1_MassRecoGenDif_;
+   TH1F* h1_MassRecoGenDifPull_;
    TH1F* h1_dPToverPT_;
    TH1F* h1_normalizedChi2_;
    TH1F* h1_numberOftrackerLayersWithMeasurement_;

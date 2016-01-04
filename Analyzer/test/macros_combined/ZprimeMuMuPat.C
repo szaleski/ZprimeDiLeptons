@@ -125,7 +125,8 @@ void ZprimeMuMuPat::Loop()
   h1_ZprimeGenEn2_               = new TH1F("ZprimeGenEn2","",100,0.0,2000.0);  
   h1_3Dangle_                    = new TH1F("3Dangle","",100,-2.0,2.0);
   h1_DxyDiff_                    = new TH1F("DxyDiff","",100,10.0,10.0);
-  h1_MassRecoGenDif_             = new TH1F("MassRecoGenDif","",100,-0.5,0.5);
+  h1_MassRecoGenDif_             = new TH1F("MassRecoGenDif","",100,-100.,100.);
+  h1_MassRecoGenDifPull_         = new TH1F("MassRecoGenDifPull","",100,-0.5,0.5);
   h1_PtResolutionTunePMBT_       =  new TH1F("PtResolutionTunePMBT","",100,-0.5,0.5);
   h1_PtResolutiontuneP_          =  new TH1F("PtResolutiontuneP","",100,-0.5,0.5);
   h1_PtResolutionMBT_            =  new TH1F("PtResolutionMBT","",100,-0.5,0.5);
@@ -134,14 +135,14 @@ void ZprimeMuMuPat::Loop()
   //                 Start the histograms for N-1 dist                               =  
   //                                                                                 =
   //==================================================================================
-  h1_dPToverPT_                            = new TH1F("dPToverPT","",100,0.0,0.5);
-  h1_normalizedChi2_                       = new TH1F("normalizedChi2","",100,0.0,20.0);
+  h1_dPToverPT_                            = new TH1F("dPToverPT","",1000,0.0,0.5);
+  h1_normalizedChi2_                       = new TH1F("normalizedChi2","",1000,0.0,20.0);
   h1_numberOftrackerLayersWithMeasurement_ = new TH1F("numberOftrackerLayersWithMeasurement","",20,0.0,20.0);
   h1_numberOfValidPixelHits_               = new TH1F("numberOfValidPixelHits","",10,0.0,10.0);
   h1_numberOfValidMuonHits_                = new TH1F("numberOfValidMuonHits","",60,0.0,60.0);
   h1_numberOfMatchedStations_              = new TH1F("numberOfMatchedStations","",10,0.0,10.0);
-  h1_trackiso_                             = new TH1F("trackiso","",50,0.0,0.3);
-  h1_absdxy_                               = new TH1F("absdxy","",100,0.0,0.3);
+  h1_trackiso_                             = new TH1F("trackiso","",1000,0.0,0.3);
+  h1_absdxy_                               = new TH1F("absdxy","",1000,0.0,0.3);
   h1_PtEffpterror_                   = new TH1F("PtEffpterror","",ptBins,ptMin,ptMax);
   h1_PtEffptnumberOftrackerLayers_   = new TH1F("PtEffptnumberOftrackerLayers","",ptBins,ptMin,ptMax);
   h1_PtEffptnumberOfPixelHits_       = new TH1F("PtEffptnumberOfPixelHits","",ptBins,ptMin,ptMax);
@@ -272,11 +273,13 @@ void ZprimeMuMuPat::Loop()
     //        call the method for N-1 plots                   =
     //                                                        =
     //=========================================================
-    plotAllHighPtMuonsID();
+    //plotAllHighPtMuonsID();
     cout << "firstMu= " << firstMuFinal << " " << "secondMu= " << secondMuFinal << endl;
     if(firstMuFinal == 0 || secondMuFinal == 0) continue;
     cout << "Vertex mass mu= " << vtxMassMu << endl;
-    if(vtxMassMu<60) continue; 
+    if(vtxMassMu<60) continue;
+
+    plotAllHighPtMuonsID();
     h1_ptHistoBefor_->Fill(PtRecTunePMuBestTrack1,weight);
     h1_etaHistoBefor_->Fill(EtaRecMu1,weight);
     //=========================================================
@@ -550,7 +553,8 @@ void ZprimeMuMuPat::PlotRecoInfo(float CosmicMuonRejec, float vertexMassMu,float
   if(fabs(etaMu1)<1.2 && fabs(etaMu2)>1.2){h1_ZprimeRecomassBE_->Fill(vertexMassMu);}
   if(fabs(etaMu1)>1.2 && fabs(etaMu2)<1.2){h1_ZprimeRecomassBE_->Fill(vertexMassMu);}
   if(vertexMassMu>60 && vertexMassMu<120) h1_ZprimeRecomass60to120_->Fill(vertexMassMu);
-  h1_MassRecoGenDif_->Fill((vertexMassMu-MassGenerated)/MassGenerated);
+  h1_MassRecoGenDif_->Fill((vertexMassMu-MassGenerated));
+  h1_MassRecoGenDifPull_->Fill((vertexMassMu-MassGenerated)/MassGenerated);
   h1_3Dangle_->Fill(CosmicMuonRejec,weight);
   //part for Pt resolution
   h1_PtResolutionTunePMBT_->Fill((PtTunePMuBestTrack-PtGenerated)/PtGenerated,weight);
@@ -720,7 +724,7 @@ void ZprimeMuMuPat::MuonPassingID(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaCocktail->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
-       (Mu_ptcocktail->at(i) > 45.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
+       (Mu_ptcocktail->at(i) > 53.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
        Mu_absdxy->at(i) < 0.2 &&
        (Mu_trackiso->at(i)/Mu_ptInnerTrack->at(i)) < 0.10  &&
        Mu_numberOftrackerLayersWithMeasurement->at(i) > 5 && 
@@ -740,7 +744,7 @@ void ZprimeMuMuPat::PlotPterror(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaCocktail->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
-       (Mu_ptcocktail->at(i) > 45.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
+       (Mu_ptcocktail->at(i) > 53.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
        Mu_absdxy->at(i) < 0.2 &&
        (Mu_trackiso->at(i)/Mu_ptInnerTrack->at(i)) < 0.10  &&
        Mu_numberOftrackerLayersWithMeasurement->at(i) > 5 && 
@@ -759,7 +763,7 @@ void ZprimeMuMuPat::PlotNbTrackLayers(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaCocktail->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
-       (Mu_ptcocktail->at(i) > 45.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
+       (Mu_ptcocktail->at(i) > 53.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
        Mu_absdxy->at(i) < 0.2 &&
        (Mu_trackiso->at(i)/Mu_ptInnerTrack->at(i)) < 0.10  &&
        //Mu_numberOftrackerLayersWithMeasurement->at(i) > 5 && 
@@ -780,7 +784,7 @@ void ZprimeMuMuPat::PlotNBValidPixelHits(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaCocktail->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
-       (Mu_ptcocktail->at(i) > 45.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
+       (Mu_ptcocktail->at(i) > 53.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
        Mu_absdxy->at(i) < 0.2 &&
        (Mu_trackiso->at(i)/Mu_ptInnerTrack->at(i)) < 0.10  &&
        Mu_numberOftrackerLayersWithMeasurement->at(i) > 5 && 
@@ -800,7 +804,7 @@ void ZprimeMuMuPat::PlotNbValidMuonHits(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaCocktail->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
-       (Mu_ptcocktail->at(i) > 45.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
+       (Mu_ptcocktail->at(i) > 53.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
        Mu_absdxy->at(i) < 0.2 &&
        (Mu_trackiso->at(i)/Mu_ptInnerTrack->at(i)) < 0.10  &&
        Mu_numberOftrackerLayersWithMeasurement->at(i) > 5 && 
@@ -821,7 +825,7 @@ void ZprimeMuMuPat::PlotNbMatchedStations(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaCocktail->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
-       (Mu_ptcocktail->at(i) > 45.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
+       (Mu_ptcocktail->at(i) > 53.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
        Mu_absdxy->at(i) < 0.2 &&
        (Mu_trackiso->at(i)/Mu_ptInnerTrack->at(i)) < 0.10  &&
        Mu_numberOftrackerLayersWithMeasurement->at(i) > 5 && 
@@ -842,7 +846,7 @@ void ZprimeMuMuPat::PlotTrackiso(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaCocktail->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
-       (Mu_ptcocktail->at(i) > 45.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
+       (Mu_ptcocktail->at(i) > 53.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
        Mu_absdxy->at(i) < 0.2 &&
        //(Mu_trackiso->at(i)/Mu_ptInnerTrack->at(i)) < 0.10  &&
        Mu_numberOftrackerLayersWithMeasurement->at(i) > 5 && 
@@ -863,7 +867,7 @@ void ZprimeMuMuPat::PlotAbsDxy(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaCocktail->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
-       (Mu_ptcocktail->at(i) > 45.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
+       (Mu_ptcocktail->at(i) > 53.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
        //Mu_absdxy->at(i) < 0.2 &&
        (Mu_trackiso->at(i)/Mu_ptInnerTrack->at(i)) < 0.10  &&
        Mu_numberOftrackerLayersWithMeasurement->at(i) > 5 && 
@@ -898,7 +902,7 @@ void ZprimeMuMuPat::MuonPassingNewID(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaCocktail->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
-       (Mu_ptcocktail->at(i) > 45.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
+       (Mu_ptcocktail->at(i) > 53.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
        Mu_absdxy->at(i) < 0.02 &&
        (Mu_trackiso->at(i)/Mu_ptInnerTrack->at(i)) < 0.10  &&
        Mu_numberOftrackerLayersWithMeasurement->at(i) > 5 &&
@@ -920,7 +924,7 @@ void ZprimeMuMuPat::MuonPassingTightID(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaCocktail->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
-       (Mu_ptcocktail->at(i) > 45.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
+       (Mu_ptcocktail->at(i) > 53.0 && Mu_ptcocktail->at(i) < ptEffCut) &&
        Mu_absdxy->at(i) < 0.01 &&
        (Mu_trackiso->at(i)/Mu_ptInnerTrack->at(i)) < 0.10  &&
        Mu_numberOftrackerLayersWithMeasurement->at(i) > 5 &&
@@ -1059,7 +1063,7 @@ void ZprimeMuMuPat::PrintEventInformation(int runNumber, int lumiNumber, int eve
         cout<<"[0] phi="<<Mu_phiCocktail->at(i)<<endl;
         cout<<"[1] eta="<<Mu_etaCocktail->at(i)<<endl;
         if(Mu_isGlobalMuon->at(i) == 1) {cout<<"[2] isGlobal="<<Mu_isGlobalMuon->at(i)<<endl;}
-        if(Mu_ptcocktail->at(i) > 45.0) {cout<<"[3] ptcocktail="<<Mu_ptcocktail->at(i)<<endl;}
+        if(Mu_ptcocktail->at(i) > 53.0) {cout<<"[3] ptcocktail="<<Mu_ptcocktail->at(i)<<endl;}
         if(Mu_absdxy->at(i) < 0.2) {cout<<"[4] absdxy="<<Mu_absdxy->at(i)<<endl;}
         if(Mu_trackiso->at(i)/Mu_ptInnerTrack->at(i) < 0.10) {cout<<"[5] trackiso="<<Mu_trackiso->at(i)/Mu_ptInnerTrack->at(i)<<endl;}
         if(Mu_numberOftrackerLayersWithMeasurement->at(i) > 5) {cout<<"[6] nbTrackerLayer="<<Mu_numberOftrackerLayersWithMeasurement->at(i)<<endl;}
