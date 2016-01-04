@@ -51,9 +51,9 @@ void ZprimeMuMuPat::Loop()
   RecoHLTMatchingDeltaRcut = 0.20;
   minMassCut = 50.0;
   maxMassCut = 4000.0;
-  int ptBins = 40;
+  int ptBins = 4000;
   float ptMin = 0.0;
-  float ptMax = 400.0;
+  float ptMax = 4000.0;
   ptEffCut = 3000.0;
   double muon_mass = 0.1056583;
 
