@@ -48,11 +48,11 @@
   leg->SetTextSize(tsize2); 
 
 
-  TFile *_file0 = TFile::Open("htotal_noQCD_h1_Den_Pt_w.root");
+  TFile *_file0 = TFile::Open("htotal_noQCD_h1_Den_Pt_w_binned.root");
   TH1F *fraction_noQCD_Den; _file0->GetObject("fraction_noQCD",fraction_noQCD_Den);
 
 
-  TFile *_file1 = TFile::Open("htotal_noQCD_h1_Num_Pt_w.root");
+  TFile *_file1 = TFile::Open("htotal_noQCD_h1_Num_Pt_w_binned.root");
   TH1F *fraction_noQCD_Num; _file1->GetObject("fraction_noQCD",fraction_noQCD_Num);
 
   TH2F *hframe=NULL; 
