@@ -45,6 +45,8 @@ while [ $n -lt ${nlines} ]; do
   cat sig_input.txt | tail -n $m >  sig_input_tmp.txt
   mv  sig_input_tmp.txt sig_input.txt
   rm -f jobs/submit_ZprimeMuMuAnalysis_${samplename}.sh
+  rm -f jobs/condor_template.cfg
+
   if [ $4 = ${SCERN} ]; then
       cat submit_ZprimeMuMuAnalysis_CERN.sh | sed "s?which?sig?g" | sed "s?site?$1?g" | sed "s?mc?$3?g" |sed "s?year?$2?g" | sed "s?ZprimeMuMuAnalysis?RunZprimeMuMuAnalysis?g" | sed "s?jobdir?jobs/jobsZprimeMuMu?g" | sed "s?histodir?histos/histosZprimeMuMu?g" | sed "s?output?output_${samplename}?g" | sed "s?sig_input.txt?SigCards$3/sig_input_${n}.txt?g" | sed "s?s.log?s_${samplename}.log?g" > jobs/submit_ZprimeMuMuAnalysis_${samplename}.sh
   elif  [ $4 = ${SFNAL} ]; then 
