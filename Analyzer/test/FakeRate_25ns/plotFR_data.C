@@ -91,12 +91,18 @@ void plotFR_data(){
 
   TH1F *num; _file0->GetObject("h1_Num_Pt_w",num);
   TH1F *den; _file0->GetObject("h1_Den_Pt_w",den);
+  num->Rebin(5);
+  den->Rebin(5);
 
   TH1F *numMB; _file0->GetObject("h1_Num_Pt_Barrel_w",numMB);
   TH1F *denMB; _file0->GetObject("h1_Den_Pt_Barrel_w",denMB);
-
+  numMB->Rebin(5);
+  denMB->Rebin(5);
+ 
   TH1F *numME; _file0->GetObject("h1_Num_Pt_EndCap_w",numME);
   TH1F *denME; _file0->GetObject("h1_Den_Pt_EndCap_w",denME);
+  numME->Rebin(5);
+  denME->Rebin(5);
   
   char htotal_noQCD_Num_Pt_w[300],htotal_noQCD_Den_Pt_w[300];
   sprintf(htotal_noQCD_Num_Pt_w,"htotal_noQCD_h1_Num_Pt_w.root");       
@@ -169,23 +175,23 @@ void plotFR_data(){
 
   int nRebin=1;
 
-  num->Rebin(nRebin);
-  den->Rebin(nRebin);
+  //num->Rebin(nRebin);
+  //den->Rebin(nRebin);
 
-  numMB->Rebin(nRebin);
-  denMB->Rebin(nRebin);
+  //numMB->Rebin(nRebin);
+  //denMB->Rebin(nRebin);
 
-  numME->Rebin(nRebin);
-  denME->Rebin(nRebin);
+  //numME->Rebin(nRebin);
+  //denME->Rebin(nRebin);
 
-  num_noQCD->Rebin(nRebin);
-  den_noQCD->Rebin(nRebin);
+  // num_noQCD->Rebin(nRebin);
+  // den_noQCD->Rebin(nRebin);
 
-  num_noQCD_MB->Rebin(nRebin);
-  den_noQCD_MB->Rebin(nRebin);
+  // num_noQCD_MB->Rebin(nRebin);
+  // den_noQCD_MB->Rebin(nRebin);
 
-  num_noQCD_ME->Rebin(nRebin);
-  den_noQCD_ME->Rebin(nRebin);
+  // num_noQCD_ME->Rebin(nRebin);
+  // den_noQCD_ME->Rebin(nRebin);
 
   // 
   TH1F *fake=new TH1F("fake","fake",Nbins/nRebin,0.,2000.);
@@ -241,10 +247,14 @@ void plotFR_data(){
   // Subtracking noQCD controbutions
   TH1F *denMB_noEWK=new TH1F("denMB_noEWK","denMB_noEWK",Nbins/nRebin,0.,2000.);
   TH1F *numMB_noEWK=new TH1F("numMB_noEWK","numMB_noEWK",Nbins/nRebin,0.,2000.);
+  cout << denMB->GetNbinsX() << " " << numMB->GetNbinsX() << endl;
 
   TH1F *tmp_denMB_noEWK=new TH1F("tmp_denMB_noEWK","tmp_denMB_noEWK",Nbins/nRebin,0.,2000.);
   TH1F *tmp_numMB_noEWK=new TH1F("tmp_numMB_noEWK","tmp_numMB_noEWK",Nbins/nRebin,0.,2000.);
   
+  cout << "Data MB= " << denMB->GetBinContent(1) << " " << numMB->GetBinContent(1) << endl;
+  cout << "Histo noQCD= " << den_noQCD_MB->GetBinContent(1) << " " << num_noQCD_MB->GetBinContent(1) << endl;
+
   tmp_denMB_noEWK->Multiply(denMB,den_noQCD_MB,1.,1.);
   denMB_noEWK->Add(denMB,tmp_denMB_noEWK,1.,-1.);
   tmp_numMB_noEWK->Multiply(numMB,num_noQCD_MB,1.,1.);
@@ -252,9 +262,9 @@ void plotFR_data(){
 
     
   cout << denMB_noEWK->GetNbinsX() << " " << numMB_noEWK->GetNbinsX() << endl;
-  cout << "Data MB= " << denMB->GetBinContent(1) << " " << numMB->GetBinContent(1) << endl;
-  cout << "Histo noQCD= " << den_noQCD_MB->GetBinContent(1) << " " << num_noQCD_MB->GetBinContent(1) << endl;
-  cout << "Rescaled= " << denMB_noEWK->GetBinContent(1) << " " << numMB_noEWK->GetBinContent(1) << endl;
+  cout << "Data MB= " << denMB->GetBinContent(10) << " " << numMB->GetBinContent(10) << endl;
+  cout << "Histo noQCD= " << den_noQCD_MB->GetBinContent(10) << " " << num_noQCD_MB->GetBinContent(10) << endl;
+  cout << "Rescaled= " << denMB_noEWK->GetBinContent(10) << " " << numMB_noEWK->GetBinContent(10) << endl;
 
   /*
   TCanvas *c0 = new TCanvas("c0","c0",800,600);
@@ -272,8 +282,17 @@ void plotFR_data(){
   numMB_noEWK->Draw("");
   */
   
-  numMB_noEWK->Rebin(20);
-  denMB_noEWK->Rebin(20);
+  for (int i=1;i<numMB_noEWK->GetNbinsX();i++){
+    //cout << denMB_noEWK->GetBinContent(i) << " " << numMB_noEWK->GetBinContent(i)<< endl;
+    if (denMB_noEWK->GetBinContent(i)< numMB_noEWK->GetBinContent(i))  {
+      cout << denMB_noEWK->GetBinContent(i) << " " << numMB_noEWK->GetBinContent(i)<< endl;
+      numMB_noEWK->SetBinContent(i,0.);
+      denMB_noEWK->SetBinContent(i,0.);
+    }
+  }
+  numMB_noEWK->Rebin(1);
+  denMB_noEWK->Rebin(1);
+
   TGraphAsymmErrors *grMB_noEWK = new TGraphAsymmErrors();
   grMB_noEWK->BayesDivide(numMB_noEWK,denMB_noEWK);
 
@@ -371,8 +390,16 @@ void plotFR_data(){
   numME_noEWK->Draw("");
   */
 
-  numME_noEWK->Rebin(10);
-  denME_noEWK->Rebin(10);
+  for (int i=1;i<numME_noEWK->GetNbinsX();i++){
+    //cout << denME_noEWK->GetBinContent(i) << " " << numME_noEWK->GetBinContent(i)<< endl;
+    if (denME_noEWK->GetBinContent(i)< numME_noEWK->GetBinContent(i))  {
+      cout << denME_noEWK->GetBinContent(i) << " " << numME_noEWK->GetBinContent(i)<< endl;
+      numME_noEWK->SetBinContent(i,0.);
+      denME_noEWK->SetBinContent(i,0.);
+    }
+  }
+  numME_noEWK->Rebin(1);
+  denME_noEWK->Rebin(1);
   TGraphAsymmErrors *grME_noEWK = new TGraphAsymmErrors();
   grME_noEWK->BayesDivide(numME_noEWK,denME_noEWK);
 

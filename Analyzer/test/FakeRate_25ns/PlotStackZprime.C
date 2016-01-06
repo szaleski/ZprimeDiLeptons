@@ -75,7 +75,7 @@ PlotStackZprime::PlotStackZprime(){
   //LoadLib.Load("/cmshome/nicola/slc6/MonoHiggs/Analysis13TeV/CMSSW_7_2_0/lib/slc6_amd64_gcc481/libHiggsHiggs_CS_and_Width.so");
   //getMassWindow(500.);
     
-  inputfile="filelist_zprime_SingleMuon_2015_Spring15_25ns_AN_Bari.txt";
+  inputfile="filelist_zprime_SingleMuon_2015_Spring15_25ns_AN_FNAL.txt";
   //inputfile="filelist_zprime_ExpressPhysics_2015_Spring15_AN_Bari.txt";
   
   setSamplesNames4l(); 
@@ -90,13 +90,13 @@ PlotStackZprime::PlotStackZprime(){
 
   
   //std::string histolabel = "h1_Den_Pt_w"; 
-  std::string histolabel = "h1_Num_Pt_w";
+  //std::string histolabel = "h1_Num_Pt_w";
   
   //std::string histolabel = "h1_Den_Pt_Barrel_w"; 
   //std::string histolabel = "h1_Num_Pt_Barrel_w";
 
   //std::string histolabel = "h1_Den_Pt_EndCap_w"; 
-  //std::string histolabel = "h1_Num_Pt_EndCap_w";
+  std::string histolabel = "h1_Num_Pt_EndCap_w";
   
   
   //std::string histolabel = "h1_mW_T";
@@ -113,7 +113,7 @@ PlotStackZprime::PlotStackZprime(){
 
   correctQCD=false;
   
-  nRebin=10;
+  nRebin=5;
   std::cout << "Histogram label is= " << histolabel << std::endl;
   
   // Final yields
@@ -1733,7 +1733,7 @@ void PlotStackZprime::plotm4l(std::string histlabel){
   }
 
   char htotal_noQCD[300];
-  if (nRebin==1){
+  if (nRebin==5){
     sprintf(htotal_noQCD,"htotal_noQCD_%s.root",histlabel.c_str());
     TFile *file1 = new TFile(htotal_noQCD, "RECREATE");
     file1->cd();
