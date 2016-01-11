@@ -274,9 +274,9 @@ void ZprimeMuMuPat::Loop()
     //                                                        =
     //=========================================================
     //plotAllHighPtMuonsID();
-    cout << "firstMu= " << firstMuFinal << " " << "secondMu= " << secondMuFinal << endl;
+    //cout << "firstMu= " << firstMuFinal << " " << "secondMu= " << secondMuFinal << endl;
     if(firstMuFinal == 0 || secondMuFinal == 0) continue;
-    cout << "Vertex mass mu= " << vtxMassMu << endl;
+    //cout << "Vertex mass mu= " << vtxMassMu << endl;
     if(vtxMassMu<60) continue;
 
     plotAllHighPtMuonsID();
@@ -403,6 +403,7 @@ bool ZprimeMuMuPat::SelectFirstMuon(float &pTmuon1,float &Enmuon1,float &Etamuon
   float highestpt=-999.;
 
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
+    /*
     cout << Mu_isTrackerMuon->at(i) << " " <<
       Mu_isGlobalMuon->at(i) << " " <<
       Mu_ptcocktail->at(i) << " " <<
@@ -413,6 +414,7 @@ bool ZprimeMuMuPat::SelectFirstMuon(float &pTmuon1,float &Enmuon1,float &Etamuon
       Mu_numberOfValidMuonHits->at(i) << " " <<
       Mu_numberOfMatchedStations->at(i) << " " <<
       Mu_dPToverPTcocktail->at(i) << endl;
+    */
     if( Mu_isTrackerMuon->at(i) == 1 &&
 	Mu_isGlobalMuon->at(i) == 1 &&
 	Mu_ptcocktail->at(i) > 53.0 &&
@@ -426,13 +428,13 @@ bool ZprimeMuMuPat::SelectFirstMuon(float &pTmuon1,float &Enmuon1,float &Etamuon
 
       if (Mu_ptMuonBestTrack->at(i)>highestpt) {
         highestpt=Mu_ptMuonBestTrack->at(i);
-        cout << "Highest PT first lepton has pt= " << highestpt << endl;
+        //cout << "Highest PT first lepton has pt= " << highestpt << endl;
 	bool GenRecoMatch1 = GenRecoMatchMu(Mu_etaCocktail->at(i),Mu_phiCocktail->at(i));
 	//if(GenRecoMatch1 == 0) continue;
 	highestpt=Mu_ptMuonBestTrack->at(i);
 	iflag  = i;
 	NbHEEPele ++;
-	cout << "PTmu= " <<  Mu_ptcocktail->at(i)<< endl;
+	//cout << "PTmu= " <<  Mu_ptcocktail->at(i)<< endl;
       }
     }
     else continue;
@@ -452,7 +454,8 @@ bool ZprimeMuMuPat::SelectFirstMuon(float &pTmuon1,float &Enmuon1,float &Etamuon
     dxymuon1            = Mu_absdxy->at(iflag);
     pTmuon1tuneP        = Mu_ptcocktail->at(iflag);
     pTmuonBestTrack1    = Mu_ptMuonBestTrack->at(iflag);
-    cout << "First Muon ChargeMu1= " << ChargeMu1 << " Pt1= " << pTmuonBestTrack1 << endl;
+    cout << "First Muon ChargeMu1= " << ChargeMu1 << " Pt1= " << pTmuonBestTrack1 << endl;    
+
     return true;  
   }
   else return false;
@@ -490,7 +493,7 @@ bool ZprimeMuMuPat::SelectSecondMuon(int ChargeMu1,unsigned FlagMu1,float pTmuon
 	bool GenRecoMatch2 = GenRecoMatchMu(Mu_etaCocktail->at(i),Mu_phiCocktail->at(i));
 	//if(GenRecoMatch2 == 0) continue;   
 	highestpt=Mu_ptMuonBestTrack->at(i);
-	cout << "Highest PT second lepton has pt= " << highestpt << endl;
+	//cout << "Highest PT second lepton has pt= " << highestpt << endl;
 	iflag  = i;
 	NbHEEPele ++;
       }
@@ -596,8 +599,8 @@ void ZprimeMuMuPat::PickThehighestMass(float &vtxHighestMass,float &vtxHighestCh
     {
       Nb++;
       countlept=2*i;
-      cout << "vtx mass" << Mu_vtxMass->at(i) << " Chi2= " << Mu_vtxNormChi2->at(i)<< endl;
-      cout << "vtx Mass lepton= " << Mu_vtxMassLept->at(countlept) << " " <<  Mu_vtxMassLept->at(countlept+1)<< endl;
+      //cout << "vtx mass" << Mu_vtxMass->at(i) << " Chi2= " << Mu_vtxNormChi2->at(i)<< endl;
+      //cout << "vtx Mass lepton= " << Mu_vtxMassLept->at(countlept) << " " <<  Mu_vtxMassLept->at(countlept+1)<< endl;
       float chargepair=0;
       for(unsigned j=0; j<Mu_nbMuon->size(); j++){
 	if (Mu_ptcocktail->at(j)==Mu_vtxMassLept->at(countlept)) chargepair=Mu_chargeCocktail->at(j);
@@ -606,7 +609,7 @@ void ZprimeMuMuPat::PickThehighestMass(float &vtxHighestMass,float &vtxHighestCh
       
       //cout << "Chargepair for vtxmass= " <<  Mu_vtxMass->at(i) << "   is " << chargepair << endl; 
       if (chargepair!=-1) continue;
-      cout << "Chargepair for vtxmass= " <<  Mu_vtxMass->at(i) << "   is " << chargepair << endl;
+      //cout << "Chargepair for vtxmass= " <<  Mu_vtxMass->at(i) << "   is " << chargepair << endl;
 
       
       int leptmatchBest=0;
@@ -614,7 +617,7 @@ void ZprimeMuMuPat::PickThehighestMass(float &vtxHighestMass,float &vtxHighestCh
       if (Mu_vtxMassLept->at(countlept)==PtRecTunePMu2 && Mu_vtxMassLept->at(countlept+1)==PtRecTunePMu1) leptmatchBest=2;
       
       if (leptmatchBest!=2) continue;
-      cout << "Chargepair surviving matching for vtxmass= " <<  Mu_vtxMass->at(i) << "   with " << leptmatchBest << " leptons" << endl;
+      //cout << "Chargepair surviving matching for vtxmass= " <<  Mu_vtxMass->at(i) << "   with " << leptmatchBest << " leptons" << endl;
 
       if(Mu_vtxNormChi2->at(i)> 20) continue;
       if(Mu_vtxMass->at(i)>Massinv){
@@ -626,6 +629,26 @@ void ZprimeMuMuPat::PickThehighestMass(float &vtxHighestMass,float &vtxHighestCh
   if( NbMu > 0 ){
     vtxHighestMass = Mu_vtxMass->at(iflag);
     vtxHighestChi2 = Mu_vtxNormChi2->at(iflag);
+
+    cout << "\n Pair passing all the cuts with mass= " <<  Mu_vtxMass->at(iflag) << " with chi2= " << Mu_vtxNormChi2->at(iflag) << "   with leptons:" << endl;
+  
+    for(unsigned i=0; i<Mu_nbMuon->size(); i++){
+     if (Mu_ptcocktail->at(i)==PtRecTunePMu1 || Mu_ptcocktail->at(i)==PtRecTunePMu2){
+       cout 
+	 << "\n Lepton properties:  "<<
+	 "IsTrackerMuon= " << Mu_isTrackerMuon->at(i) << " " <<
+	 "IsGlobalMuon= " << Mu_isGlobalMuon->at(i) << " " <<
+	 "pT= " <<  Mu_ptMuonBestTrack->at(i) << " " <<
+	 "dxy= " << Mu_absdxy->at(i) << " " <<
+	 "Rel. Track Isol.= " << (Mu_trackiso->at(i)/Mu_ptInnerTrack->at(i)) << " " <<
+	 "Number of Tracker layers with meas.= " << Mu_numberOftrackerLayersWithMeasurement->at(i) << " " <<
+	 "Number of Pixel hits= " << Mu_numberOfValidPixelHits->at(i) << " " <<
+	 "Number of muon hits= " << Mu_numberOfValidMuonHits->at(i) << " " <<
+	 "Number of matched muon stations= " << Mu_numberOfMatchedStations->at(i) << " " <<
+	 "dpT/pT= " << Mu_dPToverPTcocktail->at(i) << endl;
+     }
+    }
+
   }
 }
 double ZprimeMuMuPat::ThreeDangle(float pxMu1,float pyMu1,float pzMu1,float pMu1,
