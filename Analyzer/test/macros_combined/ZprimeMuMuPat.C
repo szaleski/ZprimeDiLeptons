@@ -233,10 +233,10 @@ void ZprimeMuMuPat::Loop()
         
 	  
     cout<<"=======> jentry = "<<jentry<< 
-      "=======> Evt = "<<event_evtNo<< 
-      "=======> Run = "<<event_runNo<< 
-      "=======> Lumi = "<<event_lumi<< 
-      "=======> bunch = "<<event_bunch<<endl;
+      "=======> Evt = "<<int(event_evtNo)<< 
+      "=======> Run = "<<int(event_runNo)<< 
+      "=======> Lumi = "<<int(event_lumi)<< 
+      "=======> bunch = "<<int(event_bunch)<<endl;
     
 
      
