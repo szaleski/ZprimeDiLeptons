@@ -80,13 +80,13 @@ int main(int argc, char ** argv){
       dirInput="/nfs/dust/test/cmsdas/school16/ZllExercise/"; //to run at DESY
     }
     else if (site.find("FNAL")<5 && mcconf.find("Spring15_combined")<5){
-      dirInput="/eos/uscms/store/user/cmsdas/2016/LONG_EXERCISES/ZprimeDiLeptons/Spring15_25ns_merged";
+      dirInput="/store/user/cmsdas/2016/LONG_EXERCISES/ZprimeDiLeptons/Spring15_25ns_merged";
     }
     else if (site.find("FNAL")<5 && dataconf.find("2015")<5){
-      dirInput="/eos/uscms/store/user/cmsdas/2016/LONG_EXERCISES/ZprimeDiLeptons/Data2015_ZprimeMuMu_13TeV_merged";
+      dirInput="root://cmseos.fnal.gov///store/user/cmsdas/2016/LONG_EXERCISES/ZprimeDiLeptons/Data2015_ZprimeMuMu_13TeV_merged";
     }
     else if (mcconf.find("Spring15_combined")<5){
-      dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring15_25ns_merged";
+      dirInput="root://cmseos.fnal.gov///lustre/cms/store/user/defilip/ZprimeAnalysis/Spring15_25ns_merged";
     }
     else if (dataconf.find("2015")<5){
       dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Data2015_ZprimeMuMu_13TeV_merged";
