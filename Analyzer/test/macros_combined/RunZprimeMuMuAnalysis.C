@@ -97,7 +97,9 @@ int main(int argc, char ** argv){
     Char_t namechar[300];
     sprintf(namechar,"%s/%s",dirInput.Data(),File.Data());
     
-    float weight= lumifb*(xsection[i]*1000.*nskim[i]/ninput[i])/nskim[i];
+    float weight= -999.;
+    if (mcconf.find("Spring15_combined")<5) weight=lumifb*(xsection[i]*1000.*nskim[i]/ninput[i])/nskim[i];
+    if (dataconf.find("2015")) weight=1.;
     cout << "weight is " << weight << endl;
     
     TFile *file3;
