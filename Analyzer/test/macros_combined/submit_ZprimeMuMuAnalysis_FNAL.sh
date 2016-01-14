@@ -25,6 +25,6 @@ echo "Compiling the macros"
 bash compileZprimeMuMuAnalysis.sh
 
 ./RunZprimeMuMuAnalysis which sig_input.txt 1 bkg_input.txt 1 data_input.txt 1 site year mc >& ${workdir}/RunZprimeMuMuAnalysis.log 
-xrdcp ${workdir}/RunZprimeMuMuAnalysis.log root://cmseos.fnal.gov///store/user/ndefilip/ZprimeAnalysis/jobdir/RunZprimeMuMuAnalysis.log
-xrdcp ${workdir}/CMSSW745-Analyse_ZprimeToMuMu_13TeV.root     ${savedir}/output.root
-xrdcp ${workdir}/CMSSW745-Analyse_ZprimeToMuMu_13TeV_cand.txt ${savedir}/output_cand.txt
+xrdcp --force ${workdir}/RunZprimeMuMuAnalysis.log root://cmseos.fnal.gov///store/user/ndefilip/ZprimeAnalysis/jobdir/RunZprimeMuMuAnalysis.log
+xrdcp --force ${workdir}/CMSSW745-Analyse_ZprimeToMuMu_13TeV.root     ${savedir}/output.root
+xrdcp --force ${workdir}/CMSSW745-Analyse_ZprimeToMuMu_13TeV_cand.txt ${savedir}/output_cand.txt
