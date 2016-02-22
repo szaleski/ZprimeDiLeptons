@@ -63,23 +63,33 @@ using namespace reco;
 MaketreeMuons::MaketreeMuons( const edm::ParameterSet& ps )
 //========================================================================
 {
-  vertexSrc                      = ps.getParameter<edm::InputTag>("vertexCollection");
+  //vertexSrc                      = ps.getParameter<edm::InputTag>("vertexCollection");
+  vertexSrc=consumes<std::vector<reco::Vertex> > (ps.getParameter<edm::InputTag>("vertexCollection"));
   maxAbsZ_                       = ps.getParameter<double>("maxAbsZ");
   maxd0_                         = ps.getParameter<double>("maxd0");
   minNdof_                       = ps.getParameter<int>("minndof");
   NbGoodPv_                      = ps.getParameter<int>("NbGoodPv");
-  globalMuons_                   = ps.getParameter<edm::InputTag>("globalMuons");
-  genParticlesColl_              = ps.getParameter<edm::InputTag>("genparticleCollection");
+  //globalMuons_                   = ps.getParameter<edm::InputTag>("globalMuons");
+  globalMuons_=consumes<std::vector<reco::Muon> >(ps.getParameter<edm::InputTag>("globalMuons"));
+  //genParticlesColl_              = ps.getParameter<edm::InputTag>("genparticleCollection");
+  genParticlesColl_=consumes<std::vector<GenParticle> >(ps.getParameter<edm::InputTag>("genparticleCollection"));
   token_globalMuons              = ps.getParameter<edm::InputTag>( "globalMuonTracks" );
-  triggerEvent                   = ps.getParameter<edm::InputTag>("triggerEvent");
+  //triggerEvent                   = ps.getParameter<edm::InputTag>("triggerEvent");
+  triggerEvent =consumes<trigger::TriggerEvent>(ps.getParameter<edm::InputTag>("triggerEvent"));
   triggerFilter                  = ps.getParameter<vector<string> >("triggerFilter");
   //inputTag_                    = ps.getParameter<edm::InputTag> ("TriggerResultsTag");
-  thePFMETCollectionToken_       = ps.getParameter<edm::InputTag>("thePFMETCollectionToken");
-  theMETSignificance_            = ps.getParameter<edm::InputTag>("METSignificance");
-  thejetsTag_                    = ps.getParameter<edm::InputTag>("Jets");
-  PileupSrc_                     = ps.getParameter<edm::InputTag>("PileupSrc");
+  //thePFMETCollectionToken_       = ps.getParameter<edm::InputTag>("thePFMETCollectionToken");
+  thePFMETCollectionToken_=consumes<reco::PFMETCollection>(ps.getParameter<edm::InputTag>("thePFMETCollectionToken"));  
+  //theMETSignificance_            = ps.getParameter<edm::InputTag>("METSignificance");
+  theMETSignificance_=consumes<double> (ps.getParameter<edm::InputTag>("METSignificance"));
+  
+  //thejetsTag_                    = ps.getParameter<edm::InputTag>("Jets");
+  thejetsTag_=consumes<reco::PFJetCollection>(ps.getParameter<edm::InputTag>("Jets"));
+  //PileupSrc_                     = ps.getParameter<edm::InputTag>("PileupSrc");
+  PileupSrc_=consumes<std::vector<PileupSummaryInfo> >(ps.getParameter<edm::InputTag>("PileupSrc"));
   rhoIsoInputTag_                = ps.getParameter<edm::InputTag>("rhoIsoInputTag");
-  genEventInfo_                  = ps.getParameter<edm::InputTag>("genEventInfo");
+  //genEventInfo_                  = ps.getParameter<edm::InputTag>("genEventInfo");
+  genEventInfo_=consumes<GenEventInfoProduct>(ps.getParameter<edm::InputTag>("genEventInfo"));
   // get names from module parameters, then derive slot numbers
   n_                  = 0;
   firstevent_         = true;  
@@ -87,7 +97,6 @@ MaketreeMuons::MaketreeMuons( const edm::ParameterSet& ps )
 
   // PG and FRC 06-07-11
   debug	=	ps.getUntrackedParameter<bool> ("debug", false);
-  
 
   //pfMuons_                       = ps.getParameter<edm::InputTag>("pfMuons");
   //pfMuonToken_                   = ps.getParameter<edm::InputTag>("PFjetsCollection");
@@ -336,12 +345,14 @@ void MaketreeMuons::analyze( const edm::Event& evt, const edm::EventSetup& es ) 
   NbEventsPassTrigger.push_back(TotalNbEvents);
   //===================== Handle For Muons =====================
   edm::Handle<reco::MuonCollection> muons;
-  evt.getByLabel(globalMuons_, muons);
+  //evt.getByLabel(globalMuons_, muons);
+  evt.getByToken(globalMuons_,muons);
   const reco::MuonCollection* realMuons = muons.product();
   //cout << "Ciao" << endl;
   //===================== Handle For Primary Vertics ===========
   edm::Handle<reco::VertexCollection> pvHandle; 
-  evt.getByLabel(vertexSrc,pvHandle);
+  evt.getByToken(vertexSrc,pvHandle);
+  //evt.getByLabel(vertexSrc,pvHandle);
   const reco::VertexCollection &vertices = *pvHandle.product();
   bool GoodPv  = PrimaryVertex(vertices);
   //cout << "At least one good primary vertex" << GoodPv << endl;
@@ -356,7 +367,8 @@ void MaketreeMuons::analyze( const edm::Event& evt, const edm::EventSetup& es ) 
 
   //===================== Handle For jets ===========
   edm::Handle<reco::PFJetCollection> jetsHandle;
-  evt.getByLabel(thejetsTag_,jetsHandle);
+  //evt.getByLabel(thejetsTag_,jetsHandle);
+  evt.getByToken(thejetsTag_,jetsHandle);
   const reco::PFJetCollection &pfjets = *jetsHandle.product();
   
   // Run/Event/Lumi/bunch
@@ -625,7 +637,8 @@ void MaketreeMuons::MuonTree(const edm::Event& evt,const edm::EventSetup& es,
 
 bool MaketreeMuons::GenParticleRecoMatching(const edm::Event& evt,float eta2,float phi2){
   edm::Handle<GenParticleCollection> genParticles;
-  evt.getByLabel(genParticlesColl_, genParticles);
+  //evt.getByLabel(genParticlesColl_, genParticles);
+  evt.getByToken(genParticlesColl_, genParticles);
   int NbMuons = 0;
   for(size_t i = 0; i < genParticles->size(); ++ i) {
     const GenParticle & p = (*genParticles)[i];
@@ -651,9 +664,10 @@ bool MaketreeMuons::GenParticleRecoMatching(const edm::Event& evt,float eta2,flo
 //=============================================================
 void MaketreeMuons::GenParticleTree(const edm::Event& evt){
   edm::Handle<GenParticleCollection> genParticles;
-  evt.getByLabel(genParticlesColl_, genParticles);
+  //evt.getByLabel(genParticlesColl_, genParticles);
+  evt.getByToken(genParticlesColl_, genParticles); 
 
-   if (!(genParticles.isValid())) return;  
+  if (!(genParticles.isValid())) return;  
 
   iGen.clear();
   idGen.clear();
@@ -848,7 +862,8 @@ void MaketreeMuons::TriggerMatchingTree(const edm::Event& iEvent,const reco::Muo
   std::vector<reco::Particle>  HLTMuMatched;
   std::vector<string> HLTMuMatchedNames;
   edm::Handle<trigger::TriggerEvent> handleTriggerEvent;
-  iEvent.getByLabel(triggerEvent, handleTriggerEvent );
+  //iEvent.getByLabel(triggerEvent, handleTriggerEvent );
+  iEvent.getByToken(triggerEvent, handleTriggerEvent );
   const trigger::TriggerObjectCollection & toc(handleTriggerEvent->getObjects());
   size_t nMuHLT =0;
   size_t nbHLTmuons =0;
@@ -1087,7 +1102,8 @@ void MaketreeMuons::ComputeMuonMassVtx(const edm::Event& evt,const edm::EventSet
 void MaketreeMuons::pfMETtree(const edm::Event& evt)
 {
   edm::Handle<reco::PFMETCollection> pfmetcoll;
-  evt.getByLabel(thePFMETCollectionToken_, pfmetcoll);
+  //evt.getByLabel(thePFMETCollectionToken_, pfmetcoll);
+  evt.getByToken(thePFMETCollectionToken_, pfmetcoll);
   if(!pfmetcoll.isValid()) return;
   const PFMETCollection *pfmetcol = pfmetcoll.product();
   const PFMET *pfmet;
@@ -1103,13 +1119,15 @@ void MaketreeMuons::pfMETtree(const edm::Event& evt)
   PFMet_sumEt = pfmet->sumEt();
 
   edm::Handle<double> metsighandle;
-  evt.getByLabel(theMETSignificance_, metsighandle);
+  //evt.getByLabel(theMETSignificance_, metsighandle);
+  evt.getByToken(theMETSignificance_, metsighandle);  
   METSign=*metsighandle;
 }
  
 void MaketreeMuons::fillPU(const edm::Event& iEvent){
   edm::Handle<vector<PileupSummaryInfo> > PupInfo;
-  iEvent.getByLabel(PileupSrc_, PupInfo);
+  //iEvent.getByLabel(PileupSrc_, PupInfo);
+  iEvent.getByToken(PileupSrc_, PupInfo);
   if(!PupInfo.isValid()) return;
   for( vector<PileupSummaryInfo>::const_iterator cand = PupInfo->begin();cand != PupInfo->end(); ++ cand ) {
     num_PU_vertices = cand->getTrueNumInteractions();
@@ -1135,7 +1153,8 @@ void MaketreeMuons::EventsReWeighting(const edm::Event& evt){
   MC_weighting.clear();
   float EventWeight = 1.0;
   edm::Handle<GenEventInfoProduct> gen_ev_info;
-  evt.getByLabel(genEventInfo_, gen_ev_info);
+  //evt.getByLabel(genEventInfo_, gen_ev_info);
+  evt.getByToken(genEventInfo_,gen_ev_info);
   if(!gen_ev_info.isValid()) return;
   EventWeight = gen_ev_info->weight();
   //std::cout<<"mc_weight = "<< gen_ev_info->weight() <<std::endl;
