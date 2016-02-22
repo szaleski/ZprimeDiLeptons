@@ -30,7 +30,8 @@ process.maxEvents = cms.untracked.PSet(
 process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(10000)  
 
 process.source = cms.Source("PoolSource", fileNames = cms.untracked.vstring(
-'file:0E580169-0F34-E511-B1B8-B8CA3A709648.root'
+#'file:0E580169-0F34-E511-B1B8-B8CA3A709648.root'
+'file:/lustre/cms//store/mc/RunIIFall15DR76/ZToMuMu_NNPDF30_13TeV-powheg_M_6000_Inf/AODSIM/PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/70000/68CBD4E5-42B0-E511-9E09-002590DE6E6E.root'
  )
 )
 
@@ -60,11 +61,11 @@ process.METSignificance.srcPFCandidates      = cms.InputTag('particleFlow')
 
 # Global tag
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, 'MCRUN2_74_V9', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, '76X_mcRun2_asymptotic_v12', '')
 # process.GlobalTag = GlobalTag(process.GlobalTag, '74X_dataRun2_Prompt_v0', '')
 
 process.maketreeMuon = cms.EDAnalyzer("MaketreeMuons",
-    outputFile               = cms.string('CMSSW745_Data2015_ZprimeMuMu_13TeV_tree.root'),
+    outputFile               = cms.string('CMSSW763_Data2015_ZprimeMuMu_13TeV_tree.root'),
     genEventInfo             = cms.InputTag('generator'),
     rhoIsoInputTag           = cms.InputTag("kt6PFJetsForIsolation", "rho"),
     #rhoIsoInputTag          = cms.InputTag("kt6PFJetsCentral:rho"),
@@ -79,7 +80,7 @@ process.maketreeMuon = cms.EDAnalyzer("MaketreeMuons",
     Jets                     = cms.InputTag("ak4PFJets"),                                   
     # Trigger matching                                           
     triggerEvent          = cms.InputTag("hltTriggerSummaryAOD","","HLT"),
-    triggerFilter         = cms.vstring('hltL3fL1sMu16orMu25L1f0L2f16QL3Filtered50Q'),
+    triggerFilter         = cms.vstring('hltL3fL1sMu16orMu25L1f0L2f10QL3Filtered50Q'),
     maxAbsZ  = cms.double(24),	
     maxd0    = cms.double(2),
     minndof  = cms.int32(4),
