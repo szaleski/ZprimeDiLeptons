@@ -439,23 +439,31 @@ class MaketreeMuons : public edm::EDAnalyzer {
       int minNdof_;
       int NbGoodPv_;
       std::string outputFile_; // output file
-      edm::InputTag vertexSrc;
+      //edm::InputTag vertexSrc;
+      edm::EDGetTokenT<reco::VertexCollection> vertexSrc;
       edm::InputTag pfMuons_;
       edm::InputTag pfMuonToken_;
       edm::InputTag srcSelectedMuons_;  
       edm::InputTag srcPFCandidates_; 
       edm::InputTag theRecoLabel_;
       edm::InputTag PatElectronsrc_;
-      edm::InputTag genParticlesColl_;
+      //edm::InputTag genParticlesColl_;
+      edm::EDGetTokenT<std::vector<reco::GenParticle> > genParticlesColl_;     
       edm::InputTag tokentracks_;
-      edm::InputTag globalMuons_;
+      //edm::InputTag globalMuons_;
+      edm::EDGetTokenT<std::vector<reco::Muon> > globalMuons_;
       edm::InputTag token_globalMuons;
-      edm::InputTag thePFMETCollectionToken_;
-      edm::InputTag theMETSignificance_;
-      edm::InputTag thejetsTag_;
-      edm::InputTag PileupSrc_;
+      //edm::InputTag thePFMETCollectionToken_;
+      edm::EDGetTokenT<reco::PFMETCollection> thePFMETCollectionToken_;
+      //edm::InputTag theMETSignificance_;
+      edm::EDGetTokenT<double> theMETSignificance_;      
+      //edm::InputTag thejetsTag_;
+      edm::EDGetTokenT<reco::PFJetCollection> thejetsTag_;
+      //edm::InputTag PileupSrc_;
+      edm::EDGetTokenT<std::vector<PileupSummaryInfo> > PileupSrc_;
       edm::InputTag rhoIsoInputTag_;
-      edm::InputTag genEventInfo_;
+      //edm::InputTag genEventInfo_;
+      edm::EDGetTokenT<GenEventInfoProduct>genEventInfo_;
       /// HLT TriggerResults EDProduct
       edm::InputTag inputTag_;
       /// HLT trigger names
@@ -472,7 +480,7 @@ class MaketreeMuons : public edm::EDAnalyzer {
       std::vector<std::string > HLTPathsByName_;
       /// list of required HLT triggers by HLT index
       std::vector<unsigned int> HLTPathsByIndex_;
-      edm::InputTag triggerEvent;
+      edm::EDGetTokenT<trigger::TriggerEvent> triggerEvent;
       std::vector<std::string> triggerFilter;
       std::vector<std::string> triggerFilter_asym;
       //===============================
