@@ -23,14 +23,14 @@ process.options = cms.untracked.PSet(
 )
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(-1)
+    input = cms.untracked.int32(10)
 )
 
 # reduce verbosity
 process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(10000)  
 
 process.source = cms.Source("PoolSource", fileNames = cms.untracked.vstring(
-#'file:crab_0_151015_215629/res/pickevents_9_1_Ogy.root'
+'file:0E555230-DDB9-E511-8126-0CC47A78A3D8_Run2015B.root'
  )
 )
 
@@ -60,11 +60,10 @@ process.METSignificance.srcPFCandidates      = cms.InputTag('particleFlow')
 
 # Global tag
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-# process.GlobalTag = GlobalTag(process.GlobalTag, 'MCRUN2_74_V9', '')
-process.GlobalTag = GlobalTag(process.GlobalTag, '74X_dataRun2_Prompt_v0', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, '76X_dataRun2_v15', '')
 
 process.maketreeMuon = cms.EDAnalyzer("MaketreeMuons",
-    outputFile               = cms.string('CMSSW745_Data2015_ZprimeMuMu_13TeV_tree.root'),
+    outputFile               = cms.string('CMSSW763_Data2015_ZprimeMuMu_13TeV_tree.root'),
     genEventInfo             = cms.InputTag('generator'),
     rhoIsoInputTag           = cms.InputTag("kt6PFJetsForIsolation", "rho"),
     #rhoIsoInputTag          = cms.InputTag("kt6PFJetsCentral:rho"),
