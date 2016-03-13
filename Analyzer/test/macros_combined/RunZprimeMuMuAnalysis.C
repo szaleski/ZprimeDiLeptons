@@ -31,12 +31,12 @@ int main(int argc, char ** argv){
   if (sampletype.find("sig") < 10) {
     fdata.open(argv[2]);
     nlines = atoi(argv[3]);
-    mcconf="Spring15_combined";
+    mcconf="Fall15";
   }
   else if (sampletype.find("bkg") < 10) {
     fdata.open(argv[4]);
     nlines = atoi(argv[5]);
-    mcconf="Spring15_combined";
+    mcconf="Fall15";
   }
   else if (sampletype.find("data") < 10) {
     fdata.open(argv[6]);
@@ -58,7 +58,7 @@ int main(int argc, char ** argv){
   //
   float lumifb=0.;
 
-  if (mcconf.find("Spring15_combined")<5) lumifb=2.7933; // 2015B+2015C+2015D
+  if (mcconf.find("Fall15")<5) lumifb=2.7933; // 2015B+2015C+2015D
 
   string site=argv[8];
   //string site="Bari";
@@ -69,7 +69,7 @@ int main(int argc, char ** argv){
   for(int i=0;i<nlines;i++){
     
     string name;
-    if (mcconf.find("Spring15_combined")<10) name= "CMSSW745_Data2015_ZprimeMuMu_13TeV_"+samples[i]+".root";
+    if (mcconf.find("Fall15")<10) name= "CMSSW763_Data2015_ZprimeMuMu_13TeV_"+samples[i]+".root";
     if (dataconf.find("2015")<10) name=samples[i]+".root";
     
     TString dirInput;
@@ -85,11 +85,11 @@ int main(int argc, char ** argv){
     else if (site.find("FNAL")<5 && dataconf.find("2015")<5){
       dirInput="root://cmseos.fnal.gov///store/user/cmsdas/2016/LONG_EXERCISES/ZprimeDiLeptons/Data2015_ZprimeMuMu_13TeV_merged";
     }
-    else if (mcconf.find("Spring15_combined")<5){
-      dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring15_25ns_merged";
+    else if (mcconf.find("Fall15")<5){
+      dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Fall15_merged";
     }
     else if (dataconf.find("2015")<5){
-      dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Data2015_ZprimeMuMu_13TeV_merged";
+      dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Data2015rereco_ZprimeMuMu_13TeV_merged";
     }
     
     TString File=name;
@@ -98,16 +98,26 @@ int main(int argc, char ** argv){
     sprintf(namechar,"%s/%s",dirInput.Data(),File.Data());
     
     float weight= -999.;
-    if (mcconf.find("Spring15_combined")<5) weight=lumifb*(xsection[i]*1000.*nskim[i]/ninput[i])/nskim[i];
+    if (mcconf.find("Fall15")<5) weight=lumifb*(xsection[i]*1000.*nskim[i]/ninput[i])/nskim[i];
     if (dataconf.find("2015")) weight=1.;
     cout << "weight is " << weight << endl;
     
     TFile *file3;
     TTree *tree3;
-    
-    file3 = TFile::Open(namechar);
-    cout << "Read file with name: " << namechar << endl;
-    tree3 = (TTree*)file3->Get("tree");
+
+    if (File.Contains("TT_TuneCUETP8M1_13TeV-powheg-pythia8")){
+	  cout << "Analyzing big ttbar sample" << endl;
+          TChain* chain = new TChain("tree","");
+          chain->Add("/lustre/cms/store/user/defilip/ZprimeAnalysis/Fall15_merged/CMSSW763_Data2015_ZprimeMuMu_13TeV_TT_TuneCUETP8M1_13TeV-powheg-pythia8.root");
+          chain->Add("/lustre/cms/store/user/defilip/ZprimeAnalysis/Fall15_merged/CMSSW763_Data2015_ZprimeMuMu_13TeV_TT_TuneCUETP8M1_13TeV-powheg-pythia8_1.root");
+          chain->Add("/lustre/cms/store/user/defilip/ZprimeAnalysis/Fall15_merged/CMSSW763_Data2015_ZprimeMuMu_13TeV_TT_TuneCUETP8M1_13TeV-powheg-pythia8_2.root");
+          tree3 = chain;
+    }
+    else {    
+     file3 = TFile::Open(namechar);
+     cout << "Read file with name: " << namechar << endl;
+     tree3 = (TTree*)file3->Get("tree");
+    }
     
     cout << "Read file with name: " << namechar << " " << tree3->GetEntries() << endl;
     ZprimeMuMuPat b(namechar,tree3,weight,dataconf,mcconf);

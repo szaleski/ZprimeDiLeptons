@@ -75,7 +75,7 @@ while [ $n -lt ${nlines} ]; do
       qsub submit_ZprimeMuMuAnalysis_${samplename}.sh   
   else
       echo "Submitting jobs via PBS"    
-      qsub -q local submit_ZprimeMuMuAnalysis_${samplename}.sh
+#      qsub -q local submit_ZprimeMuMuAnalysis_${samplename}.sh
   fi
   cd ..
 done 
