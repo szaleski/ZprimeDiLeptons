@@ -2,7 +2,7 @@
 //          Analysis code for Z' boson to Mu Mu analysis                  =  
 //    [1] In this code we select the high pt di-muons events              =
 //                        To run over MC                                  =  
-//             Written by Sherif Elgammal                                 =
+//             Written by Sherif Elgammal/Nicola De Filippis              =
 //                                                                        =
 //          16/6/2015   (most elegant way of coding)                      =
 //=========================================================================
@@ -60,7 +60,7 @@ void ZprimeMuMuPat::Loop()
   if( DATA_type=="2015") weight=1.;
  
 
-  TFile *output = new TFile("CMSSW745-Analyse_ZprimeToMuMu_13TeV.root","recreate");
+  TFile *output = new TFile("CMSSW763-Analyse_ZprimeToMuMu_13TeV.root","recreate");
   //================================================================================== 
   //                                                                                 =
   //             Start the histograms for CollinSoper CMF                            =
@@ -136,7 +136,7 @@ void ZprimeMuMuPat::Loop()
   //                                                                                 =
   //==================================================================================
   h1_dPToverPT_                            = new TH1F("dPToverPT","",1000,0.0,0.5);
-  h1_normalizedChi2_                       = new TH1F("normalizedChi2","",1000,0.0,20.0);
+  h1_normalizedChi2_                       = new TH1F("normalizedChi2","",1000,0.0,25.0);
   h1_numberOftrackerLayersWithMeasurement_ = new TH1F("numberOftrackerLayersWithMeasurement","",20,0.0,20.0);
   h1_numberOfValidPixelHits_               = new TH1F("numberOfValidPixelHits","",10,0.0,10.0);
   h1_numberOfValidMuonHits_                = new TH1F("numberOfValidMuonHits","",60,0.0,60.0);
@@ -197,7 +197,7 @@ void ZprimeMuMuPat::Loop()
   // Book txt file for candidate events
   Char_t txtOUT[500];
   //sprintf(txtOUT,"%s_txt.txt",datasetName.Data());
-  sprintf(txtOUT,"CMSSW745-Analyse_ZprimeToMuMu_13TeV_cand.txt");
+  sprintf(txtOUT,"CMSSW763-Analyse_ZprimeToMuMu_13TeV_cand.txt");
   cout << "Opening a txt file with candidate events " << txtOUT << endl;
   //ofstream output_txt;
   output_txt.open(txtOUT);

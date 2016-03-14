@@ -17,14 +17,10 @@
 #include "TMath.h"
 #include "TSystem.h"
 #include <libgen.h>
-//#include "/cmshome/nicola/slc6/MonoHiggs/Analysis13TeV/CMSSW_7_2_0/src/Higgs/Higgs_CS_and_Width/include/HiggsCSandWidth.h"
-//#include "$CMSSW_BASE/src/Higgs/Higgs_CS_and_Width/include/HiggsCSandWidth.h"
+
 
 using namespace std;
 
-// Usage:
-// .include /cmshome/nicola/tmp/test/Paper/last/last/CMSSW_5_3_9/src
-// gSystem->Load("libHiggsHiggs_CS_and_Width.so")
 // .L PlotStackZprime.C+
 // PlotStackZprime()
 
@@ -35,13 +31,6 @@ public:
   void plotm4l(std::string);
   void setSamplesNames4l();
   void printnumbers(char*, TH1F*);
-  /*void createdatacards(
-		       float Higgsm, float channel, float energy, 
-		       float masslow, float masshigh,
-		       float ggH, float qqH, float WH, float ZH, float ttH, 
-		       float bkg_qqzz, float bkg_ggzz, float bkg_zjets
-		       );*/
-  //void getMassWindow(float Higgsm);
   TH1F *DrawOverflow(TH1F *h);
 
 private:
@@ -82,10 +71,11 @@ PlotStackZprime::PlotStackZprime(){
   //std::string histolabel = "hPUvertices";    // numPU
   //std::string histolabel = "hPUvertices_ReWeighted";    // numPY reweighted
 	
-  std::string histolabel = "ZprimeRecomass"; 
+  //std::string histolabel = "ZprimeRecomass"; 
   //std::string histolabel = "ZprimeRecomassBinWidth";
 
   //std::string histolabel = "dPToverPT";
+  std::string histolabel = "normalizedChi2";
   //std::string histolabel = "numberOfValidMuonHits"; 
   //std::string histolabel = "numberOfValidPixelHits";
   //std::string histolabel = "numberOfMatchedStations";
@@ -102,7 +92,7 @@ PlotStackZprime::PlotStackZprime(){
   useDiJetsFromFakeRateFromData=false;
   useWJetsFromFakeRateFromMC=false;
 
-  nRebin=20;
+  nRebin=10;
   std::cout << "Histogram label is= " << histolabel << std::endl;
   
   // Final yields
@@ -273,6 +263,11 @@ void PlotStackZprime::plotm4l(std::string histlabel){
   if (histlabel.find("dPToverPT")<10){
     hframe= new TH2F("hframe","hframe",100,0.0,0.5,500,0.001,30000050.);// dPToverPT in control region
     hframe2= new TH2F("hframe2","hframe2",100,0.0,0.5, 1000, 0.5, 2.);// dPToverPT in control region
+  }
+
+  if (histlabel.find("normalizedChi2")<10){
+    hframe= new TH2F("hframe","hframe",100,0.0,25.,500,0.001,30000050.);// normalizedChi2 in control region
+    hframe2= new TH2F("hframe2","hframe2",100,0.0,25., 1000, 0.5, 2.);// normalizedChi2 in control region 
   }
 
   if (histlabel.find("numberOfValidMuonHits")<10){
@@ -2351,85 +2346,3 @@ void PlotStackZprime::printnumbers(char name[400], TH1F *h){
        << " \n Kin_MC="           << nKin_MC
        << endl;
 }
-
-/*
-void PlotStackZprime::createdatacards(float Higgsm, float channel, float energy, float masslow, float masshigh, float ggH, float qqH, float WH, float ZH, float ttH, float bkg_qqzz, float bkg_ggzz, float bkg_zjets){
-
-  
-  Char_t txtOUT[500];
-  //sprintf(txtOUT,"datacards/%s/hzz4l_%s_txt.txt",Higgsm,datasetName.Data());
-  cout << "Opening a datacard file " << txtOUT << endl;
-  ofstream output_txt;
-  output_txt.open(txtOUT);
-
-  output_txt << "imax 1" << endl; 
-  output_txt << "jmax 7" << endl;
-  output_txt << "kmax *" << endl;
-  output_txt <<"------------" << endl; 
-  output_txt <<"shapes * * hzz4l_4muS_8TeV.input.root w:$PROCESS" << endl;
-  output_txt <<"------------" << endl;
-  output_txt <<"bin a1" << endl; 
-  output_txt <<"observation 16" << endl; 
-  output_txt <<"------------" << endl;
-  output_txt <<"## mass window [105.0,140.0]" << endl; 
-  output_txt <<"bin a1 a1 a1 a1 a1 a1 a1 a1" << endl; 
-  output_txt <<"process ggH qqH WH ZH ttH bkg2d_qqzz bkg2d_ggzz bkg2d_zjets" << endl; 
-  output_txt <<"process -4 -3 -2 -1 0 1 2 3" << endl; 
-  output_txt <<"rate 1.0000 1.0000 1.0000 1.0000 1.0000 7.6204 0.1543 1.1796" << endl; 
-  output_txt <<"------------" << endl;
-  output_txt <<"lumi_8TeV lnN 1.026 1.026 1.026 1.026 1.026 1.026 1.026 -" << endl; 
-  output_txt <<"pdf_gg lnN 1.0720 - - - 1.0780 - 1.0708 -" << endl;
-  output_txt <<"pdf_qqbar lnN - 1.0270 1.0350 1.0350 - 1.0341 - -" << endl;
-  output_txt <<"pdf_hzz4l_accept lnN 1.02 1.02 1.02 1.02 1.02 - - -" << endl; 
-  output_txt <<"QCDscale_ggH lnN 1.0750 - - - - - - -" << endl; 
-  output_txt <<"QCDscale_qqH lnN - 1.0020 - - - - - -" << endl; 
-  output_txt <<"QCDscale_VH lnN - - 1.0040 1.0155 - - - -" << endl; 
-  output_txt <<"QCDscale_ttH lnN - - - - 1.0655 - - -" << endl;   
-  output_txt <<"QCDscale_ggVV lnN - - - - - - 1.2431 -" << endl;  
-  output_txt <<"QCDscale_VV lnN - - - - - 1.0284 - -" << endl;  
-  output_txt <<"BRhiggs_hzz4l lnN 1.02 1.02 1.02 1.02 1.02 - - -" << endl;  
-  output_txt <<"CMS_eff_m lnN 1.043 1.043 1.043 1.043 1.043 1.043 1.043 -" << endl;  
-  output_txt <<"CMS_hzz4mu_Zjets lnN - - - - - - - 0.6/1.4" << endl;  
-  output_txt <<"CMS_zz4l_bkgMELA param 0  1  [-3,3]" << endl; 
-  output_txt <<"CMS_zz4l_mean_m_sig param 0.0 1.0" << endl;  
-  output_txt <<"## CMS_zz4l_mean_m_sig = 0.001" << endl;  
-  output_txt <<"CMS_zz4l_sigma_m_sig param 0.0 0.2" << endl;  
-  output_txt <<"CMS_zz4l_n_sig_1_8 param 0.0 0.01" << endl;  
-  output_txt <<"interf_ggH param 0 1 [-1,1]" << endl;  
-  
-  output_txt.close();
-
-}
-*/
-
-/*
-void PlotStackZprime::getMassWindow(float Higgsm){
-
-  std::string fileLoc = "/cmshome/nicola/tmp/test/Paper/last/last/CMSSW_5_3_9/src/Higgs/Higgs_CS_and_Width/txtFiles";
-  HiggsCSandWidth myCSW = HiggsCSandWidth(fileLoc);
-
-  double widthHVal =  myCSW.HiggsWidth(0,Higgsm);
-  double windowVal = max( widthHVal, 1.0);
-  double lowside = 100.0;
-  double highside = 1000.0;
-  
-  if (Higgsm >= 275){
-     lowside = 180.0;
-     highside = 650.0;}
-  if (Higgsm >= 350){
-     lowside = 200.0;
-     highside = 900.0;}
-   if (Higgsm >= 500){
-     lowside = 250.0;
-     highside = 1000.0;}
-   if (Higgsm >= 700){
-     lowside = 350.0;
-     highside = 1400.0;}
-  
-   float low_M = max( (Higgsm - 20.*windowVal), lowside);
-   float high_M = min( (Higgsm + 15.*windowVal), highside);
-  
-   cout << "Mass window: " << low_M << " " << high_M << endl;
-
-}
-*/
