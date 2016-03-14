@@ -31,12 +31,12 @@ int main(int argc, char ** argv){
   if (sampletype.find("sig") < 10) {
     fdata.open(argv[2]);
     nlines = atoi(argv[3]);
-    mcconf="Spring15_combined";
+    mcconf="Fall15";
   }
   else if (sampletype.find("bkg") < 10) {
     fdata.open(argv[4]);
     nlines = atoi(argv[5]);
-    mcconf="Spring15_combined";
+    mcconf="Fall15";
   }
   else if (sampletype.find("data") < 10) {
     fdata.open(argv[6]);
@@ -58,7 +58,7 @@ int main(int argc, char ** argv){
   //
   float lumifb=0.;
 
-  if (mcconf.find("Spring15_combined")<5) lumifb=2.7933; // 2015B+2015C+2015D
+  if (mcconf.find("Fall15")<5) lumifb=2.906; // 2015B+2015C+2015D
 
   string site=argv[8];
   //string site="Bari";
@@ -69,7 +69,7 @@ int main(int argc, char ** argv){
   for(int i=0;i<nlines;i++){
     
     string name;
-    if (mcconf.find("Spring15_combined")<10) name= "CMSSW745_Data2015_ZprimeMuMu_13TeV_"+samples[i]+".root";
+    if (mcconf.find("Fall15")<10) name= "CMSSW763_Data2015_ZprimeMuMu_13TeV_"+samples[i]+".root";
     if (dataconf.find("2015")<10) name=samples[i]+".root";
     
     TString dirInput;
@@ -85,11 +85,11 @@ int main(int argc, char ** argv){
     else if (site.find("FNAL")<5 && dataconf.find("2015")<5){
       dirInput="/eos/uscms/store/user/cmsdas/2016/LONG_EXERCISES/ZprimeDiLeptons/Data2015_ZprimeMuMu_13TeV_merged";
     }
-    else if (mcconf.find("Spring15_combined")<5){
-      dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring15_25ns_merged";
+    else if (mcconf.find("Fall15")<5){
+      dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Fall15_merged";
     }
     else if (dataconf.find("2015")<5){
-      dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Data2015_ZprimeMuMu_13TeV_merged";
+      dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Data2015rereco_ZprimeMuMu_13TeV_merged";
     }
     
     TString File=name;

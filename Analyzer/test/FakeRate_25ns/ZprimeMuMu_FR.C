@@ -36,7 +36,7 @@ void ZprimeMuMu_FR::Loop()
   double dif;
   time (&start);
 
-  TFile *file = new TFile("ZprimetoMuMu-MC-CMSSW745_FR.root", "RECREATE");
+  TFile *file = new TFile("CMSSW763-Analyse_ZprimeToMuMu_13TeV_FR.root", "RECREATE");
   file->cd();
 
   TH1F *histo_EVENT              = new TH1F("histo_EVENT", "histo_EVENT",600,0,600.);
@@ -82,7 +82,7 @@ void ZprimeMuMu_FR::Loop()
   // Book txt file for candidate events
   Char_t txtOUT[500];
   //sprintf(txtOUT,"%s_txt.txt",datasetName.Data());
-  sprintf(txtOUT,"CMSSW745-Analyse_ZprimeToMuMu_13TeV_cand.txt");
+  sprintf(txtOUT,"CMSSW763-Analyse_ZprimeToMuMu_13TeV_FR_cand.txt");
   cout << "Opening a txt file with candidate events " << txtOUT << endl;
   //ofstream output_txt;
   output_txt.open(txtOUT);
