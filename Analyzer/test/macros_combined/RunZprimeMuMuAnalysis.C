@@ -99,7 +99,7 @@ int main(int argc, char ** argv){
     
     float weight= -999.;
     if (mcconf.find("Fall15")<5) weight=lumifb*(xsection[i]*1000.*nskim[i]/ninput[i])/nskim[i];
-    if (dataconf.find("2015")) weight=1.;
+    if (dataconf.find("2015")<5) weight=1.;
     cout << "weight is " << weight << endl;
     
     TFile *file3;
