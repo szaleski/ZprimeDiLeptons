@@ -22,4 +22,3 @@
 /lustre/cms/store/user/defilip/ZprimeAnalysis76x/histos/histosZprimeMuMu_FR/output_ST_t-channel_top_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1.root
 /lustre/cms/store/user/defilip/ZprimeAnalysis76x/histos/histosZprimeMuMu_FR/output_ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1.root
 /lustre/cms/store/user/defilip/ZprimeAnalysis76x/histos/histosZprimeMuMu_FR/output_ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1.root
-/lustre/cms/store/user/defilip/ZprimeAnalysis76x/histos/histosZprimeMuMu_FR/output_ZprimeToMuMu_M-5000_TuneCUETP8M1_13TeV-pythia8.root

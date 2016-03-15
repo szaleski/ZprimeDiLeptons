@@ -17,14 +17,11 @@
 #include "TMath.h"
 #include "TSystem.h"
 #include <libgen.h>
-//#include "/cmshome/nicola/slc6/MonoHiggs/Analysis13TeV/CMSSW_7_2_0/src/Higgs/Higgs_CS_and_Width/include/HiggsCSandWidth.h"
-//#include "$CMSSW_BASE/src/Higgs/Higgs_CS_and_Width/include/HiggsCSandWidth.h"
+
 
 using namespace std;
 
 // Usage:
-// .include /cmshome/nicola/tmp/test/Paper/last/last/CMSSW_5_3_9/src
-//  gSystem->Load("libHiggsHiggs_CS_and_Width.so")
 // .L PlotStackZprime.C+
 // PlotStackZprime()
 
@@ -35,13 +32,6 @@ public:
   void plotm4l(std::string);
   void setSamplesNames4l();
   void printnumbers(char*, TH1F*);
-  /*void createdatacards(
-		       float Higgsm, float channel, float energy, 
-		       float masslow, float masshigh,
-		       float ggH, float qqH, float WH, float ZH, float ttH, 
-		       float bkg_qqzz, float bkg_ggzz, float bkg_zjets
-		       );*/
-  //void getMassWindow(float Higgsm);
 
 private:
   std::vector<string> Vdatasetnamebkg,Vdatasetnamesig,Vdatasetnamedata,Vdatasetnamebkgdata;
@@ -65,18 +55,15 @@ private:
   float errorZZ,errorH125,errorH126,errorH200,errorH350,errorH500,errorH800;
   TSystem LoadLib;
 public:
-  //float Higgsm, channel, energy, masslow, masshigh;
-  //float ggH, qqH, WH, ZH, ttH, bkg_qqzz, bkg_ggzz, bkg_zjets;
+
 
 };
 
 PlotStackZprime::PlotStackZprime(){
-  //TSystem LoadLib;
-  //LoadLib.Load("/cmshome/nicola/slc6/MonoHiggs/Analysis13TeV/CMSSW_7_2_0/lib/slc6_amd64_gcc481/libHiggsHiggs_CS_and_Width.so");
-  //getMassWindow(500.);
+
     
-  inputfile="filelist_zprime_SingleMuon_2015_Spring15_25ns_AN_FNAL.txt";
-  //inputfile="filelist_zprime_ExpressPhysics_2015_Spring15_AN_Bari.txt";
+  //inputfile="filelist_zprime_SingleMuon_2015_Spring15_25ns_AN_FNAL.txt";
+  inputfile="filelist_zprime_SingleMuon_2015_Fall15_AN_Bari.txt";
   
   setSamplesNames4l(); 
   cout << "\t Analysing samples for " << whichchannel << " analysis" << endl; 
@@ -89,14 +76,14 @@ PlotStackZprime::PlotStackZprime(){
   //std::string histolabel = "hPUvertices_ReWeighted";    // numPY reweighted
 
   
-  //std::string histolabel = "h1_Den_Pt_w"; 
+  std::string histolabel = "h1_Den_Pt_w"; 
   //std::string histolabel = "h1_Num_Pt_w";
   
   //std::string histolabel = "h1_Den_Pt_Barrel_w"; 
   //std::string histolabel = "h1_Num_Pt_Barrel_w";
 
   //std::string histolabel = "h1_Den_Pt_EndCap_w"; 
-  std::string histolabel = "h1_Num_Pt_EndCap_w";
+  //std::string histolabel = "h1_Num_Pt_EndCap_w";
   
   
   //std::string histolabel = "h1_mW_T";
@@ -1794,7 +1781,7 @@ void PlotStackZprime::setSamplesNames4l()
   else if (inputfile.find("zprime")<25){
     cout << "Plotting Z->mumu" << endl;
     whichchannel="#mu#mu";
-    histosdir="histos/histosZprimeMuMu_FR_25ns";
+    histosdir="histos/histosZprimeMuMu_FR";
   };
   
 
