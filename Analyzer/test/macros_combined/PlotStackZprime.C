@@ -75,13 +75,13 @@ PlotStackZprime::PlotStackZprime(){
   //std::string histolabel = "ZprimeRecomassBinWidth";
 
   // N-1 plots
-  //std::string histolabel = "dPToverPT";
+  std::string histolabel = "dPToverPT";
   //std::string histolabel = "normalizedChi2";
   //std::string histolabel = "numberOfValidMuonHits"; 
   //std::string histolabel = "numberOfValidPixelHits";
   //std::string histolabel = "numberOfMatchedStations";
   //std::string histolabel = "numberOftrackerLayersWithMeasurement";
-  std::string histolabel = "trackiso";
+  //std::string histolabel = "trackiso";
   //std::string histolabel = "absdxy";
   //std::string histolabel = "PtID";
  
@@ -313,8 +313,8 @@ void PlotStackZprime::plotm4l(std::string histlabel){
   }
 
   if (histlabel.find("numberOftrackerLayersWithMeasurement")<10){
-    hframe= new TH2F("hframe","hframe",100,0.,20.,500,0.001,30000050.);// numberOftrackerLayersWithMeasurement in control region
-    hframe2= new TH2F("hframe2","hframe2",100,0., 20., 1000, 0.5, 2.);// numberOftrackerLayersWithMeasurement in control region
+    hframe= new TH2F("hframe","hframe",100,0.,30.,500,0.001,30000050.);// numberOftrackerLayersWithMeasurement in control region
+    hframe2= new TH2F("hframe2","hframe2",100,0., 30., 1000, 0.5, 2.);// numberOftrackerLayersWithMeasurement in control region
   }
 
   if (histlabel.find("numberOftrackerLayersWithMeasurement_cut0")<10){
@@ -355,8 +355,8 @@ void PlotStackZprime::plotm4l(std::string histlabel){
 
   
   if (nRebin==5) hframe->SetYTitle("Events/5 GeV");
-  if (nRebin==1) hframe->SetYTitle("Events/tracker layer with measurement");
-  if (nRebin==10) hframe->SetYTitle("Events/0.003");
+  if (nRebin==1) hframe->SetYTitle("Events");
+  if (nRebin==10) hframe->SetYTitle("Events/0.005");
   if (nRebin==20) hframe->SetYTitle("Events/20 GeV");
   
   //hframe->vSetXTitle("M_{Z2} [GeV]");
@@ -365,13 +365,13 @@ void PlotStackZprime::plotm4l(std::string histlabel){
  
   if (histlabel.find("dPToverPT")<20) hframe->SetXTitle("#sigma_{p_{T}}/p_{T} [GeV]");
   if (histlabel.find("normalizedChi2")<20) hframe->SetXTitle("normalized #chi^{2}");
-  if (histlabel.find("numberOfValidMuonHits")<20) hframe->SetXTitle("n_{#mu hits}");
+  if (histlabel.find("numberOfValidMuonHits")<20) hframe->SetXTitle("n_{muon hits}");
   if (histlabel.find("numberOfValidPixelHits")<20) hframe->SetXTitle("n_{pixel hits}");
   if (histlabel.find("numberOfMatchedStations")<20) hframe->SetXTitle("n_{matched stations}");
   if (histlabel.find("numberOftrackerLayersWithMeasurement")<20) hframe->SetXTitle("n_{tracker layers with measurement}");
   if (histlabel.find("trackiso")<20) hframe->SetXTitle("tracker isolation [GeV]");
   if (histlabel.find("PtID")<20) hframe->SetXTitle("p_{T} ID [GeV]");
-  if (histlabel.find("absdxy")<20) hframe->SetXTitle("abs dxy");
+  if (histlabel.find("absdxy")<20) hframe->SetXTitle("|d_{xy}|");
 
   hframe->GetYaxis()->SetLabelSize(0.03);
   hframe->GetXaxis()->SetLabelSize(0.03);
