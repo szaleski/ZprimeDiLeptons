@@ -74,16 +74,28 @@ PlotStackZprime::PlotStackZprime(){
   //std::string histolabel = "ZprimeRecomass"; 
   //std::string histolabel = "ZprimeRecomassBinWidth";
 
+  // N-1 plots
   //std::string histolabel = "dPToverPT";
-  std::string histolabel = "normalizedChi2";
+  //std::string histolabel = "normalizedChi2";
   //std::string histolabel = "numberOfValidMuonHits"; 
   //std::string histolabel = "numberOfValidPixelHits";
   //std::string histolabel = "numberOfMatchedStations";
   //std::string histolabel = "numberOftrackerLayersWithMeasurement";
-  //std::string histolabel = "trackiso";
+  std::string histolabel = "trackiso";
   //std::string histolabel = "absdxy";
   //std::string histolabel = "PtID";
  
+  // Cut 0 plots: isGlobalMu && isTrackeMu && pT>53.
+  //std::string histolabel = "dPToverPT_cut0"; 
+  //std::string histolabel = "normalizedChi2_cut0";
+  //std::string histolabel = "numberOfValidMuonHits_cut0";
+  //std::string histolabel = "numberOfValidPixelHits_cut0";                                                                                                                                  
+  //std::string histolabel = "numberOfMatchedStations_cut0";
+  //std::string histolabel = "numberOftrackerLayersWithMeasurement_cut0";
+  //std::string histolabel = "trackiso_cut0";                                                                                                                                             
+  //std::string histolabel = "absdxy_cut0";          
+  //std::string histolabel = "PtID_cut0";         
+
   useLogY = true;
   useLogX = false;
 
@@ -274,10 +286,20 @@ void PlotStackZprime::plotm4l(std::string histlabel){
     hframe= new TH2F("hframe","hframe",100,0.,60.,500,0.0001,100000000050.);// numberOfValidMuonHits in control region
     hframe2= new TH2F("hframe2","hframe2",100,0.,60., 1000, 0.5, 2.);// numberOfValidMuonHits in control region
   }
+
+  if (histlabel.find("numberOfValidMuonHits_cut0")<10){
+    hframe= new TH2F("hframe","hframe",100,0.,60.,500,0.0001,100000000050.);// numberOfValidMuonHits in control region                                                                  
+    hframe2= new TH2F("hframe2","hframe2",100,0.,60., 1000, 0.5, 2.);// numberOfValidMuonHits in control region                                                                            
+  }
   
   if (histlabel.find("numberOfValidPixelHits")<10){
     hframe= new TH2F("hframe","hframe",100,0.,10.,500,0.001,30000050.);// numberOfValidPixelHits in control region
     hframe2= new TH2F("hframe2","hframe2",100,0., 10., 1000, 0.5, 2.);// numberOfValidPixelHits in control region
+  }
+
+  if (histlabel.find("numberOfValidPixelHits_cut0")<10){
+    hframe= new TH2F("hframe","hframe",100,0.,10.,500,0.001,30000050.);// numberOfValidPixelHits in control region                                                                           
+    hframe2= new TH2F("hframe2","hframe2",100,0., 10., 1000, 0.5, 2.);// numberOfValidPixelHits in control region                                                                          
   }
 
   if (histlabel.find("numberOfMatchedStations")<10){
@@ -285,9 +307,19 @@ void PlotStackZprime::plotm4l(std::string histlabel){
     hframe2= new TH2F("hframe2","hframe2",100,0., 10., 1000, 0.5, 2.);// numberOfMatchedStations in control region
   }
   
+  if (histlabel.find("numberOfMatchedStations_cut0")<10){
+    hframe= new TH2F("hframe","hframe",100,0.,10.,500,0.0001,100000000050.);// numberOfMatchedStations in control region
+    hframe2= new TH2F("hframe2","hframe2",100,0., 10., 1000, 0.5, 2.);// numberOfMatchedStations in control region
+  }
+
   if (histlabel.find("numberOftrackerLayersWithMeasurement")<10){
     hframe= new TH2F("hframe","hframe",100,0.,20.,500,0.001,30000050.);// numberOftrackerLayersWithMeasurement in control region
     hframe2= new TH2F("hframe2","hframe2",100,0., 20., 1000, 0.5, 2.);// numberOftrackerLayersWithMeasurement in control region
+  }
+
+  if (histlabel.find("numberOftrackerLayersWithMeasurement_cut0")<10){
+    hframe= new TH2F("hframe","hframe",100,0.,20.,500,0.001,30000050.);// numberOftrackerLayersWithMeasurement in control region
+    hframe2= new TH2F("hframe2","hframe2",100,0., 20., 1000, 0.5, 2.);// numberOftrackerLayersWithMeasurement in control region 
   }
 
   if (histlabel.find("trackiso")<10){
@@ -295,26 +327,51 @@ void PlotStackZprime::plotm4l(std::string histlabel){
     hframe2= new TH2F("hframe2","hframe2",100,0., 0.3, 1000, 0.5, 2.);// trackiso in control region
   }
 
+  if (histlabel.find("trackiso_cut0")<10){
+    hframe= new TH2F("hframe","hframe",100,0.,0.3,500,0.001,100000000050.);// trackiso in control region                                                                        
+    hframe2= new TH2F("hframe2","hframe2",100,0., 0.3, 1000, 0.5, 2.);// trackiso in control region                                                                                          
+  }
+
   if (histlabel.find("absdxy")<10){
     hframe= new TH2F("hframe","hframe",100,0.,0.3,500,0.001,100000000050.);// trackiso in control region
     hframe2= new TH2F("hframe2","hframe2",100,0., 0.3, 1000, 0.5, 2.);// trackiso in control region
   }
+
+  if (histlabel.find("absdxy_cut0")<10){
+    hframe= new TH2F("hframe","hframe",100,0.,0.3,500,0.001,100000000050.);// trackiso in control region 
+    hframe2= new TH2F("hframe2","hframe2",100,0., 0.3, 1000, 0.5, 2.);// trackiso in control region  
+  }
   
   if (histlabel.find("PtID")<10){
-    hframe= new TH2F("hframe","hframe",100,50.,400.,500,0.001,100000000050.);// pT  in control region
-    hframe2= new TH2F("hframe2","hframe2",100,50.,400., 1000, 0.5, 2.);// pT in control region
+    hframe= new TH2F("hframe","hframe",100,53.,1500.,500,0.001,100000000050.);// pT  in control region
+    hframe2= new TH2F("hframe2","hframe2",100,53.,1500., 1000, 0.5, 2.);// pT in control region
+  }
+
+  if (histlabel.find("PtID_cut0")<10){
+    hframe= new TH2F("hframe","hframe",100,53.,1500.,500,0.001,100000000050.);// pT  in control region                                                              
+    hframe2= new TH2F("hframe2","hframe2",100,53.,1500., 1000, 0.5, 2.);// pT in control region                                                                                                
   }
   
 
   
   if (nRebin==5) hframe->SetYTitle("Events/5 GeV");
-  if (nRebin==1) hframe->SetYTitle("Events/1 GeV");
-  if (nRebin==10) hframe->SetYTitle("Events/10 GeV");
+  if (nRebin==1) hframe->SetYTitle("Events/tracker layer with measurement");
+  if (nRebin==10) hframe->SetYTitle("Events/0.003");
   if (nRebin==20) hframe->SetYTitle("Events/20 GeV");
   
-  //hframe->SetXTitle("M_{Z2} [GeV]");
+  //hframe->vSetXTitle("M_{Z2} [GeV]");
   if (histlabel.find("ZprimeRecomass")<20) hframe->SetXTitle("m_{#mu^{+}#mu^{-}} [GeV]");
   if (histlabel.find("Den_Pt")<10 || histlabel.find("Num_Pt")<10) hframe->SetXTitle("p_{T} [GeV]");
+ 
+  if (histlabel.find("dPToverPT")<20) hframe->SetXTitle("#sigma_{p_{T}}/p_{T} [GeV]");
+  if (histlabel.find("normalizedChi2")<20) hframe->SetXTitle("normalized #chi^{2}");
+  if (histlabel.find("numberOfValidMuonHits")<20) hframe->SetXTitle("n_{#mu hits}");
+  if (histlabel.find("numberOfValidPixelHits")<20) hframe->SetXTitle("n_{pixel hits}");
+  if (histlabel.find("numberOfMatchedStations")<20) hframe->SetXTitle("n_{matched stations}");
+  if (histlabel.find("numberOftrackerLayersWithMeasurement")<20) hframe->SetXTitle("n_{tracker layers with measurement}");
+  if (histlabel.find("trackiso")<20) hframe->SetXTitle("tracker isolation [GeV]");
+  if (histlabel.find("PtID")<20) hframe->SetXTitle("p_{T} ID [GeV]");
+  if (histlabel.find("absdxy")<20) hframe->SetXTitle("abs dxy");
 
   hframe->GetYaxis()->SetLabelSize(0.03);
   hframe->GetXaxis()->SetLabelSize(0.03);
