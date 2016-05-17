@@ -3,7 +3,7 @@
 // Author: Sherif Elgammal                             =
 // CMSSW: 7_6_3                                        =
 // Data Format: MINIAOD                                =
-// Date: 04/05/2016                                    =
+// Date: 17/05/2016                                    =
 //======================================================
 #include <memory>
 #include <vector>
@@ -122,12 +122,12 @@ public:
   void SuperClusterTree(const edm::Event& iEvent,const edm::EventSetup& es);
   void ComputeMuonMassVtx(const edm::Event& evt,const edm::EventSetup& es);
   void PrimaryVertexTree(const edm::Event& iEvent,const edm::EventSetup& es);
-  void JetsTree(const edm::Event& iEvent,const edm::EventSetup& es);
-  //void EventsReWeighting(const edm::Event& evt);
   void fillMET(const edm::Event& iEvent);
   bool PrimaryVertex(const reco::VertexCollection &vertices);
-  //void DeDxChecker(const edm::Event& event, const edm::EventSetup& setup);
-  void ParticleFlowTree(const edm::Event& iEvent,const edm::EventSetup& es);
+  void BTagingTree(const edm::Event& iEvent,const edm::EventSetup& es);
+  //void JetsTree(const edm::Event& iEvent,const edm::EventSetup& es);
+  //void EventsReWeighting(const edm::Event& evt);
+  //void ParticleFlowTree(const edm::Event& iEvent,const edm::EventSetup& es);
 private:
   virtual void analyze(const edm::Event&, const edm::EventSetup&) override;
   virtual void beginJob() override;
@@ -142,7 +142,7 @@ private:
   edm::EDGetTokenT<pat::TauCollection> tauToken_;
   edm::EDGetTokenT<pat::PhotonCollection> photonToken_;
   edm::EDGetTokenT<pat::JetCollection> jetToken_;
-  edm::EDGetTokenT<pat::JetCollection> fatjetToken_;
+  //edm::EDGetTokenT<pat::JetCollection> fatjetToken_;
   edm::EDGetTokenT<pat::METCollection> metToken_;
   edm::EDGetTokenT<edm::View<reco::GenParticle> > prunedGenToken_;
   edm::EDGetTokenT<edm::View<pat::PackedGenParticle> > packedGenToken_;
@@ -156,6 +156,7 @@ private:
   edm::EDGetTokenT<pat::TriggerObjectStandAloneCollection> triggerObjects_;
   edm::EDGetTokenT<pat::PackedTriggerPrescales> triggerPrescales_;
   edm::EDGetTokenT<pat::PackedCandidateCollection> pfToken_;
+  
   //edm::EDGetTokenT<reco::TrackCollection> generalTracksToken_;
   //edm::InputTag theMETSignificance_;
   int BosonID_;
@@ -184,46 +185,6 @@ private:
   std::vector<float> m_egClean_eta;
   std::vector<float> m_egClean_phi;
   std::vector<float> m_egClean_hcalIso;
-  //=============================================================
-  //
-  //           Create Branchs for Muons match HLT variables
-  //
-  //=============================================================
-  std::vector<int>    HLT_nb;
-  std::vector<string> HLT_name;
-  std::vector<bool>   HLT_isaccept;
-  std::vector<int>    HLTObj_nbObj;
-  std::vector<float>  HLTObj_pt;
-  std::vector<float>  HLTObj_eta;
-  std::vector<float>  HLTObj_phi;
-  std::vector<string> HLTObj_collection;
-  //===================================================
-  //
-  //    Create vectors for gen particles variables
-  //
-  //===================================================
-  std::vector<int> iGen;
-  std::vector<int> idGen;
-  std::vector<int> statusGen; 
-  std::vector<float> ptGen;
-  std::vector<float> etaGen;
-  std::vector<float> phiGen;
-  std::vector<float> massGen;
-  std::vector<int> chargeGen;
-  std::vector<float> EnergyGen;
-  std::vector<float> pxGen;
-  std::vector<float> pyGen;
-  std::vector<float> pzGen;
-  std::vector<float> vxGen;
-  std::vector<float> vyGen;
-  std::vector<float> vzGen;
-  std::vector<int> NbOfDaughters;
-  std::vector<float> McZmass;
-  std::vector<float> McZpt;
-  std::vector<float> McZpx;
-  std::vector<float> McZpy;
-  std::vector<float> McZpz;
-  std::vector<float> McZen;
   //==================================================
   //
   //      Create vectors for Electrons variables
@@ -340,6 +301,86 @@ private:
   std::vector<float> ecalee_phi;
   std::vector<float> ecalee_energy;
   std::vector<float> ecalee_time;
+  //=============================================================
+  //
+  //           Create Branchs for Pimary Vertice variables
+  //
+  //=============================================================
+  std::vector<int> nbPv;
+  std::vector<int> Nbdof;
+  std::vector<float> PositionRho;
+  std::vector<float> PositionX;
+  std::vector<float> PositionY;
+  std::vector<float> PositionZ;
+  //=============================================================
+  //                   
+  //           Create Branches for jets variables
+  //=============================================================
+  std::vector<int> jet_nb;
+  std::vector<int> jetcharge;
+  std::vector<float> jetet;
+  std::vector<float> jetpt;
+  std::vector<float> jeteta;
+  std::vector<float> jetphi;
+  //=============================================================
+  //                   
+  //           Create Branchs for PileUp tree
+  //
+  //=============================================================
+  int num_PU_vertices;
+  int PU_BunchCrossing;
+  //=============================================================
+  //                   
+  //           Create Branch for Rho
+  //
+  //=============================================================
+  float Rho;
+  //=============================================================
+  //                   
+  //           Create Branch for events reweighting
+  //
+  //=============================================================
+  std::vector<float> MC_weighting;
+  //=============================================================
+  //
+  //           Create Branchs for Muons match HLT variables
+  //
+  //=============================================================
+  std::vector<int>    HLT_nb;
+  std::vector<string> HLT_name;
+  std::vector<bool>   HLT_isaccept;
+  std::vector<int>    HLTObj_nbObj;
+  std::vector<float>  HLTObj_pt;
+  std::vector<float>  HLTObj_eta;
+  std::vector<float>  HLTObj_phi;
+  std::vector<string> HLTObj_collection;
+  //===================================================
+  //
+  //    Create vectors for gen particles variables
+  //
+  //===================================================
+  std::vector<int> iGen;
+  std::vector<int> idGen;
+  std::vector<int> statusGen; 
+  std::vector<float> ptGen;
+  std::vector<float> etaGen;
+  std::vector<float> phiGen;
+  std::vector<float> massGen;
+  std::vector<int> chargeGen;
+  std::vector<float> EnergyGen;
+  std::vector<float> pxGen;
+  std::vector<float> pyGen;
+  std::vector<float> pzGen;
+  std::vector<float> vxGen;
+  std::vector<float> vyGen;
+  std::vector<float> vzGen;
+  std::vector<int> NbOfDaughters;
+  std::vector<float> McZmass;
+  std::vector<float> McZpt;
+  std::vector<float> McZpx;
+  std::vector<float> McZpy;
+  std::vector<float> McZpz;
+  std::vector<float> McZen;
   //==================================================
   //
   //           Create vectors for Muons variables
@@ -389,41 +430,8 @@ private:
   std::vector<float> Mu_thetaTunePMuonBestTrack;
   std::vector<float> Mu_chargeTunePMuonBestTrack;
   std::vector<float> Mu_dPToverPTTunePMuonBestTrack;
-  std::vector<float> Mu_pfDeltaBeta;
-  std::vector<float> Mu_patDeltaBeta;
-  std::vector<float> Mu_ptcocktail;
-  std::vector<float> Mu_dPToverPTcocktail;
-  std::vector<float> Mu_absdxy;
-  std::vector<float> Mu_absdz;
-  std::vector<float> Mu_etaCocktail;
-  std::vector<float> Mu_phiCocktail;
-  std::vector<float> Mu_thetaCocktail;
-  std::vector<int> Mu_chargeCocktail;
-  std::vector<float> Mu_pxCocktail;
-  std::vector<float> Mu_pyCocktail;
-  std::vector<float> Mu_pzCocktail;
-  std::vector<float> Mu_pCocktail;
-  //=============================================================
-  //
-  //           Create Branchs for Pimary Vertice variables
-  //
-  //=============================================================
-  std::vector<int> nbPv;
-  std::vector<int> Nbdof;
-  std::vector<float> PositionRho;
-  std::vector<float> PositionX;
-  std::vector<float> PositionY;
-  std::vector<float> PositionZ;
-  //=============================================================
-  //                   
-  //           Create Branches for jets variables
-  //=============================================================
-  std::vector<int> jet_nb;
-  std::vector<int> jetcharge;
-  std::vector<float> jetet;
-  std::vector<float> jetpt;
-  std::vector<float> jeteta;
-  std::vector<float> jetphi;
+  //std::vector<float> Mu_pfDeltaBeta;
+  //std::vector<float> Mu_patDeltaBeta;
   //=============================================================
   //                   
   //           Create Branches for PF MET
@@ -449,25 +457,7 @@ private:
   double METSign;
   double PFMet_shiftedPt_JetEnUp;
   double PFMet_shiftedPt_JetEnDown;
-  //=============================================================
-  //                   
-  //           Create Branchs for PileUp tree
-  //
-  //=============================================================
-  int num_PU_vertices;
-  int PU_BunchCrossing;
-  //=============================================================
-  //                   
-  //           Create Branch for Rho
-  //
-  //=============================================================
-  float Rho;
-  //=============================================================
-  //                   
-  //           Create Branch for events reweighting
-  //
-  //=============================================================
-  std::vector<float> MC_weighting;
+
 };
 
 MakeZprimeMiniAodTree::MakeZprimeMiniAodTree(const edm::ParameterSet& iConfig):
@@ -479,7 +469,7 @@ MakeZprimeMiniAodTree::MakeZprimeMiniAodTree(const edm::ParameterSet& iConfig):
   tauToken_(consumes<pat::TauCollection>(iConfig.getParameter<edm::InputTag>("taus"))),
   photonToken_(consumes<pat::PhotonCollection>(iConfig.getParameter<edm::InputTag>("photons"))),
   jetToken_(consumes<pat::JetCollection>(iConfig.getParameter<edm::InputTag>("jets"))),
-  fatjetToken_(consumes<pat::JetCollection>(iConfig.getParameter<edm::InputTag>("fatjets"))),
+//fatjetToken_(consumes<pat::JetCollection>(iConfig.getParameter<edm::InputTag>("fatjets"))),
   metToken_(consumes<pat::METCollection>(iConfig.getParameter<edm::InputTag>("mets"))),
   prunedGenToken_(consumes<edm::View<reco::GenParticle> >(iConfig.getParameter<edm::InputTag>("pruned"))),
   packedGenToken_(consumes<edm::View<pat::PackedGenParticle> >(iConfig.getParameter<edm::InputTag>("packed"))),
@@ -527,270 +517,264 @@ void MakeZprimeMiniAodTree::beginJob()
   mytree->Branch("event_evtNo",  &Event, "event_evtNo/I");
   mytree->Branch("event_lumi",   &lumi,  "event_lumi/I");
   mytree->Branch("event_bunch",  &bunch, "event_bunch/I");
-  //===================================================
-  //
-  //    Create vectors for gen particles variables
-  //
-  //===================================================
-  mytree->Branch("iGen",&iGen);
-  mytree->Branch("idGen",&idGen);
-  mytree->Branch("statusGen",&statusGen);
-  mytree->Branch("ptGen",&ptGen);
-  mytree->Branch("etaGen",&etaGen);
-  mytree->Branch("phiGen",&phiGen);
-  mytree->Branch("chargeGen",&chargeGen);
-  mytree->Branch("EnergyGen",&EnergyGen);
-  mytree->Branch("pxGen",&pxGen);
-  mytree->Branch("pyGen",&pyGen);
-  mytree->Branch("pzGen",&pzGen);
-  //==================================================
-  //
-  //      Create Branchs for Electrons variables
-  //
-  //==================================================
-  mytree->Branch("Ele_nbElectrons",&Ele_nbElectrons);
-  mytree->Branch("Ele_isEcalDrivenSeed",&Ele_isEcalDrivenSeed);
-  mytree->Branch("Ele_isPassConversionVeto",&Ele_isPassConversionVeto);
-  mytree->Branch("Ele_charge",&Ele_charge);
-  mytree->Branch("Ele_nbOfMissingHits",&Ele_nbOfMissingHits);
-  mytree->Branch("Ele_nbVtx",&Ele_nbVtx);
-  mytree->Branch("Ele_Et",&Ele_Et);
-  mytree->Branch("Ele_EtFromCaloEn",&Ele_EtFromCaloEn);
-  mytree->Branch("Ele_pt",&Ele_pt);
-  mytree->Branch("Ele_thetaSC",&Ele_thetaSC);
-  mytree->Branch("Ele_etaSC",&Ele_etaSC);
-  mytree->Branch("Ele_phiSC",&Ele_phiSC);
-  mytree->Branch("Ele_energySC",&Ele_energySC);
-  mytree->Branch("Ele_preshowerEnergySC",&Ele_preshowerEnergySC);
-  mytree->Branch("Ele_thetaTrack",&Ele_thetaTrack);
-  mytree->Branch("Ele_etaTrack",&Ele_etaTrack);
-  mytree->Branch("Ele_phiTrack",&Ele_phiTrack);
-  mytree->Branch("Ele_hadronicOverEm",&Ele_hadronicOverEm);
-  mytree->Branch("Ele_deltaEtaInSeedCluster",&Ele_deltaEtaInSeedCluster);
-  mytree->Branch("Ele_deltaPhiInSeedCluster",&Ele_deltaPhiInSeedCluster);
-  mytree->Branch("Ele_deltaEtaInSC",&Ele_deltaEtaInSC);
-  mytree->Branch("Ele_deltaPhiInSC",&Ele_deltaPhiInSC);
-  mytree->Branch("Ele_sigmaIetaIeta",&Ele_sigmaIetaIeta);
-  mytree->Branch("Ele_e2x5Max",&Ele_e2x5Max);
-  mytree->Branch("Ele_e1x5",&Ele_e1x5);
-  mytree->Branch("Ele_frac15",&Ele_frac15);
-  mytree->Branch("Ele_frac51",&Ele_frac51);
-  mytree->Branch("Ele_e5x5",&Ele_e5x5);
-  mytree->Branch("Ele3x3",&Ele_e3x3);
-  mytree->Branch("Ele_e2x5MaxOver5x5",&Ele_e2x5MaxOver5x5);
-  mytree->Branch("Ele_e1x5Over5x5",&Ele_e1x5Over5x5);
-  mytree->Branch("Ele_sigmaIetaIetaFull5x5",&Ele_sigmaIetaIetaFull5x5);
-  mytree->Branch("Ele_e2x5MaxFull5x5",&Ele_e2x5MaxFull5x5);
-  mytree->Branch("Ele_e1x5Full5x5",&Ele_e1x5Full5x5);
-  mytree->Branch("Ele_e5x5Full5x5",&Ele_e5x5Full5x5);
-  mytree->Branch("Ele_e2x5MaxOver5x5Full5x5",&Ele_e2x5MaxOver5x5Full5x5);
-  mytree->Branch("Ele_e1x5Over5x5Full5x5",&Ele_e1x5Over5x5Full5x5);
-  mytree->Branch("Ele_e2x5Right",&Ele_e2x5Right);
-  mytree->Branch("Ele_e2x5Left",&Ele_e2x5Left);
-  mytree->Branch("Ele_e2x5Top",&Ele_e2x5Top);
-  mytree->Branch("Ele_e2x5Bottom",&Ele_e2x5Bottom);
-  mytree->Branch("Ele_eMax",&Ele_eMax);
-  mytree->Branch("Ele_eRight",&Ele_eRight);
-  mytree->Branch("Ele_eLeft",&Ele_eLeft);
-  mytree->Branch("Ele_eTop",&Ele_eTop);
-  mytree->Branch("Ele_eBottom",&Ele_eBottom);
-  mytree->Branch("Ele_dxy",&Ele_dxy);
-  mytree->Branch("Ele_dz",&Ele_dz);
-  mytree->Branch("Ele_rhoIso",&Ele_rhoIso);
-  mytree->Branch("Ele_fbrem",&Ele_fbrem);
-  mytree->Branch("Ele_EoverP",&Ele_EoverP);
-  mytree->Branch("Ele_Xposition",&Ele_Xposition);
-  mytree->Branch("Ele_Yposition",&Ele_Yposition);
-  mytree->Branch("Ele_EcalPlusHcald1iso",&Ele_EcalPlusHcald1iso);
-  mytree->Branch("Ele_dr03TkSumPt",&Ele_dr03TkSumPt);
-  mytree->Branch("Ele_dr03EcalRecHitSumEt",&Ele_dr03EcalRecHitSumEt);
-  mytree->Branch("Ele_dr03HcalDepth1TowerSumEt",&Ele_dr03HcalDepth1TowerSumEt);
-  mytree->Branch("Ele_dr03HcalDepth1TowerSumEtBc",&Ele_dr03HcalDepth1TowerSumEtBc);
-  mytree->Branch("Ele_hcalDepth1OverEcal",&Ele_hcalDepth1OverEcal);
-  mytree->Branch("Ele_hcalDepth2OverEcal",&Ele_hcalDepth2OverEcal);
-  mytree->Branch("Ele_dr03HcalDepth2TowerSumEt",&Ele_dr03HcalDepth2TowerSumEt);
-  mytree->Branch("Ele_hcalDepth2TowerSumEtNoVeto",&Ele_hcalDepth2TowerSumEtNoVeto);
-  mytree->Branch("Ele_hcalDepth1TowerSumEtNoVeto",&Ele_hcalDepth1TowerSumEtNoVeto);
-  mytree->Branch("Ele_pfSumPhotonEt",&Ele_pfSumPhotonEt);
-  mytree->Branch("Ele_pfSumChargedHadronPt",&Ele_pfSumChargedHadronPt);
-  mytree->Branch("Ele_pfSumNeutralHadronEt",&Ele_pfSumNeutralHadronEt);
-  mytree->Branch("Ele_pfSumPUPt",&Ele_pfSumPUPt);
-  mytree->Branch("Ele_pfDeltaBeta",&Ele_pfDeltaBeta);
-  mytree->Branch("Ele_rawId",&Ele_rawId);
-  mytree->Branch("Ele_x",&Ele_x);
-  mytree->Branch("Ele_y",&Ele_y);
-  mytree->Branch("Ele_z",&Ele_z);
-  mytree->Branch("Ele_zTrackPositionAtVtx",&Ele_zTrackPositionAtVtx);
-  mytree->Branch("Ele_ieta",&Ele_ieta);
-  mytree->Branch("Ele_phiWidth",&Ele_phiWidth);
-  mytree->Branch("Ele_etaWidth",&Ele_etaWidth);
-  //=============================================================
-  //  
-  //    Create Branchs for ecal rec hits variables
-  //      
-  //=============================================================
-  mytree->Branch("ecaleb_rawId",&ecaleb_rawId);
-  mytree->Branch("ecaleb_iRechit",&ecaleb_iRechit);
-  mytree->Branch("ecaleb_RecoFlag",&ecaleb_RecoFlag);
-  mytree->Branch("ecaleb_isSaturated",&ecaleb_isSaturated);
-  mytree->Branch("ecaleb_EnRecHit",&ecaleb_EnRecHit);
-  mytree->Branch("ecaleb_iskleadingedgerecovered",&ecaleb_iskleadingedgerecovered);
-  mytree->Branch("ecaleb_iskNeighboursRecovered",&ecaleb_iskNeighboursRecovered);
-  mytree->Branch("ecaleb_kWeird",&ecaleb_kWeird);
-  mytree->Branch("ecaleb_ietaRecHit",&ecaleb_ietaRecHit);
-  mytree->Branch("ecaleb_iphiRecHit",&ecaleb_iphiRecHit);
-  mytree->Branch("ecaleb_eta",&ecaleb_eta);
-  mytree->Branch("ecaleb_phi",&ecaleb_phi);
-  mytree->Branch("ecaleb_time",&ecaleb_time);
-  mytree->Branch("ecalee_rawId",&ecalee_rawId);
-  mytree->Branch("ecalee_iRechit",&ecalee_iRechit);
-  mytree->Branch("ecalee_RecoFlag",&ecalee_RecoFlag);
-  mytree->Branch("ecalee_isSaturated",&ecalee_isSaturated);
-  mytree->Branch("ecalee_EnRecHit",&ecalee_EnRecHit);
-  mytree->Branch("ecalee_iskleadingedgerecovered",&ecalee_iskleadingedgerecovered);
-  mytree->Branch("ecalee_iskNeighboursRecovered",&ecalee_iskNeighboursRecovered);
-  mytree->Branch("ecalee_kWeird",&ecalee_kWeird);
-  mytree->Branch("ecalee_ietaRecHit",&ecalee_ietaRecHit);
-  mytree->Branch("ecalee_iphiRecHit",&ecalee_iphiRecHit);
-  mytree->Branch("ecalee_eta",&ecalee_eta);
-  mytree->Branch("ecalee_phi",&ecalee_phi);
-  mytree->Branch("ecalee_time",&ecalee_time);
-  //=============================================================
-  //
-  //           Create Branchs for Muons variables
-  //
-  //=============================================================
-  mytree->Branch("Mu_nbMuon",&Mu_nbMuon);
-  mytree->Branch("Mu_isGlobalMuon",&Mu_isGlobalMuon);
-  mytree->Branch("Mu_isPF",&Mu_isPF);
-  mytree->Branch("Mu_isTrackerMuon",&Mu_isTrackerMuon);
-  mytree->Branch("Mu_et",&Mu_et);
-  mytree->Branch("Mu_en",&Mu_en);
-  mytree->Branch("Mu_pt",&Mu_pt);
-  mytree->Branch("Mu_eta",&Mu_eta);
-  mytree->Branch("Mu_phi",&Mu_phi);
-  mytree->Branch("Mu_charge",&Mu_charge);
-  mytree->Branch("Mu_ptTunePMuonBestTrack",&Mu_ptTunePMuonBestTrack);
-  mytree->Branch("Mu_pxTunePMuonBestTrack",&Mu_pxTunePMuonBestTrack);
-  mytree->Branch("Mu_pyTunePMuonBestTrack",&Mu_pyTunePMuonBestTrack);
-  mytree->Branch("Mu_pzTunePMuonBestTrack",&Mu_pzTunePMuonBestTrack);
-  mytree->Branch("Mu_pTunePMuonBestTrack",&Mu_pTunePMuonBestTrack);
-  mytree->Branch("Mu_etaTunePMuonBestTrack",&Mu_etaTunePMuonBestTrack);
-  mytree->Branch("Mu_phiTunePMuonBestTrack",&Mu_phiTunePMuonBestTrack);
-  mytree->Branch("Mu_thetaTunePMuonBestTrack",&Mu_thetaTunePMuonBestTrack);
-  mytree->Branch("Mu_chargeTunePMuonBestTrack",&Mu_chargeTunePMuonBestTrack);
-  mytree->Branch("Mu_dPToverPTTunePMuonBestTrack",&Mu_dPToverPTTunePMuonBestTrack);
-  mytree->Branch("Mu_absdxyTunePMuonBestTrack",&Mu_absdxyTunePMuonBestTrack);
-  mytree->Branch("Mu_absdzTunePMuonBestTrack",&Mu_absdzTunePMuonBestTrack);
-  mytree->Branch("Mu_ptInnerTrack",&Mu_ptInnerTrack);
-  mytree->Branch("Mu_normalizedChi2",&Mu_normalizedChi2);
-  mytree->Branch("Mu_vtxMass",&Mu_vtxMass);
-  mytree->Branch("Mu_vtxNormChi2",&Mu_vtxNormChi2);
-  mytree->Branch("Mu_vtxMassLept",&Mu_vtxMassLept);
-  mytree->Branch("Mu_numberOfMatchedStations",&Mu_numberOfMatchedStations);
-  mytree->Branch("Mu_numberOfValidPixelHits",&Mu_numberOfValidPixelHits);
-  mytree->Branch("Mu_numberOfValidMuonHits",&Mu_numberOfValidMuonHits);
-  mytree->Branch("Mu_numberOftrackerLayersWithMeasurement",&Mu_numberOftrackerLayersWithMeasurement);
-  mytree->Branch("Mu_emIso",&Mu_emIso);
-  mytree->Branch("Mu_hadIso",&Mu_hadIso);
-  mytree->Branch("Mu_trackiso",&Mu_trackiso);
-  mytree->Branch("Mu_pfSumChargedHadronPt",&Mu_pfSumChargedHadronPt);
-  mytree->Branch("Mu_pfSumNeutralHadronEt",&Mu_pfSumNeutralHadronEt);
-  mytree->Branch("Mu_PFSumPhotonEt",&Mu_PFSumPhotonEt);
-  mytree->Branch("Mu_pfSumPUPt",&Mu_pfSumPUPt);
-  mytree->Branch("Mu_nbofpv",&Mu_nbofpv);
-  mytree->Branch("Mu_pfDeltaBeta",&Mu_pfDeltaBeta);
-  mytree->Branch("Mu_patDeltaBeta",&Mu_patDeltaBeta);
-  mytree->Branch("Mu_ptcocktail",&Mu_ptcocktail);
-  mytree->Branch("Mu_dPToverPTcocktail",&Mu_dPToverPTcocktail);
-  mytree->Branch("Mu_absdxy",&Mu_absdxy);
-  mytree->Branch("Mu_absdz",&Mu_absdz);
-  mytree->Branch("Mu_etaCocktail",&Mu_etaCocktail);
-  mytree->Branch("Mu_phiCocktail",&Mu_phiCocktail);
-  mytree->Branch("Mu_thetaCocktail",&Mu_thetaCocktail);
-  mytree->Branch("Mu_chargeCocktail",&Mu_chargeCocktail);
-  mytree->Branch("Mu_pxCocktail",&Mu_pxCocktail);
-  mytree->Branch("Mu_pyCocktail",&Mu_pyCocktail);
-  mytree->Branch("Mu_pzCocktail",&Mu_pzCocktail);
-  mytree->Branch("Mu_pCocktail",&Mu_pCocktail);
-  //============================================================= 
-  //
-  //           Create Branchs for Muons match HLT variables
-  //
-  //=============================================================  
-  mytree->Branch("HLT_nb", &HLT_nb);
-  mytree->Branch("HLT_name", &HLT_name);
-  mytree->Branch("HLT_isaccept", &HLT_isaccept);
-  mytree->Branch("HLTObj_nbObj",&HLTObj_nbObj);
-  mytree->Branch("HLTObj_pt",&HLTObj_pt);
-  mytree->Branch("HLTObj_eta",&HLTObj_eta);
-  mytree->Branch("HLTObj_phi",&HLTObj_phi);
-  mytree->Branch("HLTObj_collection", &HLTObj_collection);
-  //=============================================================
-  //
-  //           Create Branchs for Pimary Vertice variables
-  //
-  //=============================================================
-  mytree->Branch("nbPv",&nbPv);
-  mytree->Branch("Nbdof",&Nbdof);
-  mytree->Branch("PositionRho",&PositionRho);
-  mytree->Branch("PositionX",&PositionX);
-  mytree->Branch("PositionY",&PositionY);
-  mytree->Branch("PositionZ",&PositionZ);
-  //=============================================================
-  //                   
-  //           Create Branches for jets variables
-  //=============================================================
-  mytree->Branch("jet_nb",&jet_nb);
-  mytree->Branch("jetcharge",&jetcharge);
-  mytree->Branch("jetet",&jetet);
-  mytree->Branch("jetpt",&jetpt);
-  mytree->Branch("jeteta",&jeteta);
-  mytree->Branch("jetphi",&jetphi);
-  //=============================================================
-  //                   
-  //           Create Branches for PF MET
-  //
-  //=============================================================
-  mytree->Branch("GenMet_pt",&GenMet_pt,"GenMet_pt/D");
-  //The default type1 corrected MET
-  mytree->Branch("PFMet_pt_cor",   &PFMet_pt_cor,   "PFMet_pt_cor/D");
-  mytree->Branch("PFMet_phi_cor",  &PFMet_phi_cor,  "PFMet_phi_cor/D");
-  mytree->Branch("PFMet_en_cor",   &PFMet_en_cor,   "PFMet_en_cor/D");
-  mytree->Branch("PFMet_px_cor",   &PFMet_px_cor,   "PFMet_px_cor/D");
-  mytree->Branch("PFMet_py_cor",   &PFMet_py_cor,   "PFMet_py_cor/D");
-  mytree->Branch("PFMet_pz_cor",   &PFMet_pz_cor,   "PFMet_pz_cor/D");
-  mytree->Branch("PFMet_sumEt_cor",&PFMet_sumEt_cor,"PFMet_sumEt_cor/D");
-  //The Raw PF Met (un-corrected MET)
-  mytree->Branch("PFMet_pt_uncor",   &PFMet_pt_uncor,   "PFMet_pt_uncor/D");
-  mytree->Branch("PFMet_phi_uncor",  &PFMet_phi_uncor,  "PFMet_phi_uncor/D");
-  mytree->Branch("PFMet_sumEt_uncor",&PFMet_sumEt_uncor,"PFMet_sumEt_uncor/D");
-  //The raw calo ETmiss  
-  mytree->Branch("CaloMet_pt",   &CaloMet_pt,   "CaloMet_pt/D");
-  mytree->Branch("CaloMet_phi",  &CaloMet_phi,  "CaloMet_phi/D");
-  mytree->Branch("CaloMet_sumEt",&CaloMet_sumEt,"CaloMet_sumEt/D");
-  mytree->Branch("METSign",&METSign,"METSign/D");
-  mytree->Branch("PFMet_shiftedPt_JetEnUp",&PFMet_shiftedPt_JetEnUp,"PFMet_shiftedPt_JetEnUp/D");
-  mytree->Branch("PFMet_shiftedPt_JetEnDown",&PFMet_shiftedPt_JetEnDown,"PFMet_shiftedPt_JetEnDown/D");
-  //=============================================================
-  //                   
-  //           Create Branchs for PileUp tree
-  //
-  //=============================================================
-  mytree->Branch("num_PU_vertices",&num_PU_vertices,"num_PU_vertices/I");
-  mytree->Branch("PU_BunchCrossing",&PU_BunchCrossing,"PU_BunchCrossing/I");
-  //=============================================================
-  //                   
-  //           Create Branch for Rho
-  //
-  //=============================================================
-  mytree->Branch("Rho",&Rho,"Rho/F");
-  //=============================================================
-  //                   
-  //           Create Branch for events reweighting
-  //
-  //=============================================================
-  mytree->Branch("MC_weighting",&MC_weighting);
+  
+  if(Analysis_== "ZprimeToMuMu"){
+    //===================================================
+    //
+    //    Create vectors for gen particles variables
+    //
+    //===================================================
+    mytree->Branch("iGen",&iGen);
+    mytree->Branch("idGen",&idGen);
+    mytree->Branch("statusGen",&statusGen);
+    mytree->Branch("ptGen",&ptGen);
+    mytree->Branch("etaGen",&etaGen);
+    mytree->Branch("phiGen",&phiGen);
+    mytree->Branch("chargeGen",&chargeGen);
+    mytree->Branch("EnergyGen",&EnergyGen);
+    mytree->Branch("pxGen",&pxGen);
+    mytree->Branch("pyGen",&pyGen);
+    mytree->Branch("pzGen",&pzGen);
+    //=============================================================
+    //
+    //           Create Branchs for Muons variables
+    //
+    //=============================================================
+    mytree->Branch("Mu_nbMuon",&Mu_nbMuon);
+    mytree->Branch("Mu_isGlobalMuon",&Mu_isGlobalMuon);
+    mytree->Branch("Mu_isPF",&Mu_isPF);
+    mytree->Branch("Mu_isTrackerMuon",&Mu_isTrackerMuon);
+    mytree->Branch("Mu_et",&Mu_et);
+    mytree->Branch("Mu_en",&Mu_en);
+    mytree->Branch("Mu_pt",&Mu_pt);
+    mytree->Branch("Mu_eta",&Mu_eta);
+    mytree->Branch("Mu_phi",&Mu_phi);
+    mytree->Branch("Mu_charge",&Mu_charge);
+    mytree->Branch("Mu_ptTunePMuonBestTrack",&Mu_ptTunePMuonBestTrack);
+    mytree->Branch("Mu_pxTunePMuonBestTrack",&Mu_pxTunePMuonBestTrack);
+    mytree->Branch("Mu_pyTunePMuonBestTrack",&Mu_pyTunePMuonBestTrack);
+    mytree->Branch("Mu_pzTunePMuonBestTrack",&Mu_pzTunePMuonBestTrack);
+    mytree->Branch("Mu_pTunePMuonBestTrack",&Mu_pTunePMuonBestTrack);
+    mytree->Branch("Mu_etaTunePMuonBestTrack",&Mu_etaTunePMuonBestTrack);
+    mytree->Branch("Mu_phiTunePMuonBestTrack",&Mu_phiTunePMuonBestTrack);
+    mytree->Branch("Mu_thetaTunePMuonBestTrack",&Mu_thetaTunePMuonBestTrack);
+    mytree->Branch("Mu_chargeTunePMuonBestTrack",&Mu_chargeTunePMuonBestTrack);
+    mytree->Branch("Mu_dPToverPTTunePMuonBestTrack",&Mu_dPToverPTTunePMuonBestTrack);
+    mytree->Branch("Mu_absdxyTunePMuonBestTrack",&Mu_absdxyTunePMuonBestTrack);
+    mytree->Branch("Mu_absdzTunePMuonBestTrack",&Mu_absdzTunePMuonBestTrack);
+    mytree->Branch("Mu_ptInnerTrack",&Mu_ptInnerTrack);
+    mytree->Branch("Mu_normalizedChi2",&Mu_normalizedChi2);
+    mytree->Branch("Mu_vtxMass",&Mu_vtxMass);
+    mytree->Branch("Mu_vtxNormChi2",&Mu_vtxNormChi2);
+    mytree->Branch("Mu_vtxMassLept",&Mu_vtxMassLept);
+    mytree->Branch("Mu_numberOfMatchedStations",&Mu_numberOfMatchedStations);
+    mytree->Branch("Mu_numberOfValidPixelHits",&Mu_numberOfValidPixelHits);
+    mytree->Branch("Mu_numberOfValidMuonHits",&Mu_numberOfValidMuonHits);
+    mytree->Branch("Mu_numberOftrackerLayersWithMeasurement",&Mu_numberOftrackerLayersWithMeasurement);
+    mytree->Branch("Mu_emIso",&Mu_emIso);
+    mytree->Branch("Mu_hadIso",&Mu_hadIso);
+    mytree->Branch("Mu_trackiso",&Mu_trackiso);
+    mytree->Branch("Mu_pfSumChargedHadronPt",&Mu_pfSumChargedHadronPt);
+    mytree->Branch("Mu_pfSumNeutralHadronEt",&Mu_pfSumNeutralHadronEt);
+    mytree->Branch("Mu_PFSumPhotonEt",&Mu_PFSumPhotonEt);
+    mytree->Branch("Mu_pfSumPUPt",&Mu_pfSumPUPt);
+    mytree->Branch("Mu_nbofpv",&Mu_nbofpv);
+    //mytree->Branch("Mu_pfDeltaBeta",&Mu_pfDeltaBeta);
+    //mytree->Branch("Mu_patDeltaBeta",&Mu_patDeltaBeta);
+    //============================================================= 
+    //
+    //           Create Branchs for Muons match HLT variables
+    //
+    //=============================================================  
+    mytree->Branch("HLT_nb", &HLT_nb);
+    mytree->Branch("HLT_name", &HLT_name);
+    mytree->Branch("HLT_isaccept", &HLT_isaccept);
+    mytree->Branch("HLTObj_nbObj",&HLTObj_nbObj);
+    mytree->Branch("HLTObj_pt",&HLTObj_pt);
+    mytree->Branch("HLTObj_eta",&HLTObj_eta);
+    mytree->Branch("HLTObj_phi",&HLTObj_phi);
+    mytree->Branch("HLTObj_collection", &HLTObj_collection);
+    //=============================================================
+    //                   
+    //           Create Branches for PF MET
+    //
+    //=============================================================
+    mytree->Branch("GenMet_pt",&GenMet_pt,"GenMet_pt/D");
+    //The default type1 corrected MET
+    mytree->Branch("PFMet_pt_cor",   &PFMet_pt_cor,   "PFMet_pt_cor/D");
+    mytree->Branch("PFMet_phi_cor",  &PFMet_phi_cor,  "PFMet_phi_cor/D");
+    mytree->Branch("PFMet_en_cor",   &PFMet_en_cor,   "PFMet_en_cor/D");
+    mytree->Branch("PFMet_px_cor",   &PFMet_px_cor,   "PFMet_px_cor/D");
+    mytree->Branch("PFMet_py_cor",   &PFMet_py_cor,   "PFMet_py_cor/D");
+    mytree->Branch("PFMet_pz_cor",   &PFMet_pz_cor,   "PFMet_pz_cor/D");
+    mytree->Branch("PFMet_sumEt_cor",&PFMet_sumEt_cor,"PFMet_sumEt_cor/D");
+    //The Raw PF Met (un-corrected MET)
+    /*mytree->Branch("PFMet_pt_uncor",   &PFMet_pt_uncor,   "PFMet_pt_uncor/D");
+    mytree->Branch("PFMet_phi_uncor",  &PFMet_phi_uncor,  "PFMet_phi_uncor/D");
+    mytree->Branch("PFMet_sumEt_uncor",&PFMet_sumEt_uncor,"PFMet_sumEt_uncor/D");*/
+    //The raw calo ETmiss  
+    mytree->Branch("CaloMet_pt",   &CaloMet_pt,   "CaloMet_pt/D");
+    mytree->Branch("CaloMet_phi",  &CaloMet_phi,  "CaloMet_phi/D");
+    mytree->Branch("CaloMet_sumEt",&CaloMet_sumEt,"CaloMet_sumEt/D");
+    mytree->Branch("METSign",&METSign,"METSign/D");
+    mytree->Branch("PFMet_shiftedPt_JetEnUp",&PFMet_shiftedPt_JetEnUp,"PFMet_shiftedPt_JetEnUp/D");
+    mytree->Branch("PFMet_shiftedPt_JetEnDown",&PFMet_shiftedPt_JetEnDown,"PFMet_shiftedPt_JetEnDown/D");
+  }
+  
+  if(Analysis_== "ZprimeToEE"){
+    //==================================================
+    //
+    //      Create Branchs for Electrons variables
+    //
+    //==================================================
+    mytree->Branch("Ele_nbElectrons",&Ele_nbElectrons);
+    mytree->Branch("Ele_isEcalDrivenSeed",&Ele_isEcalDrivenSeed);
+    mytree->Branch("Ele_isPassConversionVeto",&Ele_isPassConversionVeto);
+    mytree->Branch("Ele_charge",&Ele_charge);
+    mytree->Branch("Ele_nbOfMissingHits",&Ele_nbOfMissingHits);
+    mytree->Branch("Ele_nbVtx",&Ele_nbVtx);
+    mytree->Branch("Ele_Et",&Ele_Et);
+    mytree->Branch("Ele_EtFromCaloEn",&Ele_EtFromCaloEn);
+    mytree->Branch("Ele_pt",&Ele_pt);
+    mytree->Branch("Ele_thetaSC",&Ele_thetaSC);
+    mytree->Branch("Ele_etaSC",&Ele_etaSC);
+    mytree->Branch("Ele_phiSC",&Ele_phiSC);
+    mytree->Branch("Ele_energySC",&Ele_energySC);
+    mytree->Branch("Ele_preshowerEnergySC",&Ele_preshowerEnergySC);
+    mytree->Branch("Ele_thetaTrack",&Ele_thetaTrack);
+    mytree->Branch("Ele_etaTrack",&Ele_etaTrack);
+    mytree->Branch("Ele_phiTrack",&Ele_phiTrack);
+    mytree->Branch("Ele_hadronicOverEm",&Ele_hadronicOverEm);
+    mytree->Branch("Ele_deltaEtaInSeedCluster",&Ele_deltaEtaInSeedCluster);
+    mytree->Branch("Ele_deltaPhiInSeedCluster",&Ele_deltaPhiInSeedCluster);
+    mytree->Branch("Ele_deltaEtaInSC",&Ele_deltaEtaInSC);
+    mytree->Branch("Ele_deltaPhiInSC",&Ele_deltaPhiInSC);
+    mytree->Branch("Ele_sigmaIetaIeta",&Ele_sigmaIetaIeta);
+    mytree->Branch("Ele_e2x5Max",&Ele_e2x5Max);
+    mytree->Branch("Ele_e1x5",&Ele_e1x5);
+    mytree->Branch("Ele_frac15",&Ele_frac15);
+    mytree->Branch("Ele_frac51",&Ele_frac51);
+    mytree->Branch("Ele_e5x5",&Ele_e5x5);
+    mytree->Branch("Ele3x3",&Ele_e3x3);
+    mytree->Branch("Ele_e2x5MaxOver5x5",&Ele_e2x5MaxOver5x5);
+    mytree->Branch("Ele_e1x5Over5x5",&Ele_e1x5Over5x5);
+    mytree->Branch("Ele_sigmaIetaIetaFull5x5",&Ele_sigmaIetaIetaFull5x5);
+    mytree->Branch("Ele_e2x5MaxFull5x5",&Ele_e2x5MaxFull5x5);
+    mytree->Branch("Ele_e1x5Full5x5",&Ele_e1x5Full5x5);
+    mytree->Branch("Ele_e5x5Full5x5",&Ele_e5x5Full5x5);
+    mytree->Branch("Ele_e2x5MaxOver5x5Full5x5",&Ele_e2x5MaxOver5x5Full5x5);
+    mytree->Branch("Ele_e1x5Over5x5Full5x5",&Ele_e1x5Over5x5Full5x5);
+    mytree->Branch("Ele_e2x5Right",&Ele_e2x5Right);
+    mytree->Branch("Ele_e2x5Left",&Ele_e2x5Left);
+    mytree->Branch("Ele_e2x5Top",&Ele_e2x5Top);
+    mytree->Branch("Ele_e2x5Bottom",&Ele_e2x5Bottom);
+    mytree->Branch("Ele_eMax",&Ele_eMax);
+    mytree->Branch("Ele_eRight",&Ele_eRight);
+    mytree->Branch("Ele_eLeft",&Ele_eLeft);
+    mytree->Branch("Ele_eTop",&Ele_eTop);
+    mytree->Branch("Ele_eBottom",&Ele_eBottom);
+    mytree->Branch("Ele_dxy",&Ele_dxy);
+    mytree->Branch("Ele_dz",&Ele_dz);
+    mytree->Branch("Ele_rhoIso",&Ele_rhoIso);
+    mytree->Branch("Ele_fbrem",&Ele_fbrem);
+    mytree->Branch("Ele_EoverP",&Ele_EoverP);
+    mytree->Branch("Ele_Xposition",&Ele_Xposition);
+    mytree->Branch("Ele_Yposition",&Ele_Yposition);
+    mytree->Branch("Ele_EcalPlusHcald1iso",&Ele_EcalPlusHcald1iso);
+    mytree->Branch("Ele_dr03TkSumPt",&Ele_dr03TkSumPt);
+    mytree->Branch("Ele_dr03EcalRecHitSumEt",&Ele_dr03EcalRecHitSumEt);
+    mytree->Branch("Ele_dr03HcalDepth1TowerSumEt",&Ele_dr03HcalDepth1TowerSumEt);
+    mytree->Branch("Ele_dr03HcalDepth1TowerSumEtBc",&Ele_dr03HcalDepth1TowerSumEtBc);
+    mytree->Branch("Ele_hcalDepth1OverEcal",&Ele_hcalDepth1OverEcal);
+    mytree->Branch("Ele_hcalDepth2OverEcal",&Ele_hcalDepth2OverEcal);
+    mytree->Branch("Ele_dr03HcalDepth2TowerSumEt",&Ele_dr03HcalDepth2TowerSumEt);
+    mytree->Branch("Ele_hcalDepth2TowerSumEtNoVeto",&Ele_hcalDepth2TowerSumEtNoVeto);
+    mytree->Branch("Ele_hcalDepth1TowerSumEtNoVeto",&Ele_hcalDepth1TowerSumEtNoVeto);
+    mytree->Branch("Ele_pfSumPhotonEt",&Ele_pfSumPhotonEt);
+    mytree->Branch("Ele_pfSumChargedHadronPt",&Ele_pfSumChargedHadronPt);
+    mytree->Branch("Ele_pfSumNeutralHadronEt",&Ele_pfSumNeutralHadronEt);
+    mytree->Branch("Ele_pfSumPUPt",&Ele_pfSumPUPt);
+    mytree->Branch("Ele_pfDeltaBeta",&Ele_pfDeltaBeta);
+    mytree->Branch("Ele_rawId",&Ele_rawId);
+    mytree->Branch("Ele_x",&Ele_x);
+    mytree->Branch("Ele_y",&Ele_y);
+    mytree->Branch("Ele_z",&Ele_z);
+    mytree->Branch("Ele_zTrackPositionAtVtx",&Ele_zTrackPositionAtVtx);
+    mytree->Branch("Ele_ieta",&Ele_ieta);
+    mytree->Branch("Ele_phiWidth",&Ele_phiWidth);
+    mytree->Branch("Ele_etaWidth",&Ele_etaWidth);
+    //=============================================================
+    //  
+    //    Create Branchs for ecal rec hits variables
+    //      
+    //=============================================================
+    mytree->Branch("ecaleb_rawId",&ecaleb_rawId);
+    mytree->Branch("ecaleb_iRechit",&ecaleb_iRechit);
+    mytree->Branch("ecaleb_RecoFlag",&ecaleb_RecoFlag);
+    mytree->Branch("ecaleb_isSaturated",&ecaleb_isSaturated);
+    mytree->Branch("ecaleb_EnRecHit",&ecaleb_EnRecHit);
+    mytree->Branch("ecaleb_iskleadingedgerecovered",&ecaleb_iskleadingedgerecovered);
+    mytree->Branch("ecaleb_iskNeighboursRecovered",&ecaleb_iskNeighboursRecovered);
+    mytree->Branch("ecaleb_kWeird",&ecaleb_kWeird);
+    mytree->Branch("ecaleb_ietaRecHit",&ecaleb_ietaRecHit);
+    mytree->Branch("ecaleb_iphiRecHit",&ecaleb_iphiRecHit);
+    mytree->Branch("ecaleb_eta",&ecaleb_eta);
+    mytree->Branch("ecaleb_phi",&ecaleb_phi);
+    mytree->Branch("ecaleb_time",&ecaleb_time);
+    mytree->Branch("ecalee_rawId",&ecalee_rawId);
+    mytree->Branch("ecalee_iRechit",&ecalee_iRechit);
+    mytree->Branch("ecalee_RecoFlag",&ecalee_RecoFlag);
+    mytree->Branch("ecalee_isSaturated",&ecalee_isSaturated);
+    mytree->Branch("ecalee_EnRecHit",&ecalee_EnRecHit);
+    mytree->Branch("ecalee_iskleadingedgerecovered",&ecalee_iskleadingedgerecovered);
+    mytree->Branch("ecalee_iskNeighboursRecovered",&ecalee_iskNeighboursRecovered);
+    mytree->Branch("ecalee_kWeird",&ecalee_kWeird);
+    mytree->Branch("ecalee_ietaRecHit",&ecalee_ietaRecHit);
+    mytree->Branch("ecalee_iphiRecHit",&ecalee_iphiRecHit);
+    mytree->Branch("ecalee_eta",&ecalee_eta);
+    mytree->Branch("ecalee_phi",&ecalee_phi);
+    mytree->Branch("ecalee_time",&ecalee_time);
+    //=============================================================
+    //
+    //           Create Branchs for Pimary Vertice variables
+    //
+    //=============================================================
+    mytree->Branch("nbPv",&nbPv);
+    mytree->Branch("Nbdof",&Nbdof);
+    mytree->Branch("PositionRho",&PositionRho);
+    mytree->Branch("PositionX",&PositionX);
+    mytree->Branch("PositionY",&PositionY);
+    mytree->Branch("PositionZ",&PositionZ);
+    //=============================================================
+    //                   
+    //           Create Branches for jets variables
+    //=============================================================
+    mytree->Branch("jet_nb",&jet_nb);
+    mytree->Branch("jetcharge",&jetcharge);
+    mytree->Branch("jetet",&jetet);
+    mytree->Branch("jetpt",&jetpt);
+    mytree->Branch("jeteta",&jeteta);
+    mytree->Branch("jetphi",&jetphi);
+    //=============================================================
+    //                   
+    //           Create Branchs for PileUp tree
+    //
+    //=============================================================
+    mytree->Branch("num_PU_vertices",&num_PU_vertices,"num_PU_vertices/I");
+    mytree->Branch("PU_BunchCrossing",&PU_BunchCrossing,"PU_BunchCrossing/I");
+    //=============================================================
+    //                   
+    //           Create Branch for Rho
+    //
+    //=============================================================
+    mytree->Branch("Rho",&Rho,"Rho/F");
+    //=============================================================
+    //                   
+    //           Create Branch for events reweighting
+    //
+    //=============================================================
+    mytree->Branch("MC_weighting",&MC_weighting);
+  }
 }
 
 void MakeZprimeMiniAodTree::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
@@ -814,7 +798,9 @@ void MakeZprimeMiniAodTree::analyze(const edm::Event& iEvent, const edm::EventSe
     ComputeMuonMassVtx(iEvent,iSetup);
     accessGenInfo(iEvent,iSetup);
     TriggerMatchingTree(iEvent,iSetup);    
-    fillMET(iEvent);
+    fillMET(iEvent);  
+    //BTagingTree(iEvent,iSetup);
+    //JetsTree(iEvent,iSetup);
   }
   
   if(Analysis_== "ZprimeToEE"){
@@ -825,7 +811,7 @@ void MakeZprimeMiniAodTree::analyze(const edm::Event& iEvent, const edm::EventSe
     PrimaryVertexTree(iEvent,iSetup);
     accessGenInfo(iEvent,iSetup);
     TriggerMatchingTree(iEvent,iSetup);
-    ParticleFlowTree(iEvent,iSetup);
+    //ParticleFlowTree(iEvent,iSetup);
   }
   
   //EventsReWeighting(iEvent);
@@ -1311,7 +1297,6 @@ void MakeZprimeMiniAodTree::TriggerMatchingTree(const edm::Event& iEvent,const e
     std::vector<std::string> const& pathnames = src.pathNames();
     for (unsigned j = 0; j < pathnames.size(); ++j) {
       //std::cout<<" full_name = "<< pathnames[j] << endl;
-      //std::cout<<" trigger_status = "<< pathnames.accept(j) << endl;
       //printf("pt = %f eta = %f phi = %f \n",src.pt(),src.eta(),src.phi());
       if( src.pt() < 30.0 ) continue;
       if( fabs(src.eta()) > 2.5 ) continue;
@@ -1349,8 +1334,6 @@ void MakeZprimeMiniAodTree::PatMuonTree(const edm::Event& evt,const edm::EventSe
   Mu_numberOfMatchedStations.clear();
   Mu_absdxyTunePMuonBestTrack.clear();
   Mu_absdzTunePMuonBestTrack.clear();
-  Mu_absdxy.clear();
-  Mu_absdz.clear();
   Mu_trackiso.clear();
   Mu_pfSumChargedHadronPt.clear();
   Mu_pfSumNeutralHadronEt.clear();
@@ -1373,18 +1356,7 @@ void MakeZprimeMiniAodTree::PatMuonTree(const edm::Event& evt,const edm::EventSe
   Mu_phiTunePMuonBestTrack.clear();
   Mu_thetaTunePMuonBestTrack.clear();
   Mu_chargeTunePMuonBestTrack.clear();
-  Mu_ptcocktail.clear();
-  Mu_dPToverPTcocktail.clear();
-  Mu_absdxy.clear();
-  Mu_absdz.clear();
-  Mu_etaCocktail.clear();
-  Mu_phiCocktail.clear();
-  Mu_thetaCocktail.clear();
-  Mu_chargeCocktail.clear();
-  Mu_pxCocktail.clear();
-  Mu_pyCocktail.clear();
-  Mu_pzCocktail.clear();
-  Mu_pCocktail.clear();
+  //Mu_patDeltaBeta.clear();
   // Get TransientTracks (for use in e.g. the vertex fit) for each of                   
   // the muon tracks, using e.g. the cocktail momentum.
   //edm::ESHandle<TransientTrackBuilder> ttkb;
@@ -1398,9 +1370,9 @@ void MakeZprimeMiniAodTree::PatMuonTree(const edm::Event& evt,const edm::EventSe
   edm::Handle<pat::MuonCollection> muons;
   evt.getByToken(muonToken_, muons);
   for (const pat::Muon &mu : *muons) {
-    if( mu.pt() < 5.0 ) continue;
+    //if( mu.pt() < 30.0 ) continue;
     //============= Parameters related to matched Gen info =====================
-    //if( !mu.innerTrack().isNonnull() ) continue;
+    if( !mu.innerTrack().isNonnull() ) continue;
     if( !mu.globalTrack().isNonnull() ) continue;
     //if( mu.isTrackerMuon()==false ) continue;
     NbMuons++;
@@ -1462,11 +1434,11 @@ void MakeZprimeMiniAodTree::PatMuonTree(const edm::Event& evt,const edm::EventSe
     Mu_PFSumPhotonEt.push_back(mu.pfIsolationR03().sumPhotonEt);
     Mu_pfSumPUPt.push_back(mu.pfIsolationR03().sumPUPt);
     // do deltaBeta
-    double charged   = mu.pfIsolationR03().sumChargedHadronPt;
+    /*double charged   = mu.pfIsolationR03().sumChargedHadronPt;
     double neutral   = mu.pfIsolationR03().sumNeutralHadronEt;
     double pileup    = mu.pfIsolationR03().sumPUPt;
     double deltaBeta = (charged + std::max(0.0, neutral-0.5*pileup))/mu.pt();
-    Mu_patDeltaBeta.push_back(deltaBeta);
+    Mu_patDeltaBeta.push_back(deltaBeta);*/
   }
 }
 void MakeZprimeMiniAodTree::ComputeMuonMassVtx(const edm::Event& evt,const edm::EventSetup& es)
@@ -1684,6 +1656,7 @@ void MakeZprimeMiniAodTree::PrimaryVertexTree(const edm::Event& iEvent,const edm
 //            Method for Jets Tree
 //
 //=============================================================
+/*
 void MakeZprimeMiniAodTree::JetsTree(const edm::Event& iEvent,const edm::EventSetup& es)
 {
   jet_nb.clear();
@@ -1697,9 +1670,7 @@ void MakeZprimeMiniAodTree::JetsTree(const edm::Event& iEvent,const edm::EventSe
   iEvent.getByToken(jetToken_, jets);
   for (const pat::Jet &j : *jets) {
     if (j.pt() < 20) continue;
-    /*printf("jet  with pt %5.1f (raw pt %5.1f), eta %+4.2f, btag CSV %.3f, CISV %.3f, pileup mva disc %+.2f\n",
-      j.pt(), j.pt()*j.jecFactor("Uncorrected"), j.eta(), std::max(0.f,j.bDiscriminator("combinedSecondaryVertexBJetTags")), std::max(0.f,j.bDiscriminator("combinedInclusiveSecondaryVertexBJetTags")), j.userFloat("pileupJetId:fullDiscriminant"));*/
-    if (fabs(j.eta()) < 2.4  ){
+     if (fabs(j.eta()) < 2.4  ){
       if ( j.chargedHadronEnergyFraction() > 0. 
 	   && j.chargedMultiplicity() > 0. 
 	   && j.chargedEmEnergyFraction() < 0.99 ){
@@ -1727,9 +1698,54 @@ void MakeZprimeMiniAodTree::JetsTree(const edm::Event& iEvent,const edm::EventSe
     }
   }
 }
+*/
+//=============================================================
+//
+//            Method for Jets Tree
+//
+//=============================================================
+/*
+void MakeZprimeMiniAodTree::BTagingTree(const edm::Event& iEvent,const edm::EventSetup& es)
+{
+  jet_nb.clear();
+    jetcharge.clear();
+    jetet.clear();
+    jetpt.clear();
+    jeteta.clear();
+    jetphi.clear();
+    int jetnumber=0;
+  unsigned i=0;
+  edm::Handle<pat::JetCollection> jets;
+  iEvent.getByToken(jetToken_, jets);
+  for (const pat::Jet &j : *jets) {
+    //if (j.pt() < 20) continue;
+    
+    std::cout << std::setw(3) << i << " : " << std::setprecision(3) << std::fixed
+                << j.bDiscriminator("jetBProbabilityBJetTags") << " : "
+		<< j.bDiscriminator("jetProbabilityBJetTags") << " : "      
+                << j.bDiscriminator("trackCountingHighPurBJetTags") << " : "
+                << j.bDiscriminator("trackCountingHighEffBJetTags") << " : "
+                << j.bDiscriminator("simpleSecondaryVertexHighEffBJetTags") << " : "
+                << j.bDiscriminator("simpleSecondaryVertexHighPurBJetTags") << " : "
+		<< j.bDiscriminator("combinedSecondaryVertexBJetTags") << " : "      
+		<< j.bDiscriminator("combinedSecondaryVertexMVABJetTags") << " : "      
+		<< j.bDiscriminator("softMuonBJetTags") << " : "      
+		<< j.bDiscriminator("combinedInclusiveSecondaryVertexBJetTags") << " : "
+		<< j.bDiscriminator("combinedSecondaryVertexBJetTags") << " : "      
+
+                << std::endl;
 
 
 
+    printf("jet  with pt %5.1f (raw pt %5.1f), eta %+4.2f, btag CSV %f, CISV %f\n",
+      j.pt(), j.pt()*j.jecFactor("Uncorrected"), j.eta(), std::max(0.f,j.bDiscriminator("combinedSecondaryVertexBJetTags")), std::max(0.f,j.bDiscriminator("combinedInclusiveSecondaryVertexBJetTags")));
+
+
+    printf("jet  with pt %5.1f (raw pt %5.1f), eta %+4.2f, btag CSV %f, CISV %f, pileup mva disc %f\n",
+      j.pt(), j.pt()*j.jecFactor("Uncorrected"), j.eta(), std::max(0.f,j.bDiscriminator("combinedSecondaryVertexBJetTags")), std::max(0.f,j.bDiscriminator("combinedInclusiveSecondaryVertexBJetTags")), j.userFloat("pileupJetId:fullDiscriminant"));
+  }
+}
+*/
 
 //madgraph MC samples reweighing 
 /*void MakeZprimeMiniAodTree::EventsReWeighting(const edm::Event& evt){
@@ -1755,12 +1771,16 @@ void MakeZprimeMiniAodTree::fillMET(const edm::Event& iEvent)
   edm::Handle<pat::METCollection> mets;
   iEvent.getByToken(metToken_, mets);
   const pat::MET &met = mets->front();
-  //https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETRun2Corrections
+  //[1] https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETRun2Corrections
   //It is strongly recommended to use the Type-1 corrected MET, directly available from miniaod. 
   //In case it is needed to recompute the Type-1 MET, please follow this twiki: here you find how 
   //to get straight from miniAOD (slimmedMET and slimmedMETnoHF), how to recalculate correction 
   //and uncertainties with the latest and greatest JEC. 
   //You can find instructions for each analysis release. 
+  
+  //[2] https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD#Run2_Fall15_MiniAOD_v2_campaign
+  //the slimmedMETsNoHF was dropped (the recommendation from the MET group is to use standard slimmedMETs in 76X)
+  
   //The default type1 corrected MET
   PFMet_pt_cor    = met.pt();     
   PFMet_phi_cor   = met.phi();    
@@ -1772,18 +1792,18 @@ void MakeZprimeMiniAodTree::fillMET(const edm::Event& iEvent)
   
   //The Raw PF Met (un-corrected MET in CMSSW_7_4_12 or later, on 74X version 2 miniAODs)
   /*PFMet_pt_uncor    = met.uncorPt();     
-    PFMet_phi_uncor   = met.uncorPhi();    
-    PFMet_en_uncor    = met.uncorEnergy(); 
-    PFMet_px_uncor    = met.uncorPx();     
-    PFMet_py_uncor    = met.uncorPy();     
-    PFMet_pz_uncor    = met.uncorPz();     
-    PFMet_sumEt_uncor = met.uncorSumEt();
+  PFMet_phi_uncor   = met.uncorPhi();    
+  PFMet_en_uncor    = met.uncorEnergy(); 
+  PFMet_px_uncor    = met.uncorPx();     
+  PFMet_py_uncor    = met.uncorPy();     
+  PFMet_pz_uncor    = met.uncorPz();     
+  PFMet_sumEt_uncor = met.uncorSumEt();
   
   //The Raw PF Met (un-corrected MET in CMSSW_7_4_11 or earlier, on 74X version 1 miniAODs)
   PFMet_pt_uncor    = met.uncorrectedPt();     
   PFMet_phi_uncor   = met.uncorrectedPhi();    
   PFMet_sumEt_uncor = met.uncorrectedSumEt();*/
-  
+    
   //The raw calo ETmiss  
   CaloMet_pt    = met.caloMETPt();     
   CaloMet_phi   = met.caloMETPhi();    
@@ -1799,6 +1819,47 @@ void MakeZprimeMiniAodTree::fillMET(const edm::Event& iEvent)
   
 }
 
+/*std::cout << "\n === TRIGGER OBJECTS === " << std::endl;
+  for (pat::TriggerObjectStandAlone obj : *triggerObjects) { // note: not "const &" since we want to call unpackPathNames
+  obj.unpackPathNames(names);
+  
+  std::cout << "\tTrigger object:  pt " << obj.pt() << ", eta " << obj.eta() << ", phi " << obj.phi() << std::endl;
+  // Print trigger object collection and type
+  std::cout << "\t   Collection: " << obj.collection() << std::endl;
+  std::cout << "\t   Type IDs:   ";
+  // NbTriggerObj++;
+  // HLTObj_nbObj.push_back(NbTriggerObj);
+  // HLTObj_pt.push_back(obj.pt()); 
+  // HLTObj_eta.push_back(obj.eta());
+  // HLTObj_phi.push_back(obj.phi());
+  // HLTObj_collection.push_back(obj.collection());
+  for (unsigned h = 0; h < obj.filterIds().size(); ++h) std::cout << " " << obj.filterIds()[h] ;
+  std::cout << std::endl;
+  // Print associated trigger filters
+  std::cout << "\t   Filters:    ";
+  for (unsigned h = 0; h < obj.filterLabels().size(); ++h) std::cout << " " << obj.filterLabels()[h];
+  std::cout << std::endl;
+  
+  std::vector<std::string> pathNamesAll  = obj.pathNames(false);
+  std::vector<std::string> pathNamesLast = obj.pathNames(true);
+  // Print all trigger paths, for each one record also if the object is associated to a 'l3' filter (always true for the
+  // definition used in the PAT trigger producer) and if it's associated to the last filter of a successfull path (which
+  // means that this object did cause this trigger to succeed; however, it doesn't work on some multi-object triggers)
+  std::cout << "\t   Paths (" << pathNamesAll.size()<<"/"<<pathNamesLast.size()<<"):    ";
+  for (unsigned h = 0, n = pathNamesAll.size(); h < n; ++h) {
+  bool isBoth = obj.hasPathName( pathNamesAll[h], true, true ); 
+  bool isL3   = obj.hasPathName( pathNamesAll[h], false, true ); 
+  bool isLF   = obj.hasPathName( pathNamesAll[h], true, false ); 
+  bool isNone = obj.hasPathName( pathNamesAll[h], false, false ); 
+  std::cout << "   " << pathNamesAll[h];
+  if (isBoth) std::cout << "(L,3)";
+  if (isL3 && !isBoth) std::cout << "(*,3)";
+  if (isLF && !isBoth) std::cout << "(L,*)";
+  if (isNone && !isBoth && !isL3 && !isLF) std::cout << "(*,*)";
+  }
+  std::cout << std::endl;
+  
+  }*/
 //====================================== the end of subrotines ======================================
 /*
   [0] kgood=0,                   // channel ok, the energy and time measurement are reliable
@@ -1822,11 +1883,27 @@ void MakeZprimeMiniAodTree::fillMET(const edm::Event& iEvent)
   [18] kUnknown                   // to ease the interface with functions returning flags.
 */
 //====================================== The end of subrotines ======================================
+/*void MakeZprimeMiniAodTree::DeDxChecker(const edm::Event& event, const edm::EventSetup& setup){
+  edm::Handle<reco::TrackCollection> _hTracks;
+  int _NTracks = 0;                                
+  //if(_NormMap.size() == 0) Init(setup);
+  event.getByToken(generalTracksToken_, _hTracks);
+  //event.getByLabel(_Source, _hTrajectories);
+  //event.getByLabel(_Source, _hTrajTrackAssociations);
+  //event.getByLabel("dedxHarmonic2", _hDeDx);
+  // Loop over the tracks
+  _NTracks = _hTracks->size();
+  for(int i = 0; i!=_NTracks; i++){
+    edm::Ref<std::vector<reco::Track> > TrackRef(_hTracks, i);
+    cout<<"tk pt = "<<TrackRef->pt()<<endl;
+  }
+  }*/
 //=============================================================
 //
 //            Method for particle Flow Tree
 //
 //=============================================================
+/*
 void MakeZprimeMiniAodTree::ParticleFlowTree(const edm::Event& iEvent,const edm::EventSetup& es)
 { 
   //Mu_pfDeltaBeta.clear();
@@ -1889,3 +1966,4 @@ void MakeZprimeMiniAodTree::ParticleFlowTree(const edm::Event& iEvent,const edm:
     //	   j.pt(),j.eta(), sum ? in/sum : 0, j.userFloat("pileupJetId:fullDiscriminant"));
   }
 }
+*/
