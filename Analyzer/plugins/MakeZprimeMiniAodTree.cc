@@ -1810,7 +1810,7 @@ void MakeZprimeMiniAodTree::fillMET(const edm::Event& iEvent)
   CaloMet_sumEt = met.caloMETSumEt();
   PFMet_shiftedPt_JetEnUp   = met.shiftedPt(pat::MET::JetEnUp);
   PFMet_shiftedPt_JetEnDown = met.shiftedPt(pat::MET::JetEnDown);
-  GenMet_pt       = met.genMET()->pt();
+  if( met.genMET()!=NULL ) GenMet_pt       = met.genMET()->pt();
   
   
   /*edm::Handle<double> metsighandle;
