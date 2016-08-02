@@ -87,7 +87,7 @@ void plotFR_data(){
   leg->SetTextSize(tsize2); 
 
   
-  TFile *_file0 = TFile::Open("ZprimetoMuMu-MC-CMSSW745_FR_data.root");
+  TFile *_file0 = TFile::Open("ZprimetoMuMu-MC-CMSSW803_FR_data.root");
 
   TH1F *num; _file0->GetObject("h1_Num_Pt_w",num);
   TH1F *den; _file0->GetObject("h1_Den_Pt_w",den);
