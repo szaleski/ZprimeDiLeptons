@@ -1,15 +1,9 @@
 #!/bin/bash
 
-if [ "$1" == "" ]; then
-  if [ "$2" == "" ]; then
-    if [ "$3" == "" ]; then
-      if [ "$4" == "" ]; then
-          echo "Please provide arguments to the script: site configuration, data type and MC type"
-          echo "Usage bash loopsubmit_bkg.sh <arg1> <arg2> <arg3> <arg4>"
-          exit
-      fi
-    fi
-  fi
+if [ "$1" == "" ] || [ "$2" == "" ] || [ "$4" == "" ] || [ "$4" == "" ]; then
+    echo "Please provide arguments to the script: site configuration, data type and MC type"
+    echo "Usage bash loopsubmit_bkg_<finalstate>.sh <arg1> <arg2> <arg3> <arg4>"
+    exit      
 fi
 
 
@@ -22,6 +16,7 @@ echo "$4 site"
 SCERN="CERN";
 SFNAL="FNAL";
 SDESY="DESY";
+SBARI="BARI";
 
 mkdir -p jobs;
 
@@ -55,9 +50,11 @@ while [ $n -lt ${nlines} ]; do
       cat condor_template.cfg  | sed "s?submit_ZprimeMuMuAnalysis_FNAL?submit_ZprimeMuMuAnalysis_${samplename}?g" | sed "s?sig_input_h150.txt?BkgCards$3/bkg_input_${n}.txt?g" | sed "s?mail?`whoami`?g" > jobs/condor_ZprimeMuMuAnalysis_${samplename}.cfg      
   elif  [ $4 = ${SDESY} ]; then
      cat submit_ZprimeMuMuAnalysis_DESY.sh | sed "s?which?bkg?g" | sed "s?site?$1?g" | sed "s?mc?$3?g" |sed "s?year?$2?g" | sed "s?ZprimeMuMuAnalysis?RunZprimeMuMuAnalysis?g" | sed "s?jobdir?jobs/jobsZprimeMuMu?g" | sed "s?histodir?histos/histosZprimeMuMu?g" | sed "s?output?output_${samplename}?g" | sed "s?bkg_input.txt?BkgCards$3/bkg_input_${n}.txt?g" | sed "s?s.log?s_${samplename}.log?g" > jobs/submit_ZprimeMuMuAnalysis_${samplename}.sh
+  elif  [ $4 = ${SBARI} ]; then
+      cat submit_ZprimeMuMuAnalysis_BARI.sh  | sed "s?path?$PATH?g"  | sed "s?lib?$LD_LIBRARY_PATH?g" | sed "s?which?bkg?g" | sed "s?site?$4?g" | sed "s?mc?$3?g" |sed "s?year?$2?g" | sed "s?jobdir?jobs/jobsZprimeMuMu_FR?g" | sed "s?histodir?histos/histosZprimeMuMu_FR?g" | sed "s?output?output_${samplename}?g" | sed "s?bkg_input.txt?bkg_input_${n}.txt?g" | sed "s?s.log?s_FR_${samplename}.log?g" > jobs/submit_ZprimeMuMuAnalysis_${samplename}.sh
+      cat condor_template.cfg  | sed "s?submit_ZprimeMuMuAnalysis_BARI?submit_ZprimeMuMuAnalysis_${samplename}?g" | sed "s?sig_input_h150.txt?BkgCards$3/bkg_input_${n}.txt?g" | sed "s?mail?`whoami`?g" > jobs/condor_ZprimeMuMuAnalysis_${samplename}.cfg
   else
       cat submit_ZprimeMuMuAnalysis.sh | sed "s?which?bkg?g" | sed "s?mc?$3?g" |sed "s?year?$2?g" | sed "s?jobdir?jobs/jobsZprimeMuMu_FR?g" | sed "s?histodir?histos/histosZprimeMuMu_FR?g" | sed "s?output?output_${samplename}?g" | sed "s?bkg_input.txt?BkgCards$3/bkg_input_${n}.txt?g" | sed "s?s.log?s_FR_${samplename}.log?g" > jobs/submit_ZprimeMuMuAnalysis_${samplename}.sh
-
   fi
 
   chmod u+xr jobs/submit_ZprimeMuMuAnalysis_${samplename}.sh
@@ -73,6 +70,9 @@ while [ $n -lt ${nlines} ]; do
   elif  [ $4 = ${SDESY} ]; then
       echo "Submitting jobs via SGE"
       qsub submit_ZprimeMuMuAnalysis_${samplename}.sh   
+   elif  [ $4 = ${SBARI} ]; then
+      echo "Submitting jobs via CONDOR at BARI"
+      condor_submit  -name ettore condor_ZprimeMuMuAnalysis_${samplename}.cfg
   else
       echo "Submitting jobs via PBS"    
       qsub -q local submit_ZprimeMuMuAnalysis_${samplename}.sh
