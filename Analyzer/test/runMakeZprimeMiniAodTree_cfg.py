@@ -23,20 +23,26 @@ process.options = cms.untracked.PSet(
 )
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(1000),
+    input = cms.untracked.int32(-1),
     SkipEvent = cms.untracked.vstring('ProductNotFound')
 )
 
 # reduce verbosity
-#process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(200000)  
+#process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(1000)  
 
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
 
+#'/store/mc/RunIISpring16MiniAODv1/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3_ext1-v1/20000/0017320C-7BFC-E511-9B2D-0CC47A4C8E34.root'
+
+#'/store/mc/RunIISpring16MiniAODv1/TTTo2L2Nu_13TeV-powheg/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3_ext1-v1/00000/004183D9-4A07-E611-B87E-00266CF9BCC4.root'
+
+
+
+'/store/mc/RunIISpring16MiniAODv1/ZToMuMu_NNPDF30_13TeV-powheg_M_120_200/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/30000/02244373-7E03-E611-B581-003048F5B2B4.root',
+'/store/mc/RunIISpring16MiniAODv1/ZToMuMu_NNPDF30_13TeV-powheg_M_120_200/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/30000/7ED6B748-F202-E611-8730-0CC47A4D7690.root',
+'/store/mc/RunIISpring16MiniAODv1/ZToMuMu_NNPDF30_13TeV-powheg_M_120_200/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/30000/88C43FF0-6A03-E611-ABEA-002590E2DDC8.root',
 '/store/mc/RunIISpring16MiniAODv1/ZToMuMu_NNPDF30_13TeV-powheg_M_120_200/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/30000/B8148C0A-CF03-E611-ACB1-0025905A608C.root'
-
-#'/store/mc/RunIISpring16MiniAODv1/ZToMuMu_NNPDF30_13TeV-powheg_M_4500_6000/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/50000/24435AA3-F9FA-E511-BED6-002590A8880A.root',
-
 
 
     )
@@ -60,14 +66,17 @@ process.noscraping = cms.EDFilter("FilterOutScraping",
 #####################################################################
 # Global tag (data)
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '80X_dataRun2_Prompt_v8', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, '80X_dataRun2_Prompt_v9', '')
+
 # Global tag (MC)
 #from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
 #process.GlobalTag = GlobalTag(process.GlobalTag, '80X_mcRun2_asymptotic_2016_v3', '')
 
 process.demo = cms.EDAnalyzer("MakeZprimeMiniAodTree",
-    outputFile = cms.string('Data.root'),
-    #outputFile = cms.string('CMSSW803_MC_DYtoMuMu4500to6000_13TeV_pattuple.root'), 
+    #outputFile = cms.string('Data.root'),
+    outputFile = cms.string('CMSSW803_MC_DYtoMuMu120to200_13TeV_pattuple.root'), 
+    #outputFile = cms.string('TTTo2L2Nu_13TeV-powheg.root'),
+    #outputFile = cms.string('CMSSW803_MC_DYtoTauTau_13TeV_pattuple.root'), 
     scProducer = cms.InputTag("reducedEgamma:reducedSuperClusters"),
     vertices   = cms.InputTag("offlineSlimmedPrimaryVertices"),
     muons      = cms.InputTag("slimmedMuons"),
@@ -88,6 +97,7 @@ process.demo = cms.EDAnalyzer("MakeZprimeMiniAodTree",
     ecalRechitEB            = cms.InputTag("reducedEgamma","reducedEBRecHits"),
     ecalRechitEE            = cms.InputTag("reducedEgamma","reducedEERecHits"),
     JetSource               = cms.InputTag('slimmedGenJets'),
+    PileupSrc               = cms.InputTag("slimmedAddPileupInfo"),
     #METSignificance        = cms.InputTag("METSignificance","METSignificance"),
     #generalTracksLabel      = cms.InputTag("generalTracks"),
     bits           = cms.InputTag("TriggerResults","","HLT"),
@@ -100,26 +110,21 @@ process.demo = cms.EDAnalyzer("MakeZprimeMiniAodTree",
     maxd0    = cms.double(2),
     minndof  = cms.int32(4),
     NbGoodPv = cms.int32(1),
+    bDiscriminators = cms.vstring(      # list of b-tag discriminators to access
+        #'pfTrackCountingHighEffBJetTags',
+        #'pfTtrackCountingHighPurBJetTags',
+        #'pfJetProbabilityBJetTags',
+        #'pfJetBProbabilityBJetTags',
+        #'pfSimpleSecondaryVertexHighEffBJetTags',
+        #'pfSimpleSecondaryVertexHighPurBJetTags',
+        #'pfCombinedSecondaryVertexV2BJetTags',
+        'pfCombinedInclusiveSecondaryVertexV2BJetTags'
+        #'pfCombinedMVABJetTags'
+    ),
+
     #Analysis = cms.string('ZprimeToEE')
     Analysis = cms.string('ZprimeToMuMu')
 )
-
-#process.p = cms.Path(process.Path_BunchSpacingproducer *
-#                     process.Flag_HBHENoiseFilter *
-#                     process.Flag_HBHENoiseIsoFilter *
-#                     process.Flag_CSCTightHalo2015Filter *
-#                     process.Flag_EcalDeadCellTriggerPrimitiveFilter *
-#                     process.demo)
-#process.p = cms.Path(process.HLTEle * process.demo)
-#process.p = cms.Path(process.Path_BunchSpacingproducer * process.demo) 
-
-
-#process.schedule = cms.Schedule( process.Path_BunchSpacingproducer,
-#                                 process.Flag_HBHENoiseFilter,
-#                                 process.Flag_HBHENoiseIsoFilter,
-#                                 process.Flag_CSCTightHalo2015Filter,
-#                                 process.Flag_EcalDeadCellTriggerPrimitiveFilter,
-#				)
 
 process.p = cms.Path(process.demo)
 
