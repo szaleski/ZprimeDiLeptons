@@ -52,7 +52,7 @@ int main(int argc, char ** argv){
 
   //
   float lumifb=0.;
-  if (mcconf.find("Spring16")<5) lumifb=5.86 ; // 2016
+  if (mcconf.find("Spring16")<5) lumifb=22.2; // 2016
   string site=argv[8];
   //string site="Bari";
   cout << "Site is " << site.c_str() << " MC conf.= " << mcconf.c_str() << " data conf.= " << dataconf.c_str() << endl;
@@ -73,19 +73,19 @@ int main(int argc, char ** argv){
       dirInput="/nfs/dust/test/cmsdas/school16/ZllExercise/"; //to run at DESY
     }
     else if (site.find("FNAL")<5 && mcconf.find("Spring15_combined")<5){
-      dirInput="root://cmseos.fnal.gov///store/user/cmsdas/2016/LONG_EXERCISES/ZprimeDiLeptons/Spring15_25ns_merged";
+      dirInput="root://cmseos.fnal.gov///store/user/cmsdas/2016/LONG_EXERCISES/ZprimeDiLeptons/Spring16_ZprimeMuMu_13TeV_merged";
     }
     else if (site.find("FNAL")<5 && dataconf.find("2015")<5){
       dirInput="root://cmseos.fnal.gov///store/user/cmsdas/2016/LONG_EXERCISES/ZprimeDiLeptons/Data2015_ZprimeMuMu_13TeV_merged";
     }
     else if (mcconf.find("Spring16")<50){
-       dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_merged";
+       dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged";
      //  dirInput="/lustre/cms/store/user/aqamesh/ZprimeAnalysis_QCD_Tree";  
      //dirInput="/lustre/cms/store/user/selgammal/ZprimeMuMu/MCs";
     }
     else if (dataconf.find("2016")<50){
       //dirInput="/lustre/cms/store/user/selgammal/ZprimeMuMu/2016Data/";
-      dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Data2016_ZprimeMuMu_13TeV_merged/";
+      dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Data2016_ZprimeMuMu_13TeV_merged_HLT";
  }
 
 
@@ -94,7 +94,7 @@ int main(int argc, char ** argv){
     Char_t namechar[300];
     sprintf(namechar,"%s/%s",dirInput.Data(),File.Data());
     float weight= -999.;
-    if (mcconf.find("Spring16")<50) weight=0.82*lumifb*(xsection[i]*1000.*nskim[i]/ninput[i])/nskim[i];
+    if (mcconf.find("Spring16")<50) weight=0.96*0.9756*lumifb*(xsection[i]*1000.*nskim[i]/ninput[i])/nskim[i];
     //if (mcconf.find("Spring16")<50) weight=lumifb*(xsection[i]*1000.*nskim[i]/ninput[i])/nskim[i];	
     if (dataconf.find("2016")<50) weight=1.;
     cout << "weight is " << weight << endl;
