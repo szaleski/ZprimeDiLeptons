@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$1" == "" ] || [ "$2" == "" ] || [ "$4" == "" ] || [ "$4" == "" ]; then
+if [ "$1" == "" ] || [ "$2" == "" ] || [ "$3" == "" ] || [ "$4" == "" ]; then
     echo "Please provide arguments to the script: site configuration, data type and MC type"
     echo "Usage bash loopsubmit_bkg_<finalstate>.sh <arg1> <arg2> <arg3> <arg4>"
     exit      
