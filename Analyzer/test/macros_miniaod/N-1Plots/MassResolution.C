@@ -62,7 +62,7 @@ void MassResolution(){
   //                                                              
   //               MC Z -> mumu                                    
   //==========================================================
-  TFile *f1 = new TFile("/lustre/cms/store/user/defilip/ZprimeAnalysis/80X/histos/histosZprimeMuMu/output_ZprimeToMuMu_M-5000_TuneCUETP8M1_13TeV-pythia8.root","READ");
+  TFile *f1 = new TFile("/lustre/cms/store/user/defilip/ZprimeAnalysis/80X/histos/histosZprimeMuMu/output_ZprimeToMuMu_M-5000_TuneCUETP8M1_13TeV-pythia8_tree.root","READ");
   TH1F *massres; f1->GetObject("MassRecoGenDif",massres);
   MassResolution1->Add(massres);
 
@@ -127,7 +127,7 @@ void MassResolution(){
   //======================================================================= 
   c111->Print("MC-Zprime5000-CMSSW80X-MassResolution-fit.png","png");
   //c111->Print("Pl
-
+  
   //==================================================================  
   //==================================================================  
   //================================================================== 
@@ -146,7 +146,7 @@ void MassResolution(){
   //                                                              
   //               MC Z -> mumu                                    
   //==========================================================
-  TFile *f2 = new TFile("/lustre/cms/store/user/defilip/ZprimeAnalysis/80X/histos/histosZprimeMuMu/output_ZprimeToMuMu_M-5000_TuneCUETP8M1_13TeV-pythia8.root","READ");
+  TFile *f2 = new TFile("/lustre/cms/store/user/defilip/ZprimeAnalysis/80X/histos/histosZprimeMuMu/output_ZprimeToMuMu_M-5000_TuneCUETP8M1_13TeV-pythia8_tree.root","READ");
   TH1F *massrespull; f2->GetObject("MassRecoGenDifPull",massrespull);
   MassResolutionPull->Add(massrespull);
 
