@@ -657,6 +657,24 @@ void ZprimeMuMuPatMiniAodNewData::PickThehighestMass(float &vtxHighestMass,float
       }
     }
   if( NbMu > 0 ){
+    cout << "\n Pair passing all the cuts with mass= " <<  Mu_vtxMass->at(iflag) << " with chi2= " << Mu_vtxNormChi2->at(iflag) << "   with leptons:" << endl;
+  
+    for(unsigned i=0; i<Mu_nbMuon->size(); i++){
+     if (Mu_ptTunePMuonBestTrack->at(i)==PtRecTunePMu1 || Mu_ptTunePMuonBestTrack->at(i)==PtRecTunePMu2){
+       cout 
+         << "\n Lepton properties:  "<<
+         "IsTrackerMuon= " << Mu_isTrackerMuon->at(i) << " " <<
+         "IsGlobalMuon= " << Mu_isGlobalMuon->at(i) << " " <<
+         "pT= " <<  Mu_ptTunePMuonBestTrack->at(i) << " " <<
+         "dxy= " << Mu_absdxy->at(i) << " " <<
+         "Rel. Track Isol.= " << (Mu_trackiso->at(i)/Mu_ptInnerTrack->at(i)) << " " <<
+         "Number of Tracker layers with meas.= " << Mu_numberOftrackerLayersWithMeasurement->at(i) << " " <<
+         "Number of Pixel hits= " << Mu_numberOfValidPixelHits->at(i) << " " <<
+         "Number of muon hits= " << Mu_numberOfValidMuonHits->at(i) << " " <<
+         "Number of matched muon stations= " << Mu_numberOfMatchedStations->at(i) << " " <<
+         "dpT/pT= " << Mu_dPToverPTTunePMuonBestTrack->at(i) << endl;
+     }
+    }
     vtxHighestMass = Mu_vtxMass->at(iflag);
     vtxHighestChi2 = Mu_vtxNormChi2->at(iflag);
   }
