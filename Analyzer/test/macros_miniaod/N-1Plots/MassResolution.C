@@ -62,7 +62,7 @@ void MassResolution(){
   //                                                              
   //               MC Z -> mumu                                    
   //==========================================================
-  TFile *f1 = new TFile("/eos/uscms/store/user/ndefilip/ZprimeAnalysis/histos/histosZprimeMuMu_combined/output_ZprimeToMuMu_M-5000_TuneCUETP8M1_13TeV-pythia8.root","READ");
+  TFile *f1 = new TFile("/lustre/cms/store/user/defilip/ZprimeAnalysis/80X/histos/histosZprimeMuMu/output_ZprimeToMuMu_M-5000_TuneCUETP8M1_13TeV-pythia8.root","READ");
   TH1F *massres; f1->GetObject("MassRecoGenDif",massres);
   MassResolution1->Add(massres);
 
@@ -111,7 +111,7 @@ void MassResolution(){
   tText2->SetFillStyle(0);
   TText *t1 = tText2->AddText("#sqrt{s} = 13 TeV, CMS, MC");
   TText *t2 = tText2->AddText("Z' #rightarrow #mu #mu [5 TeV]");
-  TText *t3 = tText2->AddText("Spring 15");
+  TText *t3 = tText2->AddText("Spring 16");
   tText2->Draw(); 
   //==========================================================
   TLegend *leg = new TLegend(0.60, 0.60, 0.87, 0.80);
@@ -125,7 +125,7 @@ void MassResolution(){
   leg->SetTextSize(tsize2); 
   //leg->Draw();  
   //======================================================================= 
-  c111->Print("MC-Zprime5000-CMSSW745-MassResolution-fit.png","png");
+  c111->Print("MC-Zprime5000-CMSSW80X-MassResolution-fit.png","png");
   //c111->Print("Pl
 
   //==================================================================  
@@ -146,7 +146,7 @@ void MassResolution(){
   //                                                              
   //               MC Z -> mumu                                    
   //==========================================================
-  TFile *f2 = new TFile("/eos/uscms/store/user/ndefilip/ZprimeAnalysis/histos/histosZprimeMuMu_combined/output_ZprimeToMuMu_M-5000_TuneCUETP8M1_13TeV-pythia8.root","READ");
+  TFile *f2 = new TFile("/lustre/cms/store/user/defilip/ZprimeAnalysis/80X/histos/histosZprimeMuMu/output_ZprimeToMuMu_M-5000_TuneCUETP8M1_13TeV-pythia8.root","READ");
   TH1F *massrespull; f2->GetObject("MassRecoGenDifPull",massrespull);
   MassResolutionPull->Add(massrespull);
 
@@ -169,49 +169,49 @@ void MassResolution(){
   //MassResolutionPull->GetXaxis()->SetRangeUser(0.95,1.05);
   float FitMinPull      = -0.03;
   float FitMaxPull      = 0.03;
-  TF1* fn1 = new TF1("fn1","gaus",FitMinPull,FitMaxPull);
-  fn1->SetLineColor(2);
-  MassResolutionPull->Fit("fn1","R");
+  TF1* fn11 = new TF1("fn11","gaus",FitMinPull,FitMaxPull);
+  fn11->SetLineColor(2);
+  MassResolutionPull->Fit("fn11","R");
   MassResolutionPull->Draw("sames");
   //MassResolutionPull->Draw("Dot,sames");
   //MassResolutionPull->Sumw2();
   //=================================================================
   
   gStyle->SetOptFit(1111);
-  TH1F *h=(TH1F*)gROOT->FindObject("MassResolutionPull");
-  cout<<"histogramme "<<h<<endl;
-  cout<<"List of functions histogram "<<h->GetListOfFunctions()<<endl;
-  cout<<"Object histogramme "<<h->GetListOfFunctions()->FindObject("stats")<<endl;
-  TPaveStats *st2 =(TPaveStats*)h->GetListOfFunctions()->FindObject("stats");
-  st2->SetX1NDC(0.60); //(0.16);
-  st2->SetY1NDC(0.50); //(0.40);
-  st2->SetX2NDC(0.88); //(0.60);
-  st2->SetY2NDC(0.85); //(0.80);
-  st2->SetLineColor(kBlack); st2->SetFillColor(0);
-  st2->Draw();
+  TH1F *hh=(TH1F*)gROOT->FindObject("MassResolutionPull");
+  cout<<"histogramme "<<hh<<endl;
+  cout<<"List of functions histogram "<<hh->GetListOfFunctions()<<endl;
+  cout<<"Object histogramme "<<hh->GetListOfFunctions()->FindObject("stats")<<endl;
+  TPaveStats *st22 =(TPaveStats*)hh->GetListOfFunctions()->FindObject("stats");
+  st22->SetX1NDC(0.60); //(0.16);
+  st22->SetY1NDC(0.50); //(0.40);
+  st22->SetX2NDC(0.88); //(0.60);
+  st22->SetY2NDC(0.85); //(0.80);
+  st22->SetLineColor(kBlack); st22->SetFillColor(0);
+  st22->Draw();
    
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-  TPaveText* tText2 = new TPaveText(0.20, 0.70, 0.50, 0.87, "brNDC");
-  tText2->SetBorderSize(0);
-  tText2->SetFillColor(0);
-  tText2->SetFillStyle(0);
-  TText *t1 = tText2->AddText("#sqrt{s} = 13 TeV, CMS, MC");
-  TText *t2 = tText2->AddText("Z' #rightarrow #mu #mu [5 TeV]");
-  TText *t3 = tText2->AddText("Spring 15");
-  tText2->Draw(); 
+  TPaveText* tText22 = new TPaveText(0.20, 0.70, 0.50, 0.87, "brNDC");
+  tText22->SetBorderSize(0);
+  tText22->SetFillColor(0);
+  tText22->SetFillStyle(0);
+  TText *t11 = tText22->AddText("#sqrt{s} = 13 TeV, CMS, MC");
+  TText *t22 = tText22->AddText("Z' #rightarrow #mu #mu [5 TeV]");
+  TText *t33 = tText22->AddText("Spring 16");
+  tText22->Draw(); 
   //==========================================================
-  TLegend *leg = new TLegend(0.60, 0.60, 0.87, 0.80);
-  //leg->AddEntry(MassResolution1,"CMSSW745","f");
-  leg->SetBorderSize(0.0);
-  leg->SetMargin(0.3);
-  leg->SetFillColor(0);
-  leg->SetFillStyle(10);
-  leg->SetLineColor(0);
-  Float_t tsize2 = 0.04;
-  leg->SetTextSize(tsize2); 
+  TLegend *legg = new TLegend(0.60, 0.60, 0.87, 0.80);
+  //legg->AddEntry(MassResolution1,"CMSSW745","f");
+  legg->SetBorderSize(0.0);
+  legg->SetMargin(0.3);
+  legg->SetFillColor(0);
+  legg->SetFillStyle(10);
+  legg->SetLineColor(0);
+  Float_t tsize22 = 0.04;
+  legg->SetTextSize(tsize22); 
   //leg->Draw();  
   //======================================================================= 
-  c1111->Print("MC-Zprime5000-CMSSW745-MassResolutionPull-fit.png","png");
+  c1111->Print("MC-Zprime5000-CMSSW80X-MassResolutionPull-fit.png","png");
   //c1111->Print("Pl
 
 
