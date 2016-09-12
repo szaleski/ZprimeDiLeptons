@@ -139,7 +139,8 @@ FILE * pFile;
    h1_ZprimeGenEn2_               = new TH1F("ZprimeGenEn2","",100,0.0,2000.0);  
    h1_3Dangle_                    = new TH1F("3Dangle","",100,-2.0,2.0);
    h1_DxyDiff_                    = new TH1F("DxyDiff","",100,10.0,10.0);
-   h1_MassRecoGenDif_             = new TH1F("MassRecoGenDif","",100,-0.5,0.5);
+   h1_MassRecoGenDif_             = new TH1F("MassRecoGenDif","",100,-100.,100.);
+   h1_MassRecoGenDifPull_         = new TH1F("MassRecoGenDifPull","",100,-0.5,0.5);
    h1_PtResolutionTunePMBT_       =  new TH1F("PtResolutionTunePMBT","",100,-0.5,0.5);
    h1_PtResolutiontuneP_          =  new TH1F("PtResolutiontuneP","",100,-0.5,0.5);
    h1_PtResolutionMBT_            =  new TH1F("PtResolutionMBT","",100,-0.5,0.5);
@@ -203,7 +204,7 @@ FILE * pFile;
 
    for (int ibin = 0; ibin <= NMBINS; ibin++) {
      logMbins[ibin] = exp(log(MMIN) + (log(MMAX)-log(MMIN))*ibin/NMBINS);
-     cout << logMbins[ibin] << endl;
+     //cout << logMbins[ibin] << endl;
    }
    h1_ZprimeRecomassBinWidth_        = new TH1F("ZprimeRecomassBinWidth","ZprimeRecomassBinWidth",NMBINS, logMbins);
    h1_ZprimeRecomassBinWidthEE_      = new TH1F("ZprimeRecomassBinWidthEE","",NMBINS, logMbins);
@@ -257,18 +258,18 @@ FILE * pFile;
      //  Calling methods to get the generated information  =
      //                                                    =
      //=====================================================
-     /* bool firstGenMu  = SelectFirstGenMu(genET1,genPhi1,genEta1,genEn1,genID1,genStat1,flag1);
+     bool firstGenMu  = SelectFirstGenMu(genET1,genPhi1,genEta1,genEn1,genID1,genStat1,flag1);
      bool secondGenMu = SelectSecondGenMu(flag1,genET1,genET2,genPhi2,genEta2,genEn2,genID2,genStat2);
-     h1_ptBeforeTrigger_->Fill(genET,weight1);
-     bool fireHLT = isPassHLT();
-     if(fireHLT == 1) { 
-       NbFireHLT++;
-       h_NbFireHLT->Fill(NbFireHLT);
-       h1_ptAfterTrigger_->Fill(genET1,weight);
-     }
-     if(firstGenMu == 0 || secondGenMu == 0) continue;
+     //h1_ptBeforeTrigger_->Fill(genET,weight1);
+     //bool fireHLT = isPassHLT();
+     //if(fireHLT == 1) { 
+     //  NbFireHLT++;
+     //  h_NbFireHLT->Fill(NbFireHLT);
+     //  h1_ptAfterTrigger_->Fill(genET1,weight);
+     //}
+     //if(firstGenMu == 0 || secondGenMu == 0) continue;
      MassGen = Mass(genET1,genEta1,genPhi1,genEn1,genET2,genEta2,genPhi2,genEn2);
-     PlotGenInfo(MassGen,genEta1,genEta2,genET1,genET2,genEn1,genEn2); */
+     PlotGenInfo(MassGen,genEta1,genEta2,genET1,genET2,genEn1,genEn2); 
      //=========================================================
      //                                                        =
      // Calling methods to get events with 2 muons passing ID  =   
@@ -587,6 +588,8 @@ void ZprimeMuMuPatMiniAodNewData::PlotRecoInfo(float CosmicMuonRejec, float vert
   if(fabs(etaMu1)<1.2 && fabs(etaMu2)>1.2){h1_ZprimeRecomassBE_->Fill(vertexMassMu,weight);}
   if(fabs(etaMu1)>1.2 && fabs(etaMu2)<1.2){h1_ZprimeRecomassBE_->Fill(vertexMassMu,weight);}
   //if(vertexMassMu>60 && vertexMassMu<120) h1_ZprimeRecomass60to120_->Fill(vertexMassMu,weight);
+  h1_MassRecoGenDif_->Fill( (vertexMassMu-MassGenerated),weight);
+  h1_MassRecoGenDifPull_->Fill((vertexMassMu-MassGenerated)/MassGenerated,weight);
   h1_3Dangle_->Fill(CosmicMuonRejec,weight);
   //part for Pt resolution
   h1_PtResolutionTunePMBT_->Fill((PtTunePMuBestTrack-PtGenerated)/PtGenerated,weight);
