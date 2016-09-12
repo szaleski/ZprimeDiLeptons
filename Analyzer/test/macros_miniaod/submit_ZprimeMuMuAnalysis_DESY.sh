@@ -3,8 +3,8 @@
 echo "Processing on " `hostname` "at " `date` 
 
 mkdir -p $$
-mkdir -p /afs/desy.de/user/s/school22/CMSSW_8_0_13/src/ZprimeDiLeptons/Analyzer/test/macros_miniaod/jobdir
-mkdir -p /afs/desy.de/user/s/school22/CMSSW_8_0_13/src/ZprimeDiLeptons/Analyzer/test/macros_miniaod/histodir
+mkdir -p /nfs/dust2/cms/group/DAS2016/${USER}/jobdir
+mkdir -p /nfs/dust2/cms/group/DAS2016/${USER}/histodir
 
 workdir=${PWD}
 echo "Running ZprimeMuMu Analysis with executables RunZprimeMuMuAnalysis"
@@ -14,23 +14,23 @@ exedir=`echo /afs/desy.de/user/s/school22/CMSSW_8_0_13/src/ZprimeDiLeptons/Analy
 cd ${exedir}
 eval `scramv1 runtime -sh`
 
-if [ -d "$$" ]; then
-    workdir=`echo $$`;
+if [ -d "${PWD}/$$" ]; then
+    workdir=`echo ${PWD}/$$`;
     cd ${workdir};
 fi
 
-savedir=`echo /afs/desy.de/user/s/school22/CMSSW_8_0_13/src/ZprimeDiLeptons/Analyzer/test/macros_miniaod/histodir`
+savedir=`echo /nfs/dust2/cms/group/DAS2016/${USER}/histodir`
 
 echo "Working dir is $workdir"
 echo "Executable dir is $exedir"
 echo "Saving dir is $savedir"
 
 ${exedir}/RunZprimeMuMuAnalysis which ${exedir}/sig_input.txt 1 ${exedir}/bkg_input.txt 1 ${exedir}/data_input.txt 1 site year mc >& ${workdir}/RunZprimeMuMuAnalysis.log 
-cp -f ${workdir}/RunZprimeMuMuAnalysis.log /afs/desy.de/user/s/school22/CMSSW_8_0_13/src/ZprimeDiLeptons/Analyzer/test/macros_miniaod/jobdir/.
-cp -f ${workdir}/CMSSW745-Analyse_ZprimeToMuMu_13TeV.root    ${savedir}/output.root
-cp -f ${workdir}/CMSSW745-Analyse_ZprimeToMuMu_13TeV_cand.txt ${savedir}/output_cand.txt
+cp -f ${workdir}/RunZprimeMuMuAnalysis.log /nfs/dust2/cms/group/DAS2016/${USER}/jobdir/.
+cp -f ${workdir}/CMSSW803-Analyse_ZprimeToMuMu_13TeV.root     ${savedir}/output.root
+cp -f ${workdir}/CMSSW803-Analyse_ZprimeToMuMu_13TeV_cand.txt ${savedir}/output_cand.txt
 # cleaning the worker node
-if [ -d "$$" ]; then
+if [ -d "${PWD}/$$" ]; then
     rm -f -R *
     rm -f *
 fi
