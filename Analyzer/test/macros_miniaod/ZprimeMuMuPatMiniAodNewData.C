@@ -415,8 +415,9 @@ FILE * pFile;
 	     DrawBTaggingDiscriminator();
 	     //bool passBTaggingDiscriminator = BTaggingDiscriminator();
 	     //if(passBTaggingDiscriminator==1) continue;
-	     PlotRecoInfo(CosmicRejec,vtxMassMu,MassGen,PtRecTunePMuBestTrack1,PtRecTunePMu1,PtRecMuBestTrack1,mPtGen1,EtaRecMu1,
-			  PtRecTunePMuBestTrack2,PtRecTunePMu2,PtRecMuBestTrack2,mPtGen2,EtaRecMu2);
+	     PlotRecoInfo(CosmicRejec,vtxMassMu,MassGen,PtRecTunePMuBestTrack1,PtRecTunePMu1,PtRecMuBestTrack1,
+			  genET1, genEta1, genPhi1, EtaRecMu1, PhiRecMu1,
+			  PtRecTunePMuBestTrack2,PtRecTunePMu2,PtRecMuBestTrack2,EtaRecMu2, PhiRecMu2);
 	     CosThetaCollinSoper(PtRecTunePMuBestTrack1,EtaRecMu1,PhiRecMu1,EnRecMu1,
 				 PtRecTunePMuBestTrack2,EtaRecMu2,PhiRecMu2,EnRecMu2,
 				 ChargeRecMu1,vtxMassMu);
@@ -481,7 +482,17 @@ FILE * pFile;
    }
    else return false;
  }
- //============================ Method to select first high pt muon ========================
+
+ bool ZprimeMuMuPatMiniAodNewData::RecoMuMatchedWithGenMu (float RecoetaMu1, float RecophiMu1, float EtaGenerated1, float PhiGenerated1) {
+  
+  bool pass=false;
+  float dRrecogen=delR(RecoetaMu1,RecophiMu1,EtaGenerated1,PhiGenerated1);
+  //  std::cout << "***** DeltaR=" << dRrecogen << std::endl;
+  if (dRrecogen<0.1) pass=true;
+  return pass;
+  
+ }
+//============================ Method to select first high pt muon ========================
  bool ZprimeMuMuPatMiniAodNewData::SelectFirstMuon(float &pTmuon1,float &Enmuon1,float &Etamuon1,
 				     float &Phimuon1,int &ChargeMu1,unsigned &FlagMu1,
 				     float &pxmuon1,float &pymuon1,float &pzmuon1,
@@ -587,9 +598,9 @@ FILE * pFile;
 }
 void ZprimeMuMuPatMiniAodNewData::PlotRecoInfo(float CosmicMuonRejec, float vertexMassMu,float MassGenerated,
 				 float PtTunePMuBestTrack,float PtTunePMu,float PtMuBestTrack,
-				 float PtGenerated, float etaMu1,
+				 float PtGenerated, float EtaGenerated, float PhiGenerated, float etaMu1, float phiMu1, 
 				 float PtTunePMuBestTrack2,float PtTunePMu2,float PtMuBestTrack2,
-				 float PtGenerated2,float etaMu2){
+				 float etaMu2, float phiMu2){
   //----------------------------------------------------------
   
   /*
@@ -693,9 +704,11 @@ void ZprimeMuMuPatMiniAodNewData::PlotRecoInfo(float CosmicMuonRejec, float vert
   h1_MassRecoGenDifPull_->Fill((vertexMassMu-MassGenerated)/MassGenerated,weight);
   h1_3Dangle_->Fill(CosmicMuonRejec,weight);
   //part for Pt resolution
-  h1_PtResolutionTunePMBT_->Fill((PtTunePMuBestTrack-PtGenerated)/PtGenerated,weight);
-  h1_PtResolutiontuneP_->Fill((PtTunePMu-PtGenerated)/PtGenerated,weight);
-  h1_PtResolutionMBT_->Fill((PtMuBestTrack-PtGenerated)/PtGenerated,weight);
+  if (RecoMuMatchedWithGenMu(etaMu1,phiMu1,EtaGenerated,PhiGenerated)==true) {
+    h1_PtResolutionTunePMBT_->Fill((PtTunePMuBestTrack-PtGenerated)/PtGenerated,weight);
+    h1_PtResolutiontuneP_->Fill((PtTunePMu-PtGenerated)/PtGenerated,weight);
+    h1_PtResolutionMBT_->Fill((PtMuBestTrack-PtGenerated)/PtGenerated,weight);
+  }
   //part for mass resolution
   if( vertexMassMu > 0.0 && vertexMassMu < 250.0 ){h1_MassResultionEBEB1_->Fill((vertexMassMu-MassGenerated)/MassGenerated,weight);}
   if( vertexMassMu > 250 && vertexMassMu < 750.0 ){h1_MassResultionEBEB2_->Fill((vertexMassMu-MassGenerated)/MassGenerated,weight);}

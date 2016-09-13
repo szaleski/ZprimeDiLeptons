@@ -335,11 +335,12 @@ public :
 			 float &pTmuon2tuneP,float &pTmuonBestTrack2);
    float Mass(float Pt1,float Eta1,float Phi1,float En1,
               float Pt2,float Eta2,float Phi2,float En2);
+   bool RecoMuMatchedWithGenMu(float etaMu1, float phiMu1, float EtaGenerated, float PhiGenerated);
    void PlotRecoInfo(float CosmicMuonRejec,float vertexMassMu,float MassGenerated,
 		     float PtTunePMuBestTrack,float PtTunePMu,float PtMuBestTrack,
-		     float PtGenerated,float etaMu1,
+		     float PtGenerated, float EtaGenerated, float PhiGenerated, float etaMu1, float phiMu1,
 		     float PtTunePMuBestTrack2,float PtTunePMu2,float PtMuBestTrack2,
-		     float PtGenerated2,float etaMu2);
+		     float etaMu2,float phiMu2);
    void PickThehighestMass(float &vtxHighestMass,float &vtxHighestChi2,int EvtNb);
    double ThreeDangle(float pxMu1,float pyMu1,float pzMu1,float pMu1,
                       float pxMu2,float pyMu2,float pzMu2,float pMu2);
