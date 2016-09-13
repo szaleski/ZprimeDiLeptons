@@ -33,6 +33,14 @@ using namespace std;
 class ZprimeMuMuPatMiniAodNewData {
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
+
+   // save a tree
+   TTree          *tree_; // pointer to tree before cuts
+   TTree          *tree_twomuons_;   // pointer to tree after 2mu cut
+   TTree          *tree_vtxmass_;   // pointer to tree after vtxmass cut
+   TTree          *tree_hlt_;   // pointer to tree after hlt cut
+   TTree          *tree_vtxchi2mu_;  // pointer to tree after vtxchi2mu cut
+
    Int_t           fCurrent; //!current Tree number in a TChain
 
    // Declaration of leaf types

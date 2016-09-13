@@ -60,6 +60,90 @@ FILE * pFile;
    if( DATA_type=="2016") weight=1.;
    TFile *output = new TFile("CMSSW803-Analyse_ZprimeToMuMu_13TeV.root","recreate");
    //================================================================================== 
+   //                                                                                 =  
+   //            Start a tree with important observables                              =  
+   //                                                                                 =
+   //==================================================================================
+   tree_ = new TTree("before_cuts", "Store variables before cuts");
+   tree_->SetAutoSave(10000000000);
+   tree_->SetAutoFlush(1000000);
+   tree_->Branch("RunNum",&event_runNo,"RunNum/i");
+   tree_->Branch("EvtNum",&event_evtNo,"EvtNum/i");
+   tree_->Branch("weight",&weight,"weight/F");
+   tree_->Branch("Mu_ptTunePMuonBestTrack",&Mu_ptTunePMuonBestTrack);
+   tree_->Branch("Mu_absdxyTunePMuonBestTrack",&Mu_absdxyTunePMuonBestTrack);
+   tree_->Branch("Mu_dPToverPTTunePMuonBestTrack",&Mu_dPToverPTTunePMuonBestTrack);
+   tree_->Branch("Mu_trackiso",&Mu_trackiso);
+   tree_->Branch("Mu_ptInnerTrack",&Mu_ptInnerTrack);
+   tree_->Branch("Mu_numberOftrackerLayersWithMeasurement",&Mu_numberOftrackerLayersWithMeasurement);
+   tree_->Branch("Mu_numberOfValidPixelHits",&Mu_numberOfValidPixelHits);
+   tree_->Branch("Mu_numberOfMatchedStations",&Mu_numberOfMatchedStations);
+
+   // Tree for after the 2 muons cut
+  tree_twomuons_ = new TTree("after_twomuons_cut", "Store variables after 2 muons cut");
+  tree_twomuons_->SetAutoSave(10000000000);
+  tree_twomuons_->SetAutoFlush(1000000);
+  tree_twomuons_->Branch("RunNum",&event_runNo,"RunNum/i");
+  tree_twomuons_->Branch("EvtNum",&event_evtNo,"EvtNum/i");
+  tree_twomuons_->Branch("weight",&weight,"weight/F");
+  tree_twomuons_->Branch("Mu_ptTunePMuonBestTrack",&Mu_ptTunePMuonBestTrack);
+  tree_twomuons_->Branch("Mu_absdxyTunePMuonBestTrack",&Mu_absdxyTunePMuonBestTrack);
+  tree_twomuons_->Branch("Mu_dPToverPTTunePMuonBestTrack",&Mu_dPToverPTTunePMuonBestTrack);
+  tree_twomuons_->Branch("Mu_trackiso",&Mu_trackiso);
+  tree_twomuons_->Branch("Mu_ptInnerTrack",&Mu_ptInnerTrack);
+  tree_twomuons_->Branch("Mu_numberOftrackerLayersWithMeasurement",&Mu_numberOftrackerLayersWithMeasurement);
+  tree_twomuons_->Branch("Mu_numberOfValidPixelHits",&Mu_numberOfValidPixelHits);
+  tree_twomuons_->Branch("Mu_numberOfMatchedStations",&Mu_numberOfMatchedStations);
+  
+  // Tree for after the vertex mass cut
+  tree_vtxmass_ = new TTree("after_vtxmass_cut", "Store variables after vtxmass< 60 cut");
+  tree_vtxmass_->SetAutoSave(10000000000);
+  tree_vtxmass_->SetAutoFlush(1000000);
+  tree_vtxmass_->Branch("RunNum",&event_runNo,"RunNum/i");
+  tree_vtxmass_->Branch("EvtNum",&event_evtNo,"EvtNum/i");
+  tree_vtxmass_->Branch("weight",&weight,"weight/F");
+  tree_vtxmass_->Branch("Mu_ptTunePMuonBestTrack",&Mu_ptTunePMuonBestTrack);
+  tree_vtxmass_->Branch("Mu_absdxyTunePMuonBestTrack",&Mu_absdxyTunePMuonBestTrack);
+  tree_vtxmass_->Branch("Mu_dPToverPTTunePMuonBestTrack",&Mu_dPToverPTTunePMuonBestTrack);
+  tree_vtxmass_->Branch("Mu_trackiso",&Mu_trackiso);
+  tree_vtxmass_->Branch("Mu_ptInnerTrack",&Mu_ptInnerTrack);
+  tree_vtxmass_->Branch("Mu_numberOftrackerLayersWithMeasurement",&Mu_numberOftrackerLayersWithMeasurement);
+  tree_vtxmass_->Branch("Mu_numberOfValidPixelHits",&Mu_numberOfValidPixelHits);
+  tree_vtxmass_->Branch("Mu_numberOfMatchedStations",&Mu_numberOfMatchedStations);
+
+  // Tree for after the hlt cut
+  tree_hlt_ = new TTree("after_hlt_cut", "Store variables after hlt cut");
+  tree_hlt_->SetAutoSave(10000000000);
+  tree_hlt_->SetAutoFlush(1000000);
+  tree_hlt_->Branch("RunNum",&event_runNo,"RunNum/i");
+  tree_hlt_->Branch("EvtNum",&event_evtNo,"EvtNum/i");
+  tree_hlt_->Branch("weight",&weight,"weight/F");
+  tree_hlt_->Branch("Mu_ptTunePMuonBestTrack",&Mu_ptTunePMuonBestTrack);
+  tree_hlt_->Branch("Mu_absdxyTunePMuonBestTrack",&Mu_absdxyTunePMuonBestTrack);
+  tree_hlt_->Branch("Mu_dPToverPTTunePMuonBestTrack",&Mu_dPToverPTTunePMuonBestTrack);
+  tree_hlt_->Branch("Mu_trackiso",&Mu_trackiso);
+  tree_hlt_->Branch("Mu_ptInnerTrack",&Mu_ptInnerTrack);
+  tree_hlt_->Branch("Mu_numberOftrackerLayersWithMeasurement",&Mu_numberOftrackerLayersWithMeasurement);
+  tree_hlt_->Branch("Mu_numberOfValidPixelHits",&Mu_numberOfValidPixelHits);
+  tree_hlt_->Branch("Mu_numberOfMatchedStations",&Mu_numberOfMatchedStations);
+  
+  // Tree for after the vtxchi2mu cut
+  tree_vtxchi2mu_ = new TTree("after_vtxchi2mu_cut", "Store variables after vtxchi2mu< 20 cut");
+  tree_vtxchi2mu_->SetAutoSave(10000000000);
+  tree_vtxchi2mu_->SetAutoFlush(1000000);
+  tree_vtxchi2mu_->Branch("RunNum",&event_runNo,"RunNum/i");
+  tree_vtxchi2mu_->Branch("EvtNum",&event_evtNo,"EvtNum/i");
+  tree_vtxchi2mu_->Branch("weight",&weight,"weight/F");
+  tree_vtxchi2mu_->Branch("Mu_ptTunePMuonBestTrack",&Mu_ptTunePMuonBestTrack);
+  tree_vtxchi2mu_->Branch("Mu_absdxyTunePMuonBestTrack",&Mu_absdxyTunePMuonBestTrack);
+  tree_vtxchi2mu_->Branch("Mu_dPToverPTTunePMuonBestTrack",&Mu_dPToverPTTunePMuonBestTrack);
+  tree_vtxchi2mu_->Branch("Mu_trackiso",&Mu_trackiso);
+  tree_vtxchi2mu_->Branch("Mu_ptInnerTrack",&Mu_ptInnerTrack);
+  tree_vtxchi2mu_->Branch("Mu_numberOftrackerLayersWithMeasurement",&Mu_numberOftrackerLayersWithMeasurement);
+  tree_vtxchi2mu_->Branch("Mu_numberOfValidPixelHits",&Mu_numberOfValidPixelHits);
+  tree_vtxchi2mu_->Branch("Mu_numberOfMatchedStations",&Mu_numberOfMatchedStations);
+
+   //================================================================================== 
    //                                                                                 =
    //             Start the histograms for CollinSoper CMF                            =
    //                                                                                 =
@@ -276,6 +360,9 @@ FILE * pFile;
      //                                                        =
      //=========================================================
      plotAllHighPtMuonsID();
+     // Save all vars below here in a tree!
+     // Save before any cuts:
+     tree_->Fill();
 
      bool firstMuFinal  = SelectFirstMuon(PtRecTunePMuBestTrack1,EnRecMu1,EtaRecMu1,PhiRecMu1,ChargeRecMu1,flagmu1,
 					  pxRecMu1,pyRecMu1,pzRecMu1,pRecMu1,dxyRecMu1,PtRecTunePMu1,
@@ -295,15 +382,27 @@ FILE * pFile;
      //=========================================================
      //cout << "firstMu= " << firstMuFinal << " " << "secondMu= " << secondMuFinal << endl;
      if(firstMuFinal == 0 || secondMuFinal == 0) continue;
+
+     // Fill a tree after the dimuon mass cut to see its impact
+     tree_twomuons_->Fill();
+
      //cout << "Vertex mass mu= " << vtxMassMu << endl;
      //if(vtxMassMu<60 || vtxMassMu>1200) continue; 
      if(vtxMassMu<60) continue;
+
+     // Fill a tree after the vertex mass cut to see its impact
+     tree_vtxmass_->Fill();
+
      //=========================================================
      //        start doing matching between reco & HLT         =
      //                                                        =
      //=========================================================
      bool fireHLT2 = isPassHLT();
      if(fireHLT2 == 0) continue; 
+
+     // Fill a tree after the hlt cut to see its impact
+     tree_hlt_->Fill();
+
      bool RecoMuon1MatchingWithHLT1 = RecoHLTMuonMatching(EtaRecMu1,PhiRecMu1);
      bool RecoMuon2MatchingWithHLT2 = RecoHLTMuonMatching(EtaRecMu2,PhiRecMu2);
      if(RecoMuon1MatchingWithHLT1==1 || RecoMuon2MatchingWithHLT2==1)
@@ -311,6 +410,8 @@ FILE * pFile;
 	 //PrintEventInformation(256843,465,665539990,vtxChi2Mu,vtxMassMu,CosmicRejec);
 	 if(vtxChi2Mu<20.0 && CosmicRejec>-0.9998) 
 	   {
+	     // Fill a tree after the vertex mass cut to see its impact
+	     tree_vtxchi2mu_->Fill();
 	     DrawBTaggingDiscriminator();
 	     //bool passBTaggingDiscriminator = BTaggingDiscriminator();
 	     //if(passBTaggingDiscriminator==1) continue;
