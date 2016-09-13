@@ -83,7 +83,7 @@ PlotStackZprime::PlotStackZprime(){
   //std::string histolabel = "hPUvertices";    // numPU
   //std::string histolabel = "hPUvertices_ReWeighted";    // numPY reweighted
 	
-  //std::string histolabel = "ZprimeRecomass"; 
+  std::string histolabel = "ZprimeRecomass"; 
   //std::string histolabel = "ZprimeRecomassBinWidth";
 
   //std::string histolabel = "dPToverPT";
@@ -93,7 +93,7 @@ PlotStackZprime::PlotStackZprime(){
   //std::string histolabel = "numberOftrackerLayersWithMeasurement";
   //std::string histolabel = "trackiso";
   //std::string histolabel = "absdxy";
-  std::string histolabel = "PtID";
+  //std::string histolabel = "PtID";
  
   useLogY = true;
   useLogX = false;
@@ -103,10 +103,12 @@ PlotStackZprime::PlotStackZprime(){
   useDiJetsFromFakeRateFromData=false;
   useWJetsFromFakeRateFromMC=false;
 
-  nRebin=20;
+  nRebin=10;
   std::cout << "Histogram label is= " << histolabel << std::endl;
   
   // Final yields
+  system("mkdir plots");
+
   Char_t yieldsOUT[500];
   sprintf(yieldsOUT,"plots/yields_%s_%s.txt",whichchannel.c_str(),whichenergy.c_str());
   if (histolabel.find("hM4l_8")<10 ) {
