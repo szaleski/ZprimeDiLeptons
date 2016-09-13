@@ -207,8 +207,8 @@ void TagProbeMuon::Loop()
   //                         writing Histograms to a file                            =             
   //                                                                                 =
   //==================================================================================
-  TFile *output = new TFile("Analyse_TagandProbe_MC_DY_60_Mass_120_HighPtMuon_ID_pt45.root","recreate");
-  //TFile *output = new TFile("Analyse_TagandProbe_MC720_DY_60_Mass_120_RelTrackIso_ID_pt45.root","recreate");
+  TFile *output = new TFile("Analyse_TagAndProbe_CMSSW_8_0_13_ZPRIMEMuMu_13TeV-DataG-V1-JSON-tree.root","recreate");
+
   output->cd();
   /** Write the histograms for PF Jets in general */
   h1_invMassTP_->Write();
@@ -690,6 +690,14 @@ float TagProbeMuon::Mass(float Et1,float Eta1,float Phi1,float En1,
   MassMuMu = (Mu1 + Mu2).M();
   return MassMuMu;
 }
+
+float TagProbeMuon::delR(float eta1,float phi1,float eta2,float phi2){
+   float mpi=3.14;
+   float dp=std::abs(phi1-phi2);
+   if (dp>mpi) dp-=float(2*mpi);
+   return sqrt((eta1-eta2)*(eta1-eta2) + dp*dp);
+}
+
 //----------------------------------------------------
 //                                                   -
 //       Part for HLT & Reco Matching                -
@@ -697,14 +705,29 @@ float TagProbeMuon::Mass(float Et1,float Eta1,float Phi1,float En1,
 //----------------------------------------------------
 bool TagProbeMuon::RecoHLTMuonMatching(float RecoEta,float RecoPhi){
   int nbMatch = 0;
-  for(unsigned i=0; i<MuHLTMatch_nbMuonMatchHLT->size(); i++){
-    float deltaEta = RecoEta - MuHLTMatch_eta->at(i);
-    float deltaPhi = RecoPhi - MuHLTMatch_phi->at(i);
-    float deltaR   = sqrt(pow(deltaEta,2)+pow(deltaPhi,2));
-    if(fabs(deltaR)>RecoHLTMatchingDeltaRcut) continue;
-    nbMatch++;
+  float deltaR   = -10000.0;
+  for(unsigned i=0; i<HLTObj_nbObj->size(); i++){
+    //cout<<"[before]triggerName"<<HLTObj_collection->at(i) <<endl;
+    if( HLTObj_collection->at(i) == "HLT_Mu50_v1" || 
+	HLTObj_collection->at(i) == "HLT_Mu50_v2" ||
+	HLTObj_collection->at(i) == "HLT_Mu50_v3" || 
+        HLTObj_collection->at(i) == "HLT_Mu50_v4" ||
+	HLTObj_collection->at(i) == "HLT_Mu50_v5" || 
+        HLTObj_collection->at(i) == "HLT_Mu50_v6" ||
+        HLTObj_collection->at(i) == "HLT_Mu50_v7" ||
+        HLTObj_collection->at(i) == "HLT_Mu50_v8" ||
+        HLTObj_collection->at(i) == "HLT_Mu50_v9" ||
+        HLTObj_collection->at(i) == "HLT_Mu50_v10" ){
+      //cout<<"[after]triggerName"<<HLTObj_collection->at(i) <<endl;
+	deltaR   = delR(HLTObj_eta->at(i),HLTObj_phi->at(i),RecoEta,RecoPhi);
+        //printf ("HLT_Eta = %f  HLT_Phi = %f recoEta = %f recoPhi = %f DelR_trigger = %f\n",HLTObj_eta->at(i),HLTObj_phi->at(i),RecoEta,RecoPhi,deltaR);
+      if(fabs(deltaR)>RecoHLTMatchingDeltaRcut) continue;
+      nbMatch++;
+    }
   }
   if(nbMatch>0) return true;
   else return false;
 }
+
+
 

@@ -155,8 +155,10 @@ void TagProbeMuonPlots(){
   //========================================================== 
   //                      Mass 539                         
   //==========================================================
-  TFile *f1 = new TFile("Analyse_TagandProbe_MC_DY_60_Mass_120_HighPtMuon_ID_pt45.root","READ");
+  TFile *f1 = new TFile("Analyse_TagandProbe_CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root","READ");
   //---------------------------------------------------
+  TH1F *PtProbeTT; f1->GetObject("PtProbeTT",PtProbeTT);
+  TH1F *PtProbeTP; f1->GetObject("PtProbeTP",PtProbeTP);
   MassProbeTTandProbeTF1->Add(PtProbeTT);
   MassProbeTTandProbeTF2->Add(PtProbeTP);
   cout<<"====================== T&P1 =============================="<<endl;
@@ -180,10 +182,12 @@ void TagProbeMuonPlots(){
   //========================================================== 
   //                      Mass 720                                                  
   //==========================================================
-  TFile *f100 = new TFile("Analyse_TagandProbe_Data_DY_60_Mass_120_HighPtMuon_ID_pt45.root","READ");
+  TFile *f100 = new TFile("Analyse_TagandProbe_CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root","READ");  
   //---------------------------------------------------
-  MassProbeTTandProbe720TF1->Add(PtProbeTT);
-  MassProbeTTandProbe720TF2->Add(PtProbeTP);
+  TH1F *PtProbeTTb; f1->GetObject("PtProbeTT",PtProbeTTb);
+  TH1F *PtProbeTPb; f1->GetObject("PtProbeTP",PtProbeTPb);
+  MassProbeTTandProbe720TF1->Add(PtProbeTTb);
+  MassProbeTTandProbe720TF2->Add(PtProbeTPb);
   cout<<"====================== T&P1 =============================="<<endl;
   int nbEleTopMass2                             = MassProbeTTandProbe720TF1->Integral();
   int nbEleBottomMass2                          = MassProbeTTandProbe720TF2->Integral();
@@ -216,7 +220,7 @@ void TagProbeMuonPlots(){
   tText1->SetBorderSize(0);
   tText1->SetFillColor(0);
   tText1->SetFillStyle(0);
-  TText *t1 = tText1->AddText("46.152 pb^{-1} (13 TeV)");
+  TText *t1 = tText1->AddText("22.2 pb^{-1} (13 TeV)");
   tText1->SetTextSize(0.035);
   tText1->Draw(); 
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -224,19 +228,19 @@ void TagProbeMuonPlots(){
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  TText *t1 = tText2->AddText("CMS Spring15 Simulation");
+  TText *t11 = tText2->AddText("CMS Spring16 Simulation");
   tText2->SetTextSize(0.035);
   tText2->Draw(); 
   //==========================================================
-  TPaveText* tText1 = new TPaveText(0.50, 0.25, 0.80, 0.45, "brNDC");
-  tText1->SetBorderSize(0);
-  tText1->SetTextColor(1);
-  tText1->SetFillStyle(0);
+  TPaveText* tText11 = new TPaveText(0.50, 0.25, 0.80, 0.45, "brNDC");
+  tText11->SetBorderSize(0);
+  tText11->SetTextColor(1);
+  tText11->SetFillStyle(0);
   Float_t tsize = 0.035;
-  tText1->SetTextSize(tsize); 
-  TText *t1 = tText1->AddText("Pt > 20 GeV/c"); 
+  tText11->SetTextSize(tsize); 
+  TText *t111 = tText1->AddText("Pt > 20 GeV/c"); 
   TText *t2 = tText1->AddText("|#eta|<2.4"); 
-  tText1->Draw();
+  tText11->Draw();
   //========================================================== 
   TLegend *leg = new TLegend(0.20, 0.20, 0.40, 0.35);
   leg->AddEntry(MassEffForTagProbe539,"MC","p");
@@ -246,12 +250,12 @@ void TagProbeMuonPlots(){
   leg->SetFillColor(0);
   leg->SetFillStyle(10);
   leg->SetLineColor(0);
-  Float_t tsize2 = 0.035;
-  leg->SetTextSize(tsize2); 
+  Float_t tsize22 = 0.035;
+  leg->SetTextSize(tsize22); 
   leg->Draw();
   //======================================================================= 
-  c1->Print("Eff_TagProbe_ID_MC_13TeV_PtProbe_cmssw720.png","png");
-  c1->Print("Eff_TagProbe_ID_MC_13TeV_PtProbe_cmssw720.pdf","pdf");
+  c1->Print("Eff_TagProbe_ID_MC_13TeV_PtProbe_cmssw80X.png","png");
+  c1->Print("Eff_TagProbe_ID_MC_13TeV_PtProbe_cmssw80X.pdf","pdf");
   //c1->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.eps","eps");
   //=======================================================================
   
@@ -260,7 +264,7 @@ void TagProbeMuonPlots(){
   //==================================================================  
   //================================================================== 
   TCanvas *c4 = new TCanvas("c4","Eff. PVs",500,500);
-  char textpro1[100],textNDF1[100],textRatio1[100];           
+  char textpro11[100],textNDF11[100],textRatio11[100];           
   c4->cd(1);
   gPad->SetTopMargin(0.12);
   gPad->SetLeftMargin(0.15);
@@ -279,8 +283,10 @@ void TagProbeMuonPlots(){
   //========================================================== 
   //                     Phi                                                  
   //==========================================================
-  TFile *f5 = new TFile("Analyse_TagandProbe_MC_DY_60_Mass_120_HighPtMuon_ID_pt45.root","READ");
+  TFile *f5 = new TFile("Analyse_TagandProbe_CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root","READ");
   //---------------------------------------------------
+  TH1F *PVProbeTT; f1->GetObject("PVProbeTT",PVProbeTT);
+  TH1F *PVProbeTP; f1->GetObject("PVProbeTP",PVProbeTP);
   NbPVProbeTTandProbeTF1->Add(PVProbeTT);
   NbPVProbeTTandProbeTF2->Add(PVProbeTP);
   cout<<"====================== dBeta =============================="<<endl;
@@ -303,10 +309,12 @@ void TagProbeMuonPlots(){
   //========================================================== 
   //                     Phi                                                  
   //==========================================================
-  TFile *f50 = new TFile("Analyse_TagandProbe_Data_DY_60_Mass_120_HighPtMuon_ID_pt45.root","READ");
+  TFile *f50 = new TFile("Analyse_TagandProbe_CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root","READ");
   //---------------------------------------------------
-  NbPVProbeTTandProbe720TF1->Add(PVProbeTT);
-  NbPVProbeTTandProbe720TF2->Add(PVProbeTP);
+  TH1F *PVProbeTTb; f1->GetObject("PVProbeTT",PVProbeTTb);
+  TH1F *PVProbeTPb; f1->GetObject("PVProbeTP",PVProbeTPb);
+  NbPVProbeTTandProbe720TF1->Add(PVProbeTTb);
+  NbPVProbeTTandProbe720TF2->Add(PVProbeTPb);
   cout<<"====================== dBeta =============================="<<endl;
   int nbEleTopPV2                             = NbPVProbeTTandProbe720TF1->Integral();
   int nbEleBottomPV2                          = NbPVProbeTTandProbe720TF2->Integral();
@@ -336,46 +344,46 @@ void TagProbeMuonPlots(){
   mg4->GetXaxis()->SetRangeUser(0.0,37.0);
   mg4->GetYaxis()->SetRangeUser(0.7,1.05);
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-  TPaveText* tText1 = new TPaveText(0.70, 0.90, 0.90, 0.95, "brNDC");
-  tText1->SetBorderSize(0);
-  tText1->SetFillColor(0);
-  tText1->SetFillStyle(0);
-  TText *t1 = tText1->AddText("46.152 pb^{-1} (13 TeV)");
-  tText1->SetTextSize(0.035);
-  tText1->Draw(); 
+  TPaveText* tText1111 = new TPaveText(0.70, 0.90, 0.90, 0.95, "brNDC");
+  tText1111->SetBorderSize(0);
+  tText1111->SetFillColor(0);
+  tText1111->SetFillStyle(0);
+  TText *t1a = tText1111->AddText("22.2 pb^{-1} (13 TeV)");
+  tText1111->SetTextSize(0.035);
+  tText1111->Draw(); 
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  TPaveText* tText2 = new TPaveText(0.2, 0.90, 0.4, 0.95, "brNDC");
-  tText2->SetBorderSize(0);
-  tText2->SetFillColor(0);
-  tText2->SetFillStyle(0);
-  TText *t1 = tText2->AddText("CMS Spring15 Simulation");
-  tText2->SetTextSize(0.035);
-  tText2->Draw(); 
+  TPaveText* tText22 = new TPaveText(0.2, 0.90, 0.4, 0.95, "brNDC");
+  tText22->SetBorderSize(0);
+  tText22->SetFillColor(0);
+  tText22->SetFillStyle(0);
+  TText *t1b = tText22->AddText("CMS Spring16 Simulation");
+  tText22->SetTextSize(0.035);
+  tText22->Draw(); 
   //========================================================== 
-  TPaveText* tText1 = new TPaveText(0.50, 0.25, 0.80, 0.45, "brNDC");
-  tText1->SetBorderSize(0);
-  tText1->SetTextColor(1);
-  tText1->SetFillStyle(0);
-  Float_t tsize = 0.035;
-  tText1->SetTextSize(tsize); 
-  TText *t1 = tText1->AddText("Pt > 20 GeV/c"); 
-  TText *t2 = tText1->AddText("|#eta|<2.4"); 
-  tText1->Draw();
+  TPaveText* tText1b = new TPaveText(0.50, 0.25, 0.80, 0.45, "brNDC");
+  tText1b->SetBorderSize(0);
+  tText1b->SetTextColor(1);
+  tText1b->SetFillStyle(0);
+  Float_t tsizee = 0.035;
+  tText1b->SetTextSize(tsizee); 
+  TText *t11b = tText1b->AddText("Pt > 20 GeV/c"); 
+  TText *t22b = tText1b->AddText("|#eta|<2.4"); 
+  tText1b->Draw();
   //========================================================== 
-  TLegend *leg = new TLegend(0.20, 0.20, 0.40, 0.35);
-  leg->AddEntry(TagProbePhi539,"MC","p");
-  leg->AddEntry(TagProbePhi720,"Data (PromptReco)","p");
-  leg->SetBorderSize(0.0);
-  leg->SetMargin(0.3);
-  leg->SetFillColor(0);
-  leg->SetFillStyle(10);
-  leg->SetLineColor(0);
-  Float_t tsize2 = 0.035;
-  leg->SetTextSize(tsize2); 
-  leg->Draw();
+  TLegend *leg0 = new TLegend(0.20, 0.20, 0.40, 0.35);
+  leg0->AddEntry(TagProbePhi539,"MC","p");
+  leg0->AddEntry(TagProbePhi720,"Data (PromptReco)","p");
+  leg0->SetBorderSize(0.0);
+  leg0->SetMargin(0.3);
+  leg0->SetFillColor(0);
+  leg0->SetFillStyle(10);
+  leg0->SetLineColor(0);
+  Float_t tsize2a = 0.035;
+  leg0->SetTextSize(tsize2a); 
+  leg0->Draw();
   //======================================================================= 
-  c4->Print("Eff_TagProbe_ID_MC_13TeV_vtxProbe_cmssw720.png","png");
-  c4->Print("Eff_TagProbe_ID_MC_13TeV_vtxProbe_cmssw720.pdf","pdf");
+  c4->Print("Eff_TagProbe_ID_MC_13TeV_vtxProbe_cmssw80X.png","png");
+  c4->Print("Eff_TagProbe_ID_MC_13TeV_vtxProbe_cmssw80X.pdf","pdf");
   //c4->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Phi_EBEE.eps","eps");
   //=======================================================================
 
@@ -470,46 +478,46 @@ void TagProbeMuonPlots(){
   line2->SetLineStyle(2);
   line2->Draw();
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-   TPaveText* tText1 = new TPaveText(0.70, 0.90, 0.90, 0.95, "brNDC");
-  tText1->SetBorderSize(0);
-  tText1->SetFillColor(0);
-  tText1->SetFillStyle(0);
-  TText *t1 = tText1->AddText("46.152 pb^{-1} (13 TeV)");
-  tText1->SetTextSize(0.035);
-  tText1->Draw(); 
+  TPaveText* tText1c = new TPaveText(0.70, 0.90, 0.90, 0.95, "brNDC");
+  tText1c->SetBorderSize(0);
+  tText1c->SetFillColor(0);
+  tText1c->SetFillStyle(0);
+  TText *t11c = tText1c->AddText("22.2 pb^{-1} (13 TeV)");
+  tText1c->SetTextSize(0.035);
+  tText1c->Draw(); 
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  TPaveText* tText2 = new TPaveText(0.2, 0.90, 0.4, 0.95, "brNDC");
-  tText2->SetBorderSize(0);
-  tText2->SetFillColor(0);
-  tText2->SetFillStyle(0);
-  TText *t1 = tText2->AddText("CMS Spring15 Simulation");
-  tText2->SetTextSize(0.035);
-  tText2->Draw(); 
+  TPaveText* tText2c = new TPaveText(0.2, 0.90, 0.4, 0.95, "brNDC");
+  tText2c->SetBorderSize(0);
+  tText2c->SetFillColor(0);
+  tText2c->SetFillStyle(0);
+  TText *t11d = tText2c->AddText("CMS Spring16 Simulation");
+  tText2c->SetTextSize(0.035);
+  tText2c->Draw(); 
   //========================================================== 
-  TPaveText* tText1 = new TPaveText(0.50, 0.25, 0.80, 0.45, "brNDC");
-  tText1->SetBorderSize(0);
-  tText1->SetTextColor(1);
-  tText1->SetFillStyle(0);
-  Float_t tsize = 0.035;
-  tText1->SetTextSize(tsize); 
-  TText *t1 = tText1->AddText("Pt > 20 GeV/c"); 
-  TText *t2 = tText1->AddText("|#eta|<2.4"); 
-  tText1->Draw();
+  TPaveText* tText11b = new TPaveText(0.50, 0.25, 0.80, 0.45, "brNDC");
+  tText11b->SetBorderSize(0);
+  tText11b->SetTextColor(1);
+  tText11b->SetFillStyle(0);
+  Float_t tsizeee = 0.035;
+  tText11b->SetTextSize(tsizeee); 
+  TText *t1bc = tText11b->AddText("Pt > 20 GeV/c"); 
+  TText *t2bc = tText11b->AddText("|#eta|<2.4"); 
+  tText11b->Draw();
   //==========================================================
-  TLegend *leg = new TLegend(0.20, 0.20, 0.40, 0.35);
-  leg->AddEntry(gr,"MC","p");
-  leg->AddEntry(gr2,"Data (PromptReco)","p");
-  leg->SetBorderSize(0.0);
-  leg->SetMargin(0.3);
-  leg->SetFillColor(0);
-  leg->SetFillStyle(10);
-  leg->SetLineColor(0);
+  TLegend *leg1 = new TLegend(0.20, 0.20, 0.40, 0.35);
+  leg1->AddEntry(gr,"MC","p");
+  leg1->AddEntry(gr2,"Data (PromptReco)","p");
+  leg1->SetBorderSize(0.0);
+  leg1->SetMargin(0.3);
+  leg1->SetFillColor(0);
+  leg1->SetFillStyle(10);
+  leg1->SetLineColor(0);
   Float_t tsize2 = 0.03;
-  leg->SetTextSize(tsize2); 
-  leg->Draw();  
+  leg1->SetTextSize(tsize2); 
+  leg1->Draw();  
   //======================================================================= 
-  c5->Print("Eff_TagProbe_ID_MC_13TeV_EtaProbe_cmssw720.png","png");
-  c5->Print("Eff_TagProbe_ID_MC_13TeV_EtaProbe_cmssw720.pdf","pdf");
+  c5->Print("Eff_TagProbe_ID_MC_13TeV_EtaProbe_cmssw80X.png","png");
+  c5->Print("Eff_TagProbe_ID_MC_13TeV_EtaProbe_cmssw80X.pdf","pdf");
   c5->Update();
   //================================================================== 
   
