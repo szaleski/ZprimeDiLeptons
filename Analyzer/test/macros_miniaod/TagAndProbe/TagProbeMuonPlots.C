@@ -166,7 +166,7 @@ void TagProbeMuonPlots(){
   //========================================================== 
   //                      MC DY                                                 
   //==========================================================
-  TFile *f100 = new TFile("Analyse_TagandProbe_CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root","READ");  
+  TFile *f100 = new TFile("Analyse_TagAndProbe_CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root","READ");  
   //---------------------------------------------------
   TH1F *PtProbeTTb; f1->GetObject("PtProbeTT",PtProbeTTb);
   TH1F *PtProbeTPb; f1->GetObject("PtProbeTP",PtProbeTPb);
@@ -293,7 +293,7 @@ void TagProbeMuonPlots(){
   //========================================================== 
   //                     Phi                                                  
   //==========================================================
-  TFile *f50 = new TFile("Analyse_TagandProbe_CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root","READ");
+  TFile *f50 = new TFile("Analyse_TagAndProbe_CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root","READ");
   //---------------------------------------------------
   TH1F *PVProbeTTb; f1->GetObject("PVProbeTT",PVProbeTTb);
   TH1F *PVProbeTPb; f1->GetObject("PVProbeTP",PVProbeTPb);
