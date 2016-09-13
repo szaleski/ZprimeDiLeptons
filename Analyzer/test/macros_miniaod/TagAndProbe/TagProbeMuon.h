@@ -569,8 +569,8 @@ TagProbeMuon::TagProbeMuon(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-     //TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged_HLT/CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root");
-     TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/lustre/cms/store/user/defilip/ZprimeAnalysis/Data2016_ZprimeMuMu_13TeV_merged_HLT/CMSSW_8_0_13_ZPRIMEMuMu_13TeV-DataG-V1-JSON-tree.root");
+     TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged_HLT/CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root");
+     //TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/lustre/cms/store/user/defilip/ZprimeAnalysis/Data2016_ZprimeMuMu_13TeV_merged_HLT/CMSSW_8_0_13_ZPRIMEMuMu_13TeV-DataG-V1-JSON-tree.root");
       if (!f || !f->IsOpen()) {
          f = new TFile("CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root");
       }

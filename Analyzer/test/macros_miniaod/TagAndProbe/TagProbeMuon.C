@@ -157,19 +157,19 @@ void TagProbeMuon::Loop()
   //Eff = (float)(nbTT)/(nbTP);
   //Eff = (float)(nbTP)/(nbTP+nbTF);
   */
-  cout<<"float Eff1    = "<< (float) nbTT1/nbTP1 << endl;
-  cout<<"float Eff2    = "<< (float) nbTT2/nbTP2 << endl;
-  cout<<"float Eff3    = "<< (float) nbTT3/nbTP3 << endl;
-  cout<<"float Eff4    = "<< (float) nbTT4/nbTP4 << endl;
-  cout<<"float Eff5    = "<< (float) nbTT5/nbTP5 << endl;
-  cout<<"float Eff6    = "<< (float) nbTT6/nbTP6 << endl;
-  cout<<"float Eff7    = "<< (float) nbTT7/nbTP7 << endl;
-  cout<<"float Eff8    = "<< (float) nbTT8/nbTP8 << endl;
-  cout<<"float Eff9    = "<< (float) nbTT9/nbTP9 << endl;
-  cout<<"float Eff10   = "<< (float) nbTT10/nbTP10 << endl;
-  cout<<"float Eff11   = "<< (float) nbTT11/nbTP11 << endl;
-  cout<<"float Eff12   = "<< (float) nbTT12/nbTP12 << endl;
-  cout<<"float Eff13   = "<< (float) nbTT13/nbTP13 << endl;
+  cout<<"float Eff1    = "<< (float) nbTT1/nbTP1 << ";" << endl;
+  cout<<"float Eff2    = "<< (float) nbTT2/nbTP2 << ";" <<endl;
+  cout<<"float Eff3    = "<< (float) nbTT3/nbTP3 << ";" << endl;
+  cout<<"float Eff4    = "<< (float) nbTT4/nbTP4 << ";" << endl;
+  cout<<"float Eff5    = "<< (float) nbTT5/nbTP5 << ";" << endl;
+  cout<<"float Eff6    = "<< (float) nbTT6/nbTP6 << ";" << endl;
+  cout<<"float Eff7    = "<< (float) nbTT7/nbTP7 << ";" << endl;
+  cout<<"float Eff8    = "<< (float) nbTT8/nbTP8 << ";" << endl;
+  cout<<"float Eff9    = "<< (float) nbTT9/nbTP9 << ";" << endl;
+  cout<<"float Eff10   = "<< (float) nbTT10/nbTP10 << ";" << endl;
+  cout<<"float Eff11   = "<< (float) nbTT11/nbTP11 << ";" << endl;
+  cout<<"float Eff12   = "<< (float) nbTT12/nbTP12 << ";" << endl;
+  cout<<"float Eff13   = "<< (float) nbTT13/nbTP13 << ";" << endl;
   cout<<"[0.0,0.9]   = "<< (float) nbTT14/nbTP14 << endl;
   cout<<"[0.9,1.2]   = "<< (float) nbTT15/nbTP15 << endl;
   cout<<"[1.2,2.1]   = "<< (float) nbTT16/nbTP16 << endl;
@@ -177,23 +177,23 @@ void TagProbeMuon::Loop()
 
 
 
-  cout<<"float error1     = "<< sqrt(nbTP1-nbTT1)/nbTP1 << endl;
-  cout<<"float error2     = "<< sqrt(nbTP2-nbTT2)/nbTP2 << endl;
-  cout<<"float error3     = "<< sqrt(nbTP3-nbTT3)/nbTP3 << endl;
-  cout<<"float error4     = "<< sqrt(nbTP4-nbTT4)/nbTP4 << endl;
-  cout<<"float error5     = "<< sqrt(nbTP5-nbTT5)/nbTP5 << endl;
-  cout<<"float error6     = "<< sqrt(nbTP6-nbTT6)/nbTP6 << endl;
-  cout<<"float error7     = "<< sqrt(nbTP7-nbTT7)/nbTP7 << endl;
-  cout<<"float error8     = "<< sqrt(nbTP8-nbTT8)/nbTP8 << endl;
-  cout<<"float error9     = "<< sqrt(nbTP9-nbTT9)/nbTP9 << endl;
-  cout<<"float error10    = "<< sqrt(nbTP10-nbTT10)/nbTP10 << endl;
-  cout<<"float error11    = "<< sqrt(nbTP11-nbTT11)/nbTP11 << endl;
-  cout<<"float error12    = "<< sqrt(nbTP12-nbTT12)/nbTP12 << endl;
-  cout<<"float error13    = "<< sqrt(nbTP13-nbTT13)/nbTP13 << endl;
-  cout<<"error[0.0,0.9]    = "<< sqrt(nbTP14-nbTT14)/nbTP14 << endl;
-  cout<<"error[0.9,1.2]    = "<< sqrt(nbTP15-nbTT15)/nbTP15 << endl;
-  cout<<"error[1.2,2.1]    = "<< sqrt(nbTP16-nbTT16)/nbTP16 << endl;
-  cout<<"error[2.1,2.4]    = "<< sqrt(nbTP17-nbTT17)/nbTP17 << endl;
+  cout<<"float error1     = "<< sqrt(nbTP1-nbTT1)/nbTP1 << ";" << endl;
+  cout<<"float error2     = "<< sqrt(nbTP2-nbTT2)/nbTP2 << ";" << endl;
+  cout<<"float error3     = "<< sqrt(nbTP3-nbTT3)/nbTP3 << ";" << endl;
+  cout<<"float error4     = "<< sqrt(nbTP4-nbTT4)/nbTP4 << ";" << endl;
+  cout<<"float error5     = "<< sqrt(nbTP5-nbTT5)/nbTP5 << ":" << endl;
+  cout<<"float error6     = "<< sqrt(nbTP6-nbTT6)/nbTP6 << ";" << endl;
+  cout<<"float error7     = "<< sqrt(nbTP7-nbTT7)/nbTP7 << ";" << endl;
+  cout<<"float error8     = "<< sqrt(nbTP8-nbTT8)/nbTP8 << ";" << endl;
+  cout<<"float error9     = "<< sqrt(nbTP9-nbTT9)/nbTP9 << ";" << endl;
+  cout<<"float error10    = "<< sqrt(nbTP10-nbTT10)/nbTP10 << ";" << endl;
+  cout<<"float error11    = "<< sqrt(nbTP11-nbTT11)/nbTP11 << ";" << endl;
+  cout<<"float error12    = "<< sqrt(nbTP12-nbTT12)/nbTP12 << ";" << endl;
+  cout<<"float error13    = "<< sqrt(nbTP13-nbTT13)/nbTP13 << ";" << endl;
+  cout<<"error[0.0,0.9]    = "<< sqrt(nbTP14-nbTT14)/nbTP14 << ";" << endl;
+  cout<<"error[0.9,1.2]    = "<< sqrt(nbTP15-nbTT15)/nbTP15 << ";" << endl;
+  cout<<"error[1.2,2.1]    = "<< sqrt(nbTP16-nbTT16)/nbTP16 << ";" << endl;
+  cout<<"error[2.1,2.4]    = "<< sqrt(nbTP17-nbTT17)/nbTP17 << ";" << endl;
 
   cout<<"**************************************"<<endl;
   printf ("* Tag & Probe Eff at Z pole is %.3lf *\n",Eff);
@@ -207,7 +207,8 @@ void TagProbeMuon::Loop()
   //                         writing Histograms to a file                            =             
   //                                                                                 =
   //==================================================================================
-  TFile *output = new TFile("Analyse_TagAndProbe_CMSSW_8_0_13_ZPRIMEMuMu_13TeV-DataG-V1-JSON-tree.root","recreate");
+  //TFile *output = new TFile("Analyse_TagAndProbe_CMSSW_8_0_13_ZPRIMEMuMu_13TeV-DataG-V1-JSON-tree.root","recreate");
+  TFile *output = new TFile("Analyse_TagAndProbe_CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root","recreate");
 
   output->cd();
   /** Write the histograms for PF Jets in general */
