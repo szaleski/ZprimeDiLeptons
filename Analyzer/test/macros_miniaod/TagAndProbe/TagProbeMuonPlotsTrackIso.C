@@ -36,45 +36,43 @@ void TagProbeMuonPlotsTrackIso(){
   lt.SetTextSize(0.07);
   lt.SetTextColor(1);
   //------------------------------------------------------------------
-  float Eff1    = 0.978225;
-  float Eff2    = 0.978065;
-  float Eff3    = 0.976409;
-  float Eff4    = 0.979615;
-  float Eff5    = 0.980686;
-  float Eff6    = 0.977283;
-  float Eff7    = 0.980582;
-  float Eff8    = 0.978432;
-  float Eff9    = 0.98169;
-  float Eff10   = 0.980613;
-  float Eff11   = 0.97379;
-  float Eff12   = 0.975439;
-  float Eff13   = 0.978401;
+  //--------- MC ----------
 
-  float error1     = 0.00210502;
-  float error2     = 0.0012664;
-  float error3     = 0.00127943;
-  float error4     = 0.00113777;
-  float error5     = 0.000752352;
-  float error6     = 0.00221699;
-  float error7     = 0.000954362;
-  float error8     = 0.0021149;
-  float error9     = 0.000725463;
-  float error10    = 0.00111376;
-  float error11    = 0.00134457;
-  float error12    = 0.00132619;
-  float error13    = 0.00208803;
-  /*
-  [0.0,0.9]   = 98.1 (+/-) 0.04
-  [0.9,1.2]   = 98.0 (+/-) 0.08
-  [1.2,2.1]   = 97.6 (+/-) 0.07
-  [2.1,2.4]   = 97.8 (+/-) 0.15
-    
-  error[0.0,0.9]    = 0.000439492
-  error[0.9,1.2]    = 0.00079615
-  error[1.2,2.1]    = 0.00065283
-  error[2.1,2.4]    = 0.00148244
-  */  
-    
+   float Eff1    = 0.971831;
+  float Eff2    = 0.989418;
+  float Eff3    = 1;
+  float Eff4    = 0.99262;
+  float Eff5    = 0.983302;
+  float Eff6    = 0.974359;
+  float Eff7    = 0.976562;
+  float Eff8    = 0.94186;
+  float Eff9    = 0.990926;
+  float Eff10   = 0.980469;
+  float Eff11   = 0.993789;
+  float Eff12   = 0.991957;
+  float Eff13   = 0.986046;
+  //[0.0,0.9]   = 0.981685
+  //[0.9,1.2]   = 0.986717
+  //[1.2,2.1]   = 0.993622
+  //[2.1,2.4]   = 0.978972
+  float error1     = 0.0115;
+  float error2     = 0.00529101;
+  float error3     = 0;
+  float error4     = 0.0052185;
+  float error5     = 0.00556586;
+  float error6     = 0.0181309;
+  float error7     = 0.0078125;
+  float error8     = 0.0260008;
+  float error9     = 0.0040582;
+  float error10    = 0.00873464;
+  float error11    = 0.00439197;
+  float error12    = 0.00464357;
+  float error13    = 0.00805605;
+  //error[0.0,0.9]    = 0.00334385;
+  //error[0.9,1.2]    = 0.0050204;
+  //error[1.2,2.1]    = 0.00212615;
+  //error[2.1,2.4]    = 0.00700935;
+      
   //==============================================
   //  Data
   //==============================================
@@ -141,9 +139,9 @@ void TagProbeMuonPlotsTrackIso(){
   TGraphAsymmErrors *MassEffForTagProbe720  = new TGraphAsymmErrors;
   TMultiGraph *mg1 = new TMultiGraph;
   //========================================================== 
-  //                      Mass 539                         
+  //                      Data                         
   //==========================================================
-  TFile *f1 = new TFile("Analyse_TagandProbe_MC_DY_60_Mass_120_RelTrackIso_ID_pt45.root","READ");
+  TFile *f1 = new TFile("Analyse_TagAndProbe_CMSSW_8_0_13_ZPRIMEMuMu_13TeV-DataG-V1-JSON-tree.root","READ");
   //---------------------------------------------------
   MassProbeTTandProbeTF1->Add(PtProbeTT);
   MassProbeTTandProbeTF2->Add(PtProbeTP);
@@ -166,9 +164,9 @@ void TagProbeMuonPlotsTrackIso(){
   MassEffForTagProbe539->SetMarkerSize(0.875);
   //-----------------------------------------------------------------
   //========================================================== 
-  //                      Mass 720                                                  
+  //                      MC DY                                                  
   //==========================================================
-  TFile *f100 = new TFile("Analyse_TagandProbe_Data_DY_60_Mass_120_RelTrackIso_ID_pt45.root","READ");
+  TFile *f100 = new TFile("Analyse_TagAndProbe_CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root","READ");
   //---------------------------------------------------
   MassProbeTTandProbe720TF1->Add(PtProbeTT);
   MassProbeTTandProbe720TF2->Add(PtProbeTP);
@@ -212,7 +210,7 @@ void TagProbeMuonPlotsTrackIso(){
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  TText *t1 = tText2->AddText("CMS Spring15 Simulation");
+  TText *t1 = tText2->AddText("CMS Spring16 Simulation");
   tText2->SetTextSize(0.035);
   tText2->Draw(); 
   //==========================================================
@@ -238,8 +236,8 @@ void TagProbeMuonPlotsTrackIso(){
   leg->SetTextSize(tsize2); 
   leg->Draw();
   //======================================================================= 
-  c1->Print("Eff_TagProbe_ID_MC_13TeV_PtProbe_cmssw720-trackiso.png","png");
-  c1->Print("Eff_TagProbe_ID_MC_13TeV_PtProbe_cmssw720-trackiso.pdf","pdf");
+  c1->Print("Eff_TagProbe_ID_13TeV_PtProbe_cmssw720-trackiso.png","png");
+  c1->Print("Eff_TagProbe_ID_13TeV_PtProbe_cmssw720-trackiso.pdf","pdf");
   //c1->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.eps","eps");
   //=======================================================================
   
@@ -265,9 +263,9 @@ void TagProbeMuonPlotsTrackIso(){
   TGraphAsymmErrors *TagProbePhi720       = new TGraphAsymmErrors;
   TMultiGraph *mg4 = new TMultiGraph;
   //========================================================== 
-  //                     Phi                                                  
+  //                     Data                                                  
   //==========================================================
-  TFile *f5 = new TFile("Analyse_TagandProbe_MC_DY_60_Mass_120_RelTrackIso_ID_pt45.root","READ");
+  TFile *f5 = new TFile("Analyse_TagAndProbe_CMSSW_8_0_13_ZPRIMEMuMu_13TeV-DataG-V1-JSON-tree.root","READ");
   //---------------------------------------------------
   NbPVProbeTTandProbeTF1->Add(PVProbeTT);
   NbPVProbeTTandProbeTF2->Add(PVProbeTP);
@@ -289,9 +287,9 @@ void TagProbeMuonPlotsTrackIso(){
   TagProbePhi539->SetMarkerStyle(20);
   TagProbePhi539->SetMarkerSize(0.875);
   //========================================================== 
-  //                     Phi                                                  
+  //                     MC DY                                                  
   //==========================================================
-  TFile *f50 = new TFile("Analyse_TagandProbe_Data_DY_60_Mass_120_RelTrackIso_ID_pt45.root","READ");
+  TFile *f50 = new TFile("Analyse_TagAndProbe_CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root","READ");
   //---------------------------------------------------
   NbPVProbeTTandProbe720TF1->Add(PVProbeTT);
   NbPVProbeTTandProbe720TF2->Add(PVProbeTP);
@@ -336,7 +334,7 @@ void TagProbeMuonPlotsTrackIso(){
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  TText *t1 = tText2->AddText("CMS Spring15 Simulation");
+  TText *t1 = tText2->AddText("CMS Spring16 Simulation");
   tText2->SetTextSize(0.035);
   tText2->Draw(); 
   //========================================================== 
@@ -362,8 +360,8 @@ void TagProbeMuonPlotsTrackIso(){
   leg->SetTextSize(tsize2); 
   leg->Draw();
   //======================================================================= 
-  c4->Print("Eff_TagProbe_ID_MC_13TeV_vtxProbe_cmssw720-trackiso.png","png");
-  c4->Print("Eff_TagProbe_ID_MC_13TeV_vtxProbe_cmssw720-trackiso.pdf","pdf");
+  c4->Print("Eff_TagProbe_ID_13TeV_vtxProbe_cmssw720-trackiso.png","png");
+  c4->Print("Eff_TagProbe_ID_13TeV_vtxProbe_cmssw720-trackiso.pdf","pdf");
   //c4->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Phi_EBEE.eps","eps");
   //=======================================================================
 
@@ -460,7 +458,7 @@ void TagProbeMuonPlotsTrackIso(){
   tText1->SetBorderSize(0);
   tText1->SetFillColor(0);
   tText1->SetFillStyle(0);
-  TText *t1 = tText1->AddText("50.421 pb^{-1} (13 TeV)");
+  TText *t1 = tText1->AddText("22.2 fb^{-1} (13 TeV)");
   tText1->SetTextSize(0.035);
   tText1->Draw(); 
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -468,7 +466,7 @@ void TagProbeMuonPlotsTrackIso(){
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  TText *t1 = tText2->AddText("CMS Spring15 Simulation");
+  TText *t1 = tText2->AddText("CMS Spring16 Simulation");
   tText2->SetTextSize(0.035);
   tText2->Draw(); 
   //========================================================== 
@@ -494,8 +492,8 @@ void TagProbeMuonPlotsTrackIso(){
   leg->SetTextSize(tsize2); 
   leg->Draw();  
   //======================================================================= 
-  c5->Print("Eff_TagProbe_ID_MC_13TeV_EtaProbe_cmssw720-trackiso.png","png");
-  c5->Print("Eff_TagProbe_ID_MC_13TeV_EtaProbe_cmssw720-trackiso.pdf","pdf");
+  c5->Print("Eff_TagProbe_ID_13TeV_EtaProbe_cmssw720-trackiso.png","png");
+  c5->Print("Eff_TagProbe_ID_13TeV_EtaProbe_cmssw720-trackiso.pdf","pdf");
   c5->Update();
   //================================================================== 
   

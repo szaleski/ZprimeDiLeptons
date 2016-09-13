@@ -36,97 +36,82 @@ void TagProbeMuonPlots(){
   lt.SetTextSize(0.07);
   lt.SetTextColor(1);
   //-----------------------------------
-  float Eff1    = 0.992541;
-  float Eff2    = 0.997441;
-  float Eff3    = 0.998276;
-  float Eff4    = 0.993334;
-  float Eff5    = 0.994771;
-  float Eff6    = 0.975608;
-  float Eff7    = 0.984109;
-  float Eff8    = 0.964307;
-  float Eff9    = 0.99461;
-  float Eff10   = 0.992715;
-  float Eff11   = 0.997227;
-  float Eff12   = 0.997424;
-  float Eff13   = 0.99038;
-
-  float error1     = 0.000632637;
-  float error2     = 0.000245095;
-  float error3     = 0.000196413;
-  float error4     = 0.000414215;
-  float error5     = 0.000248457;
-  float error6     = 0.00135095;
-  float error7     = 0.000522484;
-  float error8     = 0.00163942;
-  float error9     = 0.000251847;
-  float error10    = 0.00043307;
-  float error11    = 0.000251077;
-  float error12    = 0.000247884;
-  float error13    = 0.000725104;
-
-  /*
-    [0.0,0.9]   = 98.97
-    [0.9,1.2]   = 99.30
-    [1.2,2.1]   = 99.76
-    [2.1,2.4]   = 99.15
-    error[0.0,0.9]    = 0.02
-    error[0.9,1.2]    = 0.03
-    error[1.2,2.1]    = 0.01
-    error[2.1,2.4]    = 0.05
-  */
- /*
-   [0.0,0.9]   = 98.90 (+/-) 0.01
-   [0.9,1.2]   = 99.30 (+/-) 0.02
-   [1.2,2.1]   = 99.80 (+/-) 0.0
-   [2.1,2.4]   = 0.991507
-   error[0.0,0.9]    = 0.01
-   error[0.9,1.2]    = 0.02
-   error[1.2,2.1]    = 0.0
-   error[2.1,2.4]    = 0.000296783
- */
-
-
+  //-------- MC ------------
+  float Eff1    = 0.971831;
+  float Eff2    = 0.989418;
+  float Eff3    = 1;
+  float Eff4    = 0.99262;
+  float Eff5    = 0.983302;
+  float Eff6    = 0.974359;
+  float Eff7    = 0.976562;
+  float Eff8    = 0.94186;
+  float Eff9    = 0.990926;
+  float Eff10   = 0.980469;
+  float Eff11   = 0.993789;
+  float Eff12   = 0.991957;
+  float Eff13   = 0.986046;
+  //[0.0,0.9]   = 0.981685
+  //[0.9,1.2]   = 0.986717
+  //[1.2,2.1]   = 0.993622
+  //[2.1,2.4]   = 0.978972
+  float error1     = 0.0115;
+  float error2     = 0.00529101;
+  float error3     = 0;
+  float error4     = 0.0052185;
+  float error5     = 0.00556586;
+  float error6     = 0.0181309;
+  float error7     = 0.0078125;
+  float error8     = 0.0260008;
+  float error9     = 0.0040582;
+  float error10    = 0.00873464;
+  float error11    = 0.00439197;
+  float error12    = 0.00464357;
+  float error13    = 0.00805605;
+  //error[0.0,0.9]    = 0.00334385;
+  //error[0.9,1.2]    = 0.0050204;
+  //error[1.2,2.1]    = 0.00212615;
+  //error[2.1,2.4]    = 0.00700935;
+  
 
   //==============================================
-  //  Data
+  //  Data 2016 G
   //==============================================
- float EffD1    = 0.974227;
- float EffD2    = 0.990483;
- float EffD3    = 0.995014;
- float EffD4    = 0.983568;
- float EffD5    = 0.99011;
- float EffD6    = 0.970588;
- float EffD7    = 0.981162;
- float EffD8    = 0.952618;
- float EffD9    = 0.987393;
- float EffD10   = 0.979916;
- float EffD11   = 0.994776;
- float EffD12   = 0.992913;
- float EffD13   = 0.981324;
 
- float errorD1     = 0.00665461;
- float errorD2     = 0.0026395;
- float errorD3     = 0.00188444;
- float errorD4     = 0.00358574;
- float errorD5     = 0.00190335;
- float errorD6     = 0.00815736;
- float errorD7     = 0.00313972;
- float errorD8     = 0.0108701;
- float errorD9     = 0.00216201;
- float errorD10    = 0.00409956;
- float errorD11    = 0.00197444;
- float errorD12    = 0.0023622;
- float errorD13    = 0.00563094;
- /*
-   [0.0,0.9]   = 98.42 (+/-) 0.14
-   [0.9,1.2]   = 98.18 (+/-) 0.27
-   [1.2,2.1]   = 99.33 (+/-) 0.11
-   [2.1,2.4]   = 0.977797
-   error[0.0,0.9]    = 0.14
-   error[0.9,1.2]    = 0.27
-   error[1.2,2.1]    = 0.11
-   error[2.1,2.4]    = 0.00435441
- */
+  float EffD1    = 0.971831;
+  float EffD2    = 0.989418;
+  float EffD3    = 1;
+  float EffD4    = 0.99262;
+  float EffD5    = 0.983302;
+  float EffD6    = 0.974359;
+  float EffD7    = 0.976562;
+  float EffD8    = 0.94186;
+  float EffD9    = 0.990926;
+  float EffD10   = 0.980469;
+  float EffD11   = 0.993789;
+  float EffD12   = 0.991957;
+  float EffD13   = 0.986046;
+  //[0.0,0.9]   = 0.981685
+  //[0.9,1.2]   = 0.986717
+  //[1.2,2.1]   = 0.993622
+  //[2.1,2.4]   = 0.978972
+  float errorD1     = 0.0115;
+  float errorD2     = 0.00529101;
+  float errorD3     = 0;
+  float errorD4     = 0.0052185;
+  float errorD5     = 0.00556586;
+  float errorD6     = 0.0181309;
+  float errorD7     = 0.0078125;
+  float errorD8     = 0.0260008;
+  float errorD9     = 0.0040582;
+  float errorD10    = 0.00873464;
+  float errorD11    = 0.00439197;
+  float errorD12    = 0.00464357;
+  float errorD13    = 0.00805605;
+  //error[0.0,0.9]    = 0.00334385
+  //error[0.9,1.2]    = 0.0050204
+  //error[1.2,2.1]    = 0.00212615
+  //error[2.1,2.4]    = 0.00700935
+
  
   //================================================================== 
   //==================================================================  
@@ -153,9 +138,9 @@ void TagProbeMuonPlots(){
   TGraphAsymmErrors *MassEffForTagProbe720  = new TGraphAsymmErrors;
   TMultiGraph *mg1 = new TMultiGraph;
   //========================================================== 
-  //                      Mass 539                         
+  //                      Data                         
   //==========================================================
-  TFile *f1 = new TFile("Analyse_TagandProbe_CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root","READ");
+  TFile *f1 = new TFile("Analyse_TagAndProbe_CMSSW_8_0_13_ZPRIMEMuMu_13TeV-DataG-V1-JSON-tree.root","READ");
   //---------------------------------------------------
   TH1F *PtProbeTT; f1->GetObject("PtProbeTT",PtProbeTT);
   TH1F *PtProbeTP; f1->GetObject("PtProbeTP",PtProbeTP);
@@ -180,7 +165,7 @@ void TagProbeMuonPlots(){
   MassEffForTagProbe539->SetMarkerSize(0.875);
   //-----------------------------------------------------------------
   //========================================================== 
-  //                      Mass 720                                                  
+  //                      MC DY                                                 
   //==========================================================
   TFile *f100 = new TFile("Analyse_TagandProbe_CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root","READ");  
   //---------------------------------------------------
@@ -244,7 +229,7 @@ void TagProbeMuonPlots(){
   //========================================================== 
   TLegend *leg = new TLegend(0.20, 0.20, 0.40, 0.35);
   leg->AddEntry(MassEffForTagProbe539,"MC","p");
-  leg->AddEntry(MassEffForTagProbe720,"Data (PromptReco)","p");
+  leg->AddEntry(MassEffForTagProbe720,"Data 2016G (PromptReco)","p");
   leg->SetBorderSize(0.0);
   leg->SetMargin(0.3);
   leg->SetFillColor(0);
@@ -254,8 +239,8 @@ void TagProbeMuonPlots(){
   leg->SetTextSize(tsize22); 
   leg->Draw();
   //======================================================================= 
-  c1->Print("Eff_TagProbe_ID_MC_13TeV_PtProbe_cmssw80X.png","png");
-  c1->Print("Eff_TagProbe_ID_MC_13TeV_PtProbe_cmssw80X.pdf","pdf");
+  c1->Print("Eff_TagProbe_ID_13TeV_PtProbe_cmssw80X.png","png");
+  c1->Print("Eff_TagProbe_ID_13TeV_PtProbe_cmssw80X.pdf","pdf");
   //c1->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.eps","eps");
   //=======================================================================
   
@@ -283,7 +268,7 @@ void TagProbeMuonPlots(){
   //========================================================== 
   //                     Phi                                                  
   //==========================================================
-  TFile *f5 = new TFile("Analyse_TagandProbe_CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root","READ");
+  TFile *f5 = new TFile("Analyse_TagAndProbe_CMSSW_8_0_13_ZPRIMEMuMu_13TeV-DataG-V1-JSON-tree.root","READ");
   //---------------------------------------------------
   TH1F *PVProbeTT; f1->GetObject("PVProbeTT",PVProbeTT);
   TH1F *PVProbeTP; f1->GetObject("PVProbeTP",PVProbeTP);
@@ -372,7 +357,7 @@ void TagProbeMuonPlots(){
   //========================================================== 
   TLegend *leg0 = new TLegend(0.20, 0.20, 0.40, 0.35);
   leg0->AddEntry(TagProbePhi539,"MC","p");
-  leg0->AddEntry(TagProbePhi720,"Data (PromptReco)","p");
+  leg0->AddEntry(TagProbePhi720,"Data 2016G (PromptReco)","p");
   leg0->SetBorderSize(0.0);
   leg0->SetMargin(0.3);
   leg0->SetFillColor(0);
@@ -382,8 +367,8 @@ void TagProbeMuonPlots(){
   leg0->SetTextSize(tsize2a); 
   leg0->Draw();
   //======================================================================= 
-  c4->Print("Eff_TagProbe_ID_MC_13TeV_vtxProbe_cmssw80X.png","png");
-  c4->Print("Eff_TagProbe_ID_MC_13TeV_vtxProbe_cmssw80X.pdf","pdf");
+  c4->Print("Eff_TagProbe_ID_13TeV_vtxProbe_cmssw80X.png","png");
+  c4->Print("Eff_TagProbe_ID_13TeV_vtxProbe_cmssw80X.pdf","pdf");
   //c4->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Phi_EBEE.eps","eps");
   //=======================================================================
 
@@ -506,7 +491,7 @@ void TagProbeMuonPlots(){
   //==========================================================
   TLegend *leg1 = new TLegend(0.20, 0.20, 0.40, 0.35);
   leg1->AddEntry(gr,"MC","p");
-  leg1->AddEntry(gr2,"Data (PromptReco)","p");
+  leg1->AddEntry(gr2,"Data 2016G (PromptReco)","p");
   leg1->SetBorderSize(0.0);
   leg1->SetMargin(0.3);
   leg1->SetFillColor(0);
@@ -516,8 +501,8 @@ void TagProbeMuonPlots(){
   leg1->SetTextSize(tsize2); 
   leg1->Draw();  
   //======================================================================= 
-  c5->Print("Eff_TagProbe_ID_MC_13TeV_EtaProbe_cmssw80X.png","png");
-  c5->Print("Eff_TagProbe_ID_MC_13TeV_EtaProbe_cmssw80X.pdf","pdf");
+  c5->Print("Eff_TagProbe_ID_13TeV_EtaProbe_cmssw80X.png","png");
+  c5->Print("Eff_TagProbe_ID_13TeV_EtaProbe_cmssw80X.pdf","pdf");
   c5->Update();
   //================================================================== 
   
