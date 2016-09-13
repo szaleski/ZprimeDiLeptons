@@ -71,7 +71,7 @@ PlotStackZprime::PlotStackZprime(){
   //LoadLib.Load("/cmshome/nicola/slc6/MonoHiggs/Analysis13TeV/CMSSW_7_2_0/lib/slc6_amd64_gcc481/libHiggsHiggs_CS_and_Width.so");
   //getMassWindow(500.);
     
-  inputfile="filelist_zprime_SingleMuon_2016_Spring16_25ns_AN.txt";
+  inputfile="filelist_zprime_SingleMuon_2016_Spring16_25ns_AN_DESY.txt";
 
   setSamplesNames4l(); 
   cout << "\t Analysing samples for " << whichchannel << " analysis" << endl; 
@@ -83,7 +83,7 @@ PlotStackZprime::PlotStackZprime(){
   //std::string histolabel = "hPUvertices";    // numPU
   //std::string histolabel = "hPUvertices_ReWeighted";    // numPY reweighted
 	
-  std::string histolabel = "ZprimeRecomass"; 
+  //std::string histolabel = "ZprimeRecomass"; 
   //std::string histolabel = "ZprimeRecomassBinWidth";
 
   //std::string histolabel = "dPToverPT";
@@ -93,17 +93,17 @@ PlotStackZprime::PlotStackZprime(){
   //std::string histolabel = "numberOftrackerLayersWithMeasurement";
   //std::string histolabel = "trackiso";
   //std::string histolabel = "absdxy";
-  //std::string histolabel = "PtID";
+  std::string histolabel = "PtID";
  
   useLogY = true;
-  useLogX = true;
+  useLogX = false;
 
   useDYJets=true;
   useDYJetsFromData=false;
   useDiJetsFromFakeRateFromData=false;
   useWJetsFromFakeRateFromMC=false;
 
-  nRebin=10;
+  nRebin=20;
   std::cout << "Histogram label is= " << histolabel << std::endl;
   
   // Final yields
