@@ -24,6 +24,7 @@
 #include <TROOT.h>
 #include <TChain.h>
 #include <TFile.h>
+using namespace std;
 // Fixed size dimensions of array or collections stored in the TTree if any.
 
 class TagProbeMuon {
