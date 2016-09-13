@@ -39,3 +39,4 @@
 /lustre/cms/store/user/defilip/ZprimeAnalysis/80X/histos/histosZprimeMuMu/output_QCD_Pt_600to800_Tree_MC.root
 /lustre/cms/store/user/defilip/ZprimeAnalysis/80X/histos/histosZprimeMuMu/output_QCD_Pt_800to1000_Tree_MC.root
 /lustre/cms/store/user/defilip/ZprimeAnalysis/80X/histos/histosZprimeMuMu/output_QCD_Pt_80to120_Tree_MC.root
+/lustre/cms/store/user/defilip/ZprimeAnalysis/80X/histos/histosZprimeMuMu/output_ZprimeToMuMu_M-5000_TuneCUETP8M1_13TeV-pythia8_tree.root
