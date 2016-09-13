@@ -85,8 +85,8 @@ PlotStackZprime::PlotStackZprime(){
   //std::string histolabel = "hPUvertices_ReWeighted";    // numPY reweighted
 
   
-  std::string histolabel = "h1_Den_Pt_w"; 
-  //std::string histolabel = "h1_Num_Pt_w";
+  //std::string histolabel = "h1_Den_Pt_w"; 
+  std::string histolabel = "h1_Num_Pt_w";
   
   //std::string histolabel = "h1_Den_Pt_Barrel_w"; 
   //std::string histolabel = "h1_Num_Pt_Barrel_w";
@@ -113,6 +113,8 @@ PlotStackZprime::PlotStackZprime(){
   std::cout << "Histogram label is= " << histolabel << std::endl;
   
   // Final yields
+  system("mkdir plots");
+
   Char_t yieldsOUT[500];
   sprintf(yieldsOUT,"plots/yields_%s_%s.txt",whichchannel.c_str(),whichenergy.c_str());
   if (histolabel.find("hM4l_8")<10 ) {
@@ -192,7 +194,7 @@ void PlotStackZprime::plotm4l(std::string histlabel){
   else if (whichenergy.find("13TeV")<100) {
     //text = "#sqrt{s} = 13 TeV, L = 50.852 pb^{-1}" ;
     //text = "#sqrt{s} = 13 TeV, L = 77.346 pb^{-1}" ;
-    text = "#sqrt{s} = 13 TeV, L = 17.4 fb^{-1}" ;
+    text = "#sqrt{s} = 13 TeV, L = 22.2 fb^{-1}" ;
     ll->AddText(0.65, 0.6, text);
   }
   //ll->Draw();

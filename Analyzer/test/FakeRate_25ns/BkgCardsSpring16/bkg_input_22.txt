@@ -1,0 +1,1 @@
+ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_tree 998397 1 998397 35.85

@@ -72,7 +72,7 @@ void plotFR_data(){
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  TText *t2 = tText2->AddText("CMS 2015C + 2015D Data");
+  TText *t2 = tText2->AddText("CMS 2016 Data - L = 22.2 fb^{-1}");
   tText2->SetTextSize(0.035);
   //tText2->Draw(); 
 

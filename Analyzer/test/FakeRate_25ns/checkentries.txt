@@ -1,0 +1,97 @@
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_tree.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_tree.root 49867458
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_1000to1400_Tree_MC.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_1000to1400_Tree_MC.root 2797693
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_120to170_Tree_MC.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_120to170_Tree_MC.root 6863805
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_1400to1800_Tree_MC.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_1400to1800_Tree_MC.root 395552
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_15to30_Tree_MC.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_15to30_Tree_MC.root 9894202
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_170to300_Tree_MC.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_170to300_Tree_MC.root 6824820
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_1800to2400_Tree_MC.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_1800to2400_Tree_MC.root 396093
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_2400to3200_Tree_MC.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_2400to3200_Tree_MC.root 399226
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_300to470_Tree_MC.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_300to470_Tree_MC.root 5970580
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_30to50_Tree_MC.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_30to50_Tree_MC.root 9867723
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_3200toInf_Tree_MC.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_3200toInf_Tree_MC.root 385520
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_470to600_Tree_MC.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_470to600_Tree_MC.root 3812421
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_50to80_Tree_MC.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_50to80_Tree_MC.root 9968391
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_600to800_Tree_MC.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_600to800_Tree_MC.root 3899964
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_800to1000_Tree_MC.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_800to1000_Tree_MC.root 3976116
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_80to120_Tree_MC.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/QCD_Pt_80to120_Tree_MC.root 6815134
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ST_t-channel_antitop_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1_tree.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ST_t-channel_antitop_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1_tree.root 1665990
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ST_t-channel_top_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1_tree.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ST_t-channel_top_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1_tree.root 999995
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_tree.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_tree.root 967595
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_tree.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_tree.root 998397
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/TTTo2L2Nu_13TeV-powheg.root
+Error in <TFile::ReadBuffer>: error reading all requested bytes from file /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/TTTo2L2Nu_13TeV-powheg.root, got 268 of 300
+Error in <TFile::Init>: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/TTTo2L2Nu_13TeV-powheg.root failed to read the file type data.
+
+ *** Break *** segmentation violation
+
+
+
+===========================================================
+There was a crash.
+This is the entire stack trace of all threads:
+===========================================================
+#0  0x0000003a128ac7be in waitpid () from /lib64/libc.so.6
+#1  0x0000003a1283e5c9 in do_system () from /lib64/libc.so.6
+#2  0x00007f82e0c57a49 in TUnixSystem::StackTrace() () from /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw/CMSSW_8_0_13/external/slc6_amd64_gcc530/lib/libCore.so
+#3  0x00007f82e0c5994c in TUnixSystem::DispatchSignals(ESignals) () from /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw/CMSSW_8_0_13/external/slc6_amd64_gcc530/lib/libCore.so
+#4  <signal handler called>
+#5  0x0000000000400cd1 in main ()
+===========================================================
+
+
+The lines below might hint at the cause of the crash.
+If they do not help you then please submit a bug report at
+http://root.cern.ch/bugs. Please post the ENTIRE stack trace
+from above as an attachment in addition to anything else
+that might help us fixing this issue.
+===========================================================
+#5  0x0000000000400cd1 in main ()
+===========================================================
+
+
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/TTTo2L2Nu_13TeV-powheg-tree.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/TTTo2L2Nu_13TeV-powheg-tree.root 103319724
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_tree.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_tree.root 28061303
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/WWTo2L2Nu_13TeV-powheg_tree.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/WWTo2L2Nu_13TeV-powheg_tree.root 1986159
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/WZ_TuneCUETP8M1_13TeV-pythia8_tree.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/WZ_TuneCUETP8M1_13TeV-pythia8_tree.root 999994
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ZToMuMu_NNPDF30_13TeV-powheg_M_120_200_tree.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ZToMuMu_NNPDF30_13TeV-powheg_M_120_200_tree.root 98399
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ZToMuMu_NNPDF30_13TeV-powheg_M_1400_2300_tree.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ZToMuMu_NNPDF30_13TeV-powheg_M_1400_2300_tree.root 100000
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ZToMuMu_NNPDF30_13TeV-powheg_M_200_400_tree.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ZToMuMu_NNPDF30_13TeV-powheg_M_200_400_tree.root 99997
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ZToMuMu_NNPDF30_13TeV-powheg_M_2300_3500_tree.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ZToMuMu_NNPDF30_13TeV-powheg_M_2300_3500_tree.root 99199
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ZToMuMu_NNPDF30_13TeV-powheg_M_3500_4500_tree.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ZToMuMu_NNPDF30_13TeV-powheg_M_3500_4500_tree.root 100000
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ZToMuMu_NNPDF30_13TeV-powheg_M_400_800_tree.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ZToMuMu_NNPDF30_13TeV-powheg_M_400_800_tree.root 100000
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ZToMuMu_NNPDF30_13TeV-powheg_M_50_120_tree.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ZToMuMu_NNPDF30_13TeV-powheg_M_50_120_tree.root 2963129
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ZToMuMu_NNPDF30_13TeV-powheg_M_800_1400_tree.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ZToMuMu_NNPDF30_13TeV-powheg_M_800_1400_tree.root 99999
+/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ZZ_TuneCUETP8M1_13TeV-pythia8_tree.root
+Read file with name: /lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged/ZZ_TuneCUETP8M1_13TeV-pythia8_tree.root 989304

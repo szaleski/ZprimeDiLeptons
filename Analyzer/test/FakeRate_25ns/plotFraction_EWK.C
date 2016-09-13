@@ -34,7 +34,7 @@
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  TText *t2 = tText2->AddText("CMS Spring15 Simulation");
+  TText *t2 = tText2->AddText("CMS Spring16 Simulation");
   tText2->SetTextSize(0.035);
   //tText2->Draw(); 
   
