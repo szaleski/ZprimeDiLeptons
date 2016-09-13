@@ -76,41 +76,40 @@ void TagProbeMuonPlots(){
   //==============================================
   //  Data 2016 G
   //==============================================
-
-  float EffD1    = 0.971831;
-  float EffD2    = 0.989418;
-  float EffD3    = 1;
-  float EffD4    = 0.99262;
-  float EffD5    = 0.983302;
-  float EffD6    = 0.974359;
-  float EffD7    = 0.976562;
-  float EffD8    = 0.94186;
-  float EffD9    = 0.990926;
-  float EffD10   = 0.980469;
-  float EffD11   = 0.993789;
-  float EffD12   = 0.991957;
-  float EffD13   = 0.986046;
-  //[0.0,0.9]   = 0.981685
-  //[0.9,1.2]   = 0.986717
-  //[1.2,2.1]   = 0.993622
-  //[2.1,2.4]   = 0.978972
-  float errorD1     = 0.0115;
-  float errorD2     = 0.00529101;
-  float errorD3     = 0;
-  float errorD4     = 0.0052185;
-  float errorD5     = 0.00556586;
-  float errorD6     = 0.0181309;
-  float errorD7     = 0.0078125;
-  float errorD8     = 0.0260008;
-  float errorD9     = 0.0040582;
-  float errorD10    = 0.00873464;
-  float errorD11    = 0.00439197;
-  float errorD12    = 0.00464357;
-  float errorD13    = 0.00805605;
-  //error[0.0,0.9]    = 0.00334385
-  //error[0.9,1.2]    = 0.0050204
-  //error[1.2,2.1]    = 0.00212615
-  //error[2.1,2.4]    = 0.00700935
+  float Eff1    = 0.954125;
+  float Eff2    = 0.979905;
+  float Eff3    = 0.98634;
+  float Eff4    = 0.972224;
+  float Eff5    = 0.974969;
+  float Eff6    = 0.932898;
+  float Eff7    = 0.953985;
+  float Eff8    = 0.911189;
+  float Eff9    = 0.969935;
+  float Eff10   = 0.960408;
+  float Eff11   = 0.984038;
+  float Eff12   = 0.982888;
+  float Eff13   = 0.960717;
+  // [0.0,0.9]   = 0.962646
+  // [0.9,1.2]   = 0.966308
+  // [1.2,2.1]   = 0.983293
+  // [2.1,2.4]   = 0.957422
+  float error1     = 0.000903695;
+  float error2     = 0.000412778;
+  float error3     = 0.0003399;
+  float error4     = 0.000527759;
+  float error5     = 0.000337054;
+  float error6     = 0.00135705;
+  float error7     = 0.000537168;
+  float error8     = 0.00156776;
+  float error9     = 0.000369008;
+  float error10    = 0.000629321;
+  float error11    = 0.000369316;
+  float error12    = 0.00038027;
+  float error13    = 0.000836005;
+  // error[0.0,0.9]    = 0.000235563;
+  // error[0.9,1.2]    = 0.00041075;
+  // error[1.2,2.1]    = 0.000188232;
+  // error[2.1,2.4]    = 0.000615528;
 
  
   //================================================================== 
