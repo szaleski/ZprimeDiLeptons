@@ -72,7 +72,7 @@ PlotStackZprime::PlotStackZprime(){
   //LoadLib.Load("/cmshome/nicola/slc6/MonoHiggs/Analysis13TeV/CMSSW_7_2_0/lib/slc6_amd64_gcc481/libHiggsHiggs_CS_and_Width.so");
   //getMassWindow(500.);
     
-  inputfile="filelist_zprime_SingleMuon_2016_Spring16_25ns_AN.txt";
+  inputfile="filelist_zprime_SingleMuon_2016_Spring16_25ns_AN_DESY.txt";
 
   setSamplesNames4l(); 
   cout << "\t Analysing samples for " << whichchannel << " analysis" << endl; 
@@ -85,7 +85,7 @@ PlotStackZprime::PlotStackZprime(){
   //std::string histolabel = "hPUvertices_ReWeighted";    // numPY reweighted
 
   //std::string histolabel = "h1_Den_Pt_w"; 
-  //std::string histolabel = "h1_Num_Pt_w";
+  std::string histolabel = "h1_Num_Pt_w";
   
   //std::string histolabel = "h1_Den_Pt_Barrel_w"; 
   //std::string histolabel = "h1_Num_Pt_Barrel_w";
@@ -94,7 +94,7 @@ PlotStackZprime::PlotStackZprime(){
   //std::string histolabel = "h1_Num_Pt_EndCap_w";
   
   
-  std::string histolabel = "h1_mW_T";
+  //std::string histolabel = "h1_mW_T";
   //std::string histolabel = "h1_MET";
   //std::string histolabel = "h1_METSign";
   //std::string histolabel = "h1_METSign_LH";
