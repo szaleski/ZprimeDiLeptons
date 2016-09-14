@@ -1,1 +1,0 @@
-ST_t-channel_antitop_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1_tree 1665990 1 1665990 80.95
