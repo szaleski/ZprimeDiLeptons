@@ -70,7 +70,13 @@ int main(int argc, char ** argv){
       dirInput="/castor/cern.ch/user/n/ndefilip/Paper/MCFall11";    // to run at CERN
     }
     else if (site.find("DESY")<5){
-      dirInput="/nfs/dust/test/cmsdas/school16/ZllExercise/"; //to run at DESY
+      if (dataconf.find("2016")<50){
+        dirInput="/nfs/dust2/cms/group/DAS2016/ZprimeDiLepton/Data2016_ZprimeMuMu_13TeV_merged_HLT"; //to run at DESY
+      }
+      if (mcconf.find("Spring16")<50){
+	dirInput="/nfs/dust2/cms/group/DAS2016/ZprimeDiLepton//Spring16_ZprimeMuMu_13TeV_merged";
+	if (name.find("reHLT_DYtoMuMu")<100) dirInput="/nfs/dust2/cms/group/DAS2016/ZprimeDiLepton/Spring16_ZprimeMuMu_13TeV_merged_HLT";
+      }
     }
     else if (site.find("FNAL")<5 && mcconf.find("Spring15_combined")<5){
       dirInput="root://cmseos.fnal.gov///store/user/cmsdas/2016/LONG_EXERCISES/ZprimeDiLeptons/Spring16_ZprimeMuMu_13TeV_merged";
@@ -79,10 +85,12 @@ int main(int argc, char ** argv){
       dirInput="root://cmseos.fnal.gov///store/user/cmsdas/2016/LONG_EXERCISES/ZprimeDiLeptons/Data2015_ZprimeMuMu_13TeV_merged";
     }
     else if (mcconf.find("Spring16")<50){
-       dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged";
-     //  dirInput="/lustre/cms/store/user/aqamesh/ZprimeAnalysis_QCD_Tree";  
-     //dirInput="/lustre/cms/store/user/selgammal/ZprimeMuMu/MCs";
-    }
+      dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged";
+      if (name.find("reHLT_DYtoMuMu")<100) dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_ZprimeMuMu_13TeV_merged_HLT";       
+      if (name.find("CMSSW803_MC_DYtoMuMu")<100) dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Spring16_merged";
+      //  dirInput="/lustre/cms/store/user/aqamesh/ZprimeAnalysis_QCD_Tree";  
+      //dirInput="/lustre/cms/store/user/selgammal/ZprimeMuMu/MCs";
+    }   
     else if (dataconf.find("2016")<50){
       //dirInput="/lustre/cms/store/user/selgammal/ZprimeMuMu/2016Data/";
       dirInput="/lustre/cms/store/user/defilip/ZprimeAnalysis/Data2016_ZprimeMuMu_13TeV_merged_HLT";
