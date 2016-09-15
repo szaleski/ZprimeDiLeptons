@@ -57,9 +57,11 @@ void MuonsEffEta(){
   //========================================================== 
   //                      DeltaPhi in EB                                                  
   //==========================================================
-  TFile *f1 = new TFile("ZprimetoMuMu-MC-Mass5000-CMSSW720.root","READ");
+  TFile *f1 = new TFile("/lustre/cms/store/user/defilip/ZprimeAnalysis/80X/histos/histosZprimeMuMu/output_ZprimeToMuMu_M-5000_TuneCUETP8M1_13TeV-pythia8_tree.root","READ");
   //---------------------------------------------------
   cout<<"====================== error on pt =============================="<<endl;
+  TH1F *EtaID; f1->GetObject("EtaID",EtaID);
+  TH1F *EtaEffpterror; f1->GetObject("EtaEffpterror",EtaEffpterror);
   int nbEleTopEB1                             = EtaID->Integral();
   int nbEleBottomEB1                          = EtaEffpterror->Integral();
   float EffChargedHadEB1                      = (float)nbEleTopEB1/nbEleBottomEB1;
@@ -144,11 +146,11 @@ void MuonsEffEta(){
   TText *t3 = tText2->AddText("#delta pt/pt<0.3; CMSSW701 [1/fb]"); 
   tText2->Draw();
   //========================================================== 
-  TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
+  //TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  Float_t tsize = 0.03;
+  //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t1 = tText2->AddText("Eff(N-1) = 0.9969 #pm 0.0002");
   //TText *t2 = tText2->AddText("Eff(Photons) = 0.9684 #pm 0.0005");
@@ -185,7 +187,7 @@ void MuonsEffEta(){
   //================================================================== 
   
   TCanvas *c2 = new TCanvas("c2","Et in EB",600,600);
-  char textpro1[100],textNDF1[100],textRatio1[100];           
+  char textpro11[100],textNDF11[100],textRatio11[100];           
   c2->cd(1);
   gPad->SetTopMargin(0.12);
   gPad->SetLeftMargin(0.15);
@@ -194,16 +196,20 @@ void MuonsEffEta(){
   gPad->SetTicky();
   gPad->SetGridy();
   gPad->SetGridx();
-  TGraphAsymmErrors *EleEtDeltaPhiEB     = new TGraphAsymmErrors;
-  TGraphAsymmErrors *PhotonEtDeltaPhiEB  = new TGraphAsymmErrors;
-  TGraphAsymmErrors *QCDEtDeltaPhiEB     = new TGraphAsymmErrors;
+
+  EleEtDeltaPhiEB     = new TGraphAsymmErrors;
+  PhotonEtDeltaPhiEB  = new TGraphAsymmErrors;
+  QCDEtDeltaPhiEB     = new TGraphAsymmErrors;
   TMultiGraph *mg2 = new TMultiGraph;
   //========================================================== 
   //                      DeltaPhi in EB                                                  
   //==========================================================
-  TFile *f1 = new TFile("ZprimetoMuMu-MC-Mass5000-CMSSW720.root","READ");
+  TFile *f0 = new TFile("/lustre/cms/store/user/defilip/ZprimeAnalysis/80X/histos/histosZprimeMuMu/output_ZprimeToMuMu_M-5000_TuneCUETP8M1_13TeV-pythia8_tree.root","READ");
   //---------------------------------------------------
   cout<<"====================== NumberOftrackerLayers =============================="<<endl;
+  //TH1F *EtaID; 
+  f0->GetObject("EtaID",EtaID);
+  TH1F *EtaEffptnumberOftrackerLayers; f0->GetObject("EtaEffptnumberOftrackerLayers",EtaEffptnumberOftrackerLayers);
   int nbEleTopEB2                             = EtaID->Integral();
   int nbEleBottomEB2                          = EtaEffptnumberOftrackerLayers->Integral();
   float EffChargedHadEB2                      = (float)nbEleTopEB2/nbEleBottomEB2;
@@ -278,43 +284,43 @@ void MuonsEffEta(){
   //mg2->GetYaxis()->SetRangeUser(0.0,1.05);
   mg2->GetYaxis()->SetRangeUser(0.9,1.01);
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-  TPaveText* tText2 = new TPaveText(0.40, 0.90, 0.90, 0.92, "brNDC");
+  //TPaveText* tText2 = new TPaveText(0.40, 0.90, 0.90, 0.92, "brNDC");
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  Float_t tsize = 0.03;
+  //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t2 = tText2->AddText("DeltaPhi");
-  TText *t3 = tText2->AddText("NbTrackLayers>5.0; CMSSW701 [1/fb]"); 
+  //TText *t3 = tText2->AddText("NbTrackLayers>5.0; CMSSW701 [1/fb]"); 
   tText2->Draw();
   //========================================================== 
-  TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
+  //TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  Float_t tsize = 0.03;
+  //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t1 = tText2->AddText("Eff(N-1) = 0.9969 #pm 0.0002");
   //TText *t2 = tText2->AddText("Eff(Photons) = 0.9684 #pm 0.0005");
   //TText *t3 = tText2->AddText("Eff(QCD) = 0.8921 #pm 0.0057");
 
-  TText *t1 = tText2->AddText("Eff(N-1) = 0.9998 #pm 3.82788e-05");
+  //TText *t1 = tText2->AddText("Eff(N-1) = 0.9998 #pm 3.82788e-05");
   //TText *t2 = tText2->AddText("Eff(Photons) = 0.9198 #pm 0.0008");
   //TText *t3 = tText2->AddText("Eff(QCD) = 0.8316 #pm 0.0071");
   tText2->Draw();
   //========================================================== 
-  TLegend *leg = new TLegend(0.60, 0.15, 0.80, 0.30);
-  leg->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
-  //leg->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
-  //leg->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
-  leg->SetBorderSize(0.0);
-  leg->SetMargin(0.3);
-  leg->SetFillColor(0);
-  leg->SetFillStyle(10);
-  leg->SetLineColor(0);
-  Float_t tsize2 = 0.03;
-  leg->SetTextSize(tsize2); 
-  leg->Draw();
+  TLegend *leg1 = new TLegend(0.60, 0.15, 0.80, 0.30);
+  leg1->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
+  //leg1->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
+  //leg1->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
+  leg1->SetBorderSize(0.0);
+  leg1->SetMargin(0.3);
+  leg1->SetFillColor(0);
+  leg1->SetFillStyle(10);
+  leg1->SetLineColor(0);
+  //Float_t tsize2 = 0.03;
+  leg1->SetTextSize(tsize2); 
+  leg1->Draw();
   //======================================================================= 
   c2->Print("Eff_numberOftrackerLayers_HEEP_ID_MC_CMSSW701_Eta.png","png");
   //c2->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.pdf","pdf");
@@ -328,7 +334,7 @@ void MuonsEffEta(){
   //==================================================================  
   //================================================================== 
   TCanvas *c3 = new TCanvas("c3","Et in EB",600,600);
-  char textpro1[100],textNDF1[100],textRatio1[100];           
+  char textpro111[100],textNDF111[100],textRatio111[100];           
   c3->cd(1);
   gPad->SetTopMargin(0.12);
   gPad->SetLeftMargin(0.15);
@@ -337,15 +343,19 @@ void MuonsEffEta(){
   gPad->SetTicky();
   gPad->SetGridy();
   gPad->SetGridx();
-  TGraphAsymmErrors *EleEtDeltaPhiEB     = new TGraphAsymmErrors;
-  TGraphAsymmErrors *PhotonEtDeltaPhiEB  = new TGraphAsymmErrors;
-  TGraphAsymmErrors *QCDEtDeltaPhiEB     = new TGraphAsymmErrors;
+  EleEtDeltaPhiEB     = new TGraphAsymmErrors;
+  PhotonEtDeltaPhiEB  = new TGraphAsymmErrors;
+  QCDEtDeltaPhiEB     = new TGraphAsymmErrors;
   TMultiGraph *mg3 = new TMultiGraph;
   //========================================================== 
   //                      DeltaPhi in EB                                                  
   //==========================================================
-  TFile *f1 = new TFile("ZprimetoMuMu-MC-Mass5000-CMSSW720.root","READ");
+  TFile *f11 = new TFile("/lustre/cms/store/user/defilip/ZprimeAnalysis/80X/histos/histosZprimeMuMu/output_ZprimeToMuMu_M-5000_TuneCUETP8M1_13TeV-pythia8_tree.root","READ");
   //---------------------------------------------------
+  //TH1F *EtaID; 
+  f11->GetObject("EtaID",EtaID);
+  TH1F *EtaEffptnumberOfPixelHits; f11->GetObject("EtaEffptnumberOfPixelHits",EtaEffptnumberOfPixelHits);
+ 
   cout<<"====================== NumberOfPixelHits =============================="<<endl;
   int nbEleTopEB3                             = EtaID->Integral();
   int nbEleBottomEB3                          = EtaEffptnumberOfPixelHits->Integral();
@@ -421,43 +431,43 @@ void MuonsEffEta(){
   //mg3->GetYaxis()->SetRangeUser(0.0,1.05);
   mg3->GetYaxis()->SetRangeUser(0.9,1.01);
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-  TPaveText* tText2 = new TPaveText(0.40, 0.90, 0.90, 0.92, "brNDC");
+  //TPaveText* tText2 = new TPaveText(0.40, 0.90, 0.90, 0.92, "brNDC");
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  Float_t tsize = 0.03;
+  //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t2 = tText2->AddText("DeltaPhi");
-  TText *t3 = tText2->AddText("NbOfPixelHits>0.0; CMSSW701 [1/fb]"); 
+  //TText *t3 = tText2->AddText("NbOfPixelHits>0.0; CMSSW701 [1/fb]"); 
   tText2->Draw();
   //========================================================== 
-  TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
+  //TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  Float_t tsize = 0.03;
+  //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t1 = tText2->AddText("Eff(N-1) = 0.9969 #pm 0.0002");
   //TText *t2 = tText2->AddText("Eff(Photons) = 0.9684 #pm 0.0005");
   //TText *t3 = tText2->AddText("Eff(QCD) = 0.8921 #pm 0.0057");
 
-  TText *t1 = tText2->AddText("Eff(N-1) = 0.9988 #pm 9.92665e-05");
+  //TText *t1 = tText2->AddText("Eff(N-1) = 0.9988 #pm 9.92665e-05");
   //TText *t2 = tText2->AddText("Eff(Photons) = 0.9198 #pm 0.0008");
   //TText *t3 = tText2->AddText("Eff(QCD) = 0.8316 #pm 0.0071");
   tText2->Draw();
   //========================================================== 
-  TLegend *leg = new TLegend(0.60, 0.15, 0.80, 0.30);
-  leg->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
-  //leg->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
-  //leg->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
-  leg->SetBorderSize(0.0);
-  leg->SetMargin(0.3);
-  leg->SetFillColor(0);
-  leg->SetFillStyle(10);
-  leg->SetLineColor(0);
-  Float_t tsize2 = 0.03;
-  leg->SetTextSize(tsize2); 
-  leg->Draw();
+  TLegend *leg2 = new TLegend(0.60, 0.15, 0.80, 0.30);
+  leg2->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
+  //leg2->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
+  //leg2->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
+  leg2->SetBorderSize(0.0);
+  leg2->SetMargin(0.3);
+  leg2->SetFillColor(0);
+  leg2->SetFillStyle(10);
+  leg2->SetLineColor(0);
+  //Float_t tsize2 = 0.03;
+  leg2->SetTextSize(tsize2); 
+  leg2->Draw();
   //======================================================================= 
   c3->Print("Eff_NbOfPixelHits_HEEP_ID_MC_CMSSW701_Eta.png","png");
   //c3->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.pdf","pdf");
@@ -471,7 +481,7 @@ void MuonsEffEta(){
   //==================================================================  
   //================================================================== 
   TCanvas *c4 = new TCanvas("c4","Et in EB",600,600);
-  char textpro1[100],textNDF1[100],textRatio1[100];           
+  char textpro1111[100],textNDF1111[100],textRatio1111[100];           
   c4->cd(1);
   gPad->SetTopMargin(0.12);
   gPad->SetLeftMargin(0.15);
@@ -480,14 +490,17 @@ void MuonsEffEta(){
   gPad->SetTicky();
   gPad->SetGridy();
   gPad->SetGridx();
-  TGraphAsymmErrors *EleEtDeltaPhiEB     = new TGraphAsymmErrors;
-  TGraphAsymmErrors *PhotonEtDeltaPhiEB  = new TGraphAsymmErrors;
-  TGraphAsymmErrors *QCDEtDeltaPhiEB     = new TGraphAsymmErrors;
+  EleEtDeltaPhiEB     = new TGraphAsymmErrors;
+  PhotonEtDeltaPhiEB  = new TGraphAsymmErrors;
+  QCDEtDeltaPhiEB     = new TGraphAsymmErrors;
   TMultiGraph *mg4 = new TMultiGraph;
   //========================================================== 
   //                      DeltaPhi in EB                                                  
   //==========================================================
-  TFile *f1 = new TFile("ZprimetoMuMu-MC-Mass5000-CMSSW720.root","READ");
+  TFile *f111 = new TFile("/lustre/cms/store/user/defilip/ZprimeAnalysis/80X/histos/histosZprimeMuMu/output_ZprimeToMuMu_M-5000_TuneCUETP8M1_13TeV-pythia8_tree.root","READ");
+  //TH1F *EtaID; 
+  f111->GetObject("EtaID",EtaID);
+  TH1F *EtaEffptnumberOfMuonHits; f111->GetObject("EtaEffptnumberOfMuonHits",EtaEffptnumberOfMuonHits);
   //---------------------------------------------------
   cout<<"====================== NumberOfMuonHits =============================="<<endl;
   int nbEleTopEB4                             = EtaID->Integral();
@@ -564,43 +577,43 @@ void MuonsEffEta(){
   //mg4->GetYaxis()->SetRangeUser(0.0,1.05);
   mg4->GetYaxis()->SetRangeUser(0.9,1.01);
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-  TPaveText* tText2 = new TPaveText(0.40, 0.90, 0.90, 0.92, "brNDC");
+  //TPaveText* tText2 = new TPaveText(0.40, 0.90, 0.90, 0.92, "brNDC");
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  Float_t tsize = 0.03;
+  //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t2 = tText2->AddText("DeltaPhi");
-  TText *t3 = tText2->AddText("NumberOfMuonHits>0.0; CMSSW701 [1/fb]"); 
+  //  TText *t3 = tText2->AddText("NumberOfMuonHits>0.0; CMSSW701 [1/fb]"); 
   tText2->Draw();
   //========================================================== 
-  TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
+  //TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  Float_t tsize = 0.03;
+  //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t1 = tText2->AddText("Eff(N-1) = 0.9969 #pm 0.0002");
   //TText *t2 = tText2->AddText("Eff(Photons) = 0.9684 #pm 0.0005");
   //TText *t3 = tText2->AddText("Eff(QCD) = 0.8921 #pm 0.0057");
 
-  TText *t1 = tText2->AddText("Eff(N-1) = 0.9982 #pm 0.00012");
+  //TText *t1 = tText2->AddText("Eff(N-1) = 0.9982 #pm 0.00012");
   //TText *t2 = tText2->AddText("Eff(Photons) = 0.9198 #pm 0.0008");
   //TText *t3 = tText2->AddText("Eff(QCD) = 0.8316 #pm 0.0071");
   tText2->Draw();
   //========================================================== 
-  TLegend *leg = new TLegend(0.60, 0.15, 0.80, 0.30);
-  leg->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
-  //leg->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
-  //leg->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
-  leg->SetBorderSize(0.0);
-  leg->SetMargin(0.3);
-  leg->SetFillColor(0);
-  leg->SetFillStyle(10);
-  leg->SetLineColor(0);
-  Float_t tsize2 = 0.03;
-  leg->SetTextSize(tsize2); 
-  leg->Draw();
+  TLegend *leg3 = new TLegend(0.60, 0.15, 0.80, 0.30);
+  leg3->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
+  //leg3->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
+  //leg3->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
+  leg3->SetBorderSize(0.0);
+  leg3->SetMargin(0.3);
+  leg3->SetFillColor(0);
+  leg3->SetFillStyle(10);
+  leg3->SetLineColor(0);
+  //Float_t tsize2 = 0.03;
+  leg3->SetTextSize(tsize2); 
+  leg3->Draw();
   //======================================================================= 
   c4->Print("Eff_NumberOfMuonHits_HEEP_ID_MC_CMSSW701_Eta.png","png");
   //c4->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.pdf","pdf");
@@ -614,7 +627,7 @@ void MuonsEffEta(){
   //==================================================================  
   //================================================================== 
   TCanvas *c5 = new TCanvas("c5","Et in EB",600,600);
-  char textpro1[100],textNDF1[100],textRatio1[100];           
+  char textpro12[100],textNDF12[100],textRatio12[100];           
   c5->cd(1);
   gPad->SetTopMargin(0.12);
   gPad->SetLeftMargin(0.15);
@@ -623,14 +636,18 @@ void MuonsEffEta(){
   gPad->SetTicky();
   gPad->SetGridy();
   gPad->SetGridx();
-  TGraphAsymmErrors *EleEtDeltaPhiEB     = new TGraphAsymmErrors;
-  TGraphAsymmErrors *PhotonEtDeltaPhiEB  = new TGraphAsymmErrors;
-  TGraphAsymmErrors *QCDEtDeltaPhiEB     = new TGraphAsymmErrors;
+  EleEtDeltaPhiEB     = new TGraphAsymmErrors;
+  PhotonEtDeltaPhiEB  = new TGraphAsymmErrors;
+  QCDEtDeltaPhiEB     = new TGraphAsymmErrors;
   TMultiGraph *mg5 = new TMultiGraph;
   //========================================================== 
   //                      DeltaPhi in EB                                                  
   //==========================================================
-  TFile *f1 = new TFile("ZprimetoMuMu-MC-Mass5000-CMSSW720.root","READ");
+  TFile *f1111 = new TFile("/lustre/cms/store/user/defilip/ZprimeAnalysis/80X/histos/histosZprimeMuMu/output_ZprimeToMuMu_M-5000_TuneCUETP8M1_13TeV-pythia8_tree.root","READ");
+  //TH1F *EtaID; 
+  f1111->GetObject("EtaID",EtaID);
+  TH1F *EtaEffptnumberOfMatchedStations; f1111->GetObject("EtaEffptnumberOfMatchedStations",EtaEffptnumberOfMatchedStations);
+
   //---------------------------------------------------
   cout<<"====================== NumberOfMatchedStations =============================="<<endl;
   int nbEleTopEB5                             = EtaID->Integral();
@@ -707,43 +724,43 @@ void MuonsEffEta(){
   //mg5->GetYaxis()->SetRangeUser(0.0,1.05);
   mg5->GetYaxis()->SetRangeUser(0.9,1.01);
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-  TPaveText* tText2 = new TPaveText(0.40, 0.90, 0.90, 0.92, "brNDC");
+  //TPaveText* tText2 = new TPaveText(0.40, 0.90, 0.90, 0.92, "brNDC");
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  Float_t tsize = 0.03;
+  //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t2 = tText2->AddText("DeltaPhi");
-  TText *t3 = tText2->AddText("NumberOfMatchedStations>1.0; CMSSW701 [1/fb]"); 
+  //TText *t3 = tText2->AddText("NumberOfMatchedStations>1.0; CMSSW701 [1/fb]"); 
   tText2->Draw();
   //========================================================== 
-  TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
+  //TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  Float_t tsize = 0.03;
+  //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t1 = tText2->AddText("Eff(N-1) = 0.9969 #pm 0.0002");
   //TText *t2 = tText2->AddText("Eff(Photons) = 0.9684 #pm 0.0005");
   //TText *t3 = tText2->AddText("Eff(QCD) = 0.8921 #pm 0.0057");
 
-  TText *t1 = tText2->AddText("Eff(N-1) = 0.9937 #pm 0.0002");
+  //TText *t1 = tText2->AddText("Eff(N-1) = 0.9937 #pm 0.0002");
   //TText *t2 = tText2->AddText("Eff(Photons) = 0.9198 #pm 0.0008");
   //TText *t3 = tText2->AddText("Eff(QCD) = 0.8316 #pm 0.0071");
   tText2->Draw();
   //========================================================== 
-  TLegend *leg = new TLegend(0.60, 0.15, 0.80, 0.30);
-  leg->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
-  //leg->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
-  //leg->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
-  leg->SetBorderSize(0.0);
-  leg->SetMargin(0.3);
-  leg->SetFillColor(0);
-  leg->SetFillStyle(10);
-  leg->SetLineColor(0);
-  Float_t tsize2 = 0.03;
-  leg->SetTextSize(tsize2); 
-  leg->Draw();
+  TLegend *leg4 = new TLegend(0.60, 0.15, 0.80, 0.30);
+  leg4->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
+  //leg4->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
+  //leg4->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
+  leg4->SetBorderSize(0.0);
+  leg4->SetMargin(0.3);
+  leg4->SetFillColor(0);
+  leg4->SetFillStyle(10);
+  leg4->SetLineColor(0);
+  //Float_t tsize2 = 0.03;
+  leg4->SetTextSize(tsize2); 
+  leg4->Draw();
   //======================================================================= 
   c5->Print("Eff_NumberOfMatchedStations_HEEP_ID_MC_CMSSW701_Eta.png","png");
   //c5->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.pdf","pdf");
@@ -758,7 +775,7 @@ void MuonsEffEta(){
   //==================================================================  
   //================================================================== 
   TCanvas *c6 = new TCanvas("c6","Et in EB",600,600);
-  char textpro1[100],textNDF1[100],textRatio1[100];           
+  char textpro122[100],textNDF122[100],textRatio122[100];           
   c6->cd(1);
   gPad->SetTopMargin(0.12);
   gPad->SetLeftMargin(0.15);
@@ -767,14 +784,18 @@ void MuonsEffEta(){
   gPad->SetTicky();
   gPad->SetGridy();
   gPad->SetGridx();
-  TGraphAsymmErrors *EleEtDeltaPhiEB     = new TGraphAsymmErrors;
-  TGraphAsymmErrors *PhotonEtDeltaPhiEB  = new TGraphAsymmErrors;
-  TGraphAsymmErrors *QCDEtDeltaPhiEB     = new TGraphAsymmErrors;
+  EleEtDeltaPhiEB     = new TGraphAsymmErrors;
+  PhotonEtDeltaPhiEB  = new TGraphAsymmErrors;
+  QCDEtDeltaPhiEB     = new TGraphAsymmErrors;
   TMultiGraph *mg6 = new TMultiGraph;
   //========================================================== 
   //                      DeltaPhi in EB                                                  
   //==========================================================
-  TFile *f1 = new TFile("ZprimetoMuMu-MC-Mass5000-CMSSW720.root","READ");
+  TFile *f11111 = new TFile("/lustre/cms/store/user/defilip/ZprimeAnalysis/80X/histos/histosZprimeMuMu/output_ZprimeToMuMu_M-5000_TuneCUETP8M1_13TeV-pythia8_tree.root","READ");
+  //TH1F *EtaID; 
+  f11111->GetObject("EtaID",EtaID);
+  TH1F *EtaEffptTrackIso; f11111->GetObject("EtaEffptTrackIso",EtaEffptTrackIso);
+
   //---------------------------------------------------
   cout<<"====================== TrackIso =============================="<<endl;
   int nbEleTopEB6                             = EtaID->Integral();
@@ -851,43 +872,43 @@ void MuonsEffEta(){
   //mg6->GetYaxis()->SetRangeUser(0.0,1.05);
   mg6->GetYaxis()->SetRangeUser(0.9,1.01);
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-  TPaveText* tText2 = new TPaveText(0.40, 0.90, 0.90, 0.92, "brNDC");
+  //TPaveText* tText2 = new TPaveText(0.40, 0.90, 0.90, 0.92, "brNDC");
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  Float_t tsize = 0.03;
+  //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t2 = tText2->AddText("DeltaPhi");
-  TText *t3 = tText2->AddText("Track Iso>0.10; CMSSW701 [1/fb]"); 
+  //TText *t3 = tText2->AddText("Track Iso>0.10; CMSSW701 [1/fb]"); 
   tText2->Draw();
   //========================================================== 
-  TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
+  //TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  Float_t tsize = 0.03;
+  //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t1 = tText2->AddText("Eff(N-1) = 0.9969 #pm 0.0002");
   //TText *t2 = tText2->AddText("Eff(Photons) = 0.9684 #pm 0.0005");
   //TText *t3 = tText2->AddText("Eff(QCD) = 0.8921 #pm 0.0057");
 
-  TText *t1 = tText2->AddText("Eff(N-1) = 0.9952 #pm 0.0002");
+  //TText *t1 = tText2->AddText("Eff(N-1) = 0.9952 #pm 0.0002");
   //TText *t2 = tText2->AddText("Eff(Photons) = 0.9198 #pm 0.0008");
   //TText *t3 = tText2->AddText("Eff(QCD) = 0.8316 #pm 0.0071");
   tText2->Draw();
   //========================================================== 
-  TLegend *leg = new TLegend(0.60, 0.15, 0.80, 0.30);
-  leg->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
-  //leg->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
-  //leg->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
-  leg->SetBorderSize(0.0);
-  leg->SetMargin(0.3);
-  leg->SetFillColor(0);
-  leg->SetFillStyle(10);
-  leg->SetLineColor(0);
-  Float_t tsize2 = 0.03;
-  leg->SetTextSize(tsize2); 
-  leg->Draw();
+  TLegend *leg5 = new TLegend(0.60, 0.15, 0.80, 0.30);
+  leg5->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
+  //leg5->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
+  //leg5->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
+  leg5->SetBorderSize(0.0);
+  leg5->SetMargin(0.3);
+  leg5->SetFillColor(0);
+  leg5->SetFillStyle(10);
+  leg5->SetLineColor(0);
+  //Float_t tsize2 = 0.03;
+  leg5->SetTextSize(tsize2); 
+  leg5->Draw();
   //======================================================================= 
   c6->Print("Eff_Trackiso_HEEP_ID_MC_CMSSW701_Eta.png","png");
   //c6->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.pdf","pdf");
@@ -901,7 +922,7 @@ void MuonsEffEta(){
   //==================================================================  
   //================================================================== 
   TCanvas *c7 = new TCanvas("c7","Et in EB",600,600);
-  char textpro1[100],textNDF1[100],textRatio1[100];           
+  char textpro123[100],textNDF123[100],textRatio123[100];           
   c7->cd(1);
   gPad->SetTopMargin(0.12);
   gPad->SetLeftMargin(0.15);
@@ -910,14 +931,18 @@ void MuonsEffEta(){
   gPad->SetTicky();
   gPad->SetGridy();
   gPad->SetGridx();
-  TGraphAsymmErrors *EleEtDeltaPhiEB     = new TGraphAsymmErrors;
-  TGraphAsymmErrors *PhotonEtDeltaPhiEB  = new TGraphAsymmErrors;
-  TGraphAsymmErrors *QCDEtDeltaPhiEB     = new TGraphAsymmErrors;
-  TMultiGraph *mg6 = new TMultiGraph;
+  EleEtDeltaPhiEB     = new TGraphAsymmErrors;
+  PhotonEtDeltaPhiEB  = new TGraphAsymmErrors;
+  QCDEtDeltaPhiEB     = new TGraphAsymmErrors;
+  mg6 = new TMultiGraph;
   //========================================================== 
   //                      DeltaPhi in EB                                                  
   //==========================================================
-  TFile *f1 = new TFile("ZprimetoMuMu-MC-Mass5000-CMSSW720.root","READ");
+  TFile *f111111 = new TFile("/lustre/cms/store/user/defilip/ZprimeAnalysis/80X/histos/histosZprimeMuMu/output_ZprimeToMuMu_M-5000_TuneCUETP8M1_13TeV-pythia8_tree.root","READ");
+  //TH1F *EtaID; 
+  f111111->GetObject("EtaID",EtaID);
+  TH1F *EtaEffptabsdsy; f111111->GetObject("EtaEffptabsdsy",EtaEffptabsdsy);
+
   //---------------------------------------------------
   cout<<"====================== dxy =============================="<<endl;
   int nbEleTopEB7                             = EtaID->Integral();
@@ -994,43 +1019,43 @@ void MuonsEffEta(){
   //mg6->GetYaxis()->SetRangeUser(0.0,1.05);
   mg6->GetYaxis()->SetRangeUser(0.9,1.01);
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-  TPaveText* tText2 = new TPaveText(0.40, 0.90, 0.90, 0.92, "brNDC");
+  //TPaveText* tText2 = new TPaveText(0.40, 0.90, 0.90, 0.92, "brNDC");
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  Float_t tsize = 0.03;
+  //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t2 = tText2->AddText("DeltaPhi");
-  TText *t3 = tText2->AddText("|dxy|<0.2; CMSSW701 [1/fb]"); 
+  //TText *t3 = tText2->AddText("|dxy|<0.2; CMSSW701 [1/fb]"); 
   tText2->Draw();
   //========================================================== 
-  TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
+  //TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  Float_t tsize = 0.03;
+  //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t1 = tText2->AddText("Eff(N-1) = 0.9969 #pm 0.0002");
   //TText *t2 = tText2->AddText("Eff(Photons) = 0.9684 #pm 0.0005");
   //TText *t3 = tText2->AddText("Eff(QCD) = 0.8921 #pm 0.0057");
 
-  TText *t1 = tText2->AddText("Eff(N-1) = 1.0 #pm 0.0");
+  //TText *t1 = tText2->AddText("Eff(N-1) = 1.0 #pm 0.0");
   //TText *t2 = tText2->AddText("Eff(Photons) = 0.9198 #pm 0.0008");
   //TText *t3 = tText2->AddText("Eff(QCD) = 0.8316 #pm 0.0071");
   tText2->Draw();
   //========================================================== 
-  TLegend *leg = new TLegend(0.60, 0.15, 0.80, 0.30);
-  leg->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
-  //leg->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
-  //leg->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
-  leg->SetBorderSize(0.0);
-  leg->SetMargin(0.3);
-  leg->SetFillColor(0);
-  leg->SetFillStyle(10);
-  leg->SetLineColor(0);
-  Float_t tsize2 = 0.03;
-  leg->SetTextSize(tsize2); 
-  leg->Draw();
+  TLegend *leg6 = new TLegend(0.60, 0.15, 0.80, 0.30);
+  leg6->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
+  //leg6->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
+  //leg6->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
+  leg6->SetBorderSize(0.0);
+  leg6->SetMargin(0.3);
+  leg6->SetFillColor(0);
+  leg6->SetFillStyle(10);
+  leg6->SetLineColor(0);
+  //Float_t tsize2 = 0.03;
+  leg6->SetTextSize(tsize2); 
+  leg6->Draw();
   //======================================================================= 
   c7->Print("Eff_Dxy_HEEP_ID_MC_CMSSW701_Eta.png","png");
   //c7->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.pdf","pdf");
@@ -1044,7 +1069,7 @@ void MuonsEffEta(){
   //==================================================================  
   //================================================================== 
   TCanvas *c99 = new TCanvas("c99","#delta pt/pt",700,700);
-  char textpro1[100],textNDF1[100],textRatio1[100];           
+  char textpro13[100],textNDF13[100],textRatio13[100];           
   c99->cd(1);
   gPad->SetTopMargin(0.12);
   gPad->SetLeftMargin(0.15);
@@ -1064,7 +1089,11 @@ void MuonsEffEta(){
   //========================================================== 
   //                      DeltaPhi in EB                                                  
   //==========================================================
-  TFile *f1 = new TFile("ZprimetoMuMu-MC-Mass5000-CMSSW720.root","READ");
+  TFile *f1111111 = new TFile("/lustre/cms/store/user/defilip/ZprimeAnalysis/80X/histos/histosZprimeMuMu/output_ZprimeToMuMu_M-5000_TuneCUETP8M1_13TeV-pythia8_tree.root","READ");
+  //TH1F *EtaID; 
+  f1111111->GetObject("EtaID",EtaID);
+  //TH1F *EtaEffpterror; 
+  f1111111->GetObject("EtaEffpterror",EtaEffpterror);
   //---------------------------------------------------
   cout<<"====================== dpt/pt =============================="<<endl;
   int nbEleTopEB10                             = EtaID->Integral();
@@ -1127,6 +1156,7 @@ void MuonsEffEta(){
   //                              NbTrackLayers                                 
   //==========================================================
   cout<<"====================== NbTrackLayers =============================="<<endl;
+  //TH1F *EtaEffptnumberOftrackerLayers; f1->GetObject("EtaEffptnumberOftrackerLayers",EtaEffptnumberOftrackerLayers);
   int nbEleTopEB30                             = EtaID->Integral();
   int nbEleBottomEB30                          = EtaEffptnumberOftrackerLayers->Integral();
   float EffChargedHadEB30                      = (float)nbEleTopEB30/nbEleBottomEB30;
@@ -1224,47 +1254,47 @@ void MuonsEffEta(){
   //mg1000->GetYaxis()->SetRangeUser(0.0,1.05);
   mg1000->GetYaxis()->SetRangeUser(0.80,1.015);
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-  TPaveText* tText2 = new TPaveText(0.40, 0.90, 0.90, 0.92, "brNDC");
+  //TPaveText* tText2 = new TPaveText(0.40, 0.90, 0.90, 0.92, "brNDC");
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  Float_t tsize = 0.03;
+  //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t2 = tText2->AddText("DeltaPhi");
-  TText *t3 = tText2->AddText("Z'(M = 5 TeV); CMSSW720 [Phys14]"); 
+  //TText *t3 = tText2->AddText("Z'(M = 5 TeV); CMSSW720 [Phys14]"); 
   tText2->Draw();
   //========================================================== 
-  TPaveText* tText2 = new TPaveText(0.20, 0.20, 0.50, 0.60, "brNDC");
+  //TPaveText* tText2 = new TPaveText(0.20, 0.20, 0.50, 0.60, "brNDC");
   tText2->SetBorderSize(0);
   tText2->SetFillColor(0);
   tText2->SetFillStyle(0);
-  Float_t tsize = 0.025;
+  //Float_t tsize = 0.025;
   tText2->SetTextSize(tsize); 
-  TText *t1 = tText2->AddText("Eff(|dxy|) =1.0 #pm 0.0");
+  //TText *t1 = tText2->AddText("Eff(|dxy|) =1.0 #pm 0.0");
   TText *t2 = tText2->AddText("Eff(NbTrackLayers) = 0.9997 #pm 0.000");
-  TText *t3 = tText2->AddText("Eff(NbMuonHits) = 0.9986 #pm 0.0000");
+  //TText *t3 = tText2->AddText("Eff(NbMuonHits) = 0.9986 #pm 0.0000");
   TText *t4 = tText2->AddText("Eff(NbPixelHits) = 0.9980 #pm 0.0001");
   TText *t5 = tText2->AddText("Eff(track iso) = 0.9950 #pm 0.0002");
   TText *t6 = tText2->AddText("Eff(dpt/pt) = 0.9950 #pm 0.0002");
   TText *t7 = tText2->AddText("Eff(NbMatchedStations) = 0.9885 #pm 0.0003");
   tText2->Draw();
   //========================================================== 
-  TLegend *leg = new TLegend(0.60, 0.20, 0.80, 0.50);
-  leg->AddEntry(Effdxy,"|dxy|","p");
-  leg->AddEntry(EtaEffForNbTrackLayers,"NbTrackLayers","p");  
-  leg->AddEntry(EtaEffForNbMuonHits,"NbMuonHits","p");
-  leg->AddEntry(EtaEffForNbPixelHits,"NbPixelHits","p");
-  leg->AddEntry(EtaEffForTrackIso,"track iso","p");
-  leg->AddEntry(EtaEffForErrorOnPt,"dpt/pt","p");
-  leg->AddEntry(EtaEffForNbMatchedStations,"NbMatchedStations","p");
-  leg->SetBorderSize(0.0);
-  leg->SetMargin(0.3);
-  leg->SetFillColor(0);
-  leg->SetFillStyle(10);
-  leg->SetLineColor(0);
-  Float_t tsize2 = 0.03;
-  leg->SetTextSize(tsize2); 
-  leg->Draw();
+  TLegend *leg7 = new TLegend(0.60, 0.20, 0.80, 0.50);
+  leg7->AddEntry(Effdxy,"|dxy|","p");
+  leg7->AddEntry(EtaEffForNbTrackLayers,"NbTrackLayers","p");  
+  leg7->AddEntry(EtaEffForNbMuonHits,"NbMuonHits","p");
+  leg7->AddEntry(EtaEffForNbPixelHits,"NbPixelHits","p");
+  leg7->AddEntry(EtaEffForTrackIso,"track iso","p");
+  leg7->AddEntry(EtaEffForErrorOnPt,"dpt/pt","p");
+  leg7->AddEntry(EtaEffForNbMatchedStations,"NbMatchedStations","p");
+  leg7->SetBorderSize(0.0);
+  leg7->SetMargin(0.3);
+  leg7->SetFillColor(0);
+  leg7->SetFillStyle(10);
+  leg7->SetLineColor(0);
+  //Float_t tsize2 = 0.03;
+  leg7->SetTextSize(tsize2); 
+  leg7->Draw();
   //======================================================================= 
   c99->Print("Eff_All_Muon_ID_MC_CMSSW720_Et.png","png");
   //c99->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.pdf","pdf");
