@@ -70,7 +70,7 @@ while [ $n -lt ${nlines} ]; do
       condor_submit  condor_ZprimeMuMuAnalysis_${samplename}.cfg
   elif  [ $4 = ${SDESY} ]; then
       echo "Submitting jobs via SGE"
-      qsub submit_ZprimeMuMuAnalysis_${samplename}.sh   
+      qsub  -l h_rt="10:00:00"  submit_ZprimeMuMuAnalysis_${samplename}.sh   
   elif  [ $4 = ${SBARI} ]; then
       echo "Submitting jobs via CONDOR at BARI"
       condor_submit  -name ettore condor_ZprimeMuMuAnalysis_${samplename}.cfg
