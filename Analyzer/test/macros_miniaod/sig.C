@@ -19,7 +19,7 @@ void makeModel(RooWorkspace& w) {
 
    RooRealVar mass("mass","mass", 300., 200., 1600.);
    RooRealVar nsig("nsig","Number of signal events", 0., 5000.);
-   RooRealVar nbkg("nbkg","Number of background events", 0., 20000.);
+   RooRealVar nbkg("nbkg","Number of background events", 0., 300000.);
    w.import(mass);
    w.import(nsig);
    w.import(nbkg);
