@@ -95,7 +95,7 @@ void significance(RooWorkspace& w ) {
   vector<double> sigvalues;
 
   double massMin = 200;
-  double massMax = 1800;
+  double massMax = 2500;
   int nbins = 100;
 
   // loop on the mass values 
@@ -152,7 +152,7 @@ void significance(RooWorkspace& w ) {
   graph3->GetXaxis()->SetTitle("Mass [GeV]");
   graph3->GetYaxis()->SetTitle("Significance");
   graph3->SetTitle("Significance vs Mass");
-  gPad->SetLogy(true);
+  gPad->SetLogy(false);
 
   c2->SaveAs("significance.pdf");
   c2->SaveAs("significance.png");
