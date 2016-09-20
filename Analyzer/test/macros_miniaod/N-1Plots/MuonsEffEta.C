@@ -162,7 +162,7 @@ void MuonsEffEta(){
   tText2->Draw();
   //========================================================== 
   TLegend *leg = new TLegend(0.60, 0.15, 0.80, 0.30);
-  leg->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
+  leg->AddEntry(EleEtDeltaPhiEB,"Z' [M = 5 TeV/c^{2}]","p");
   //leg->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
   //leg->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
   leg->SetBorderSize(0.0);
@@ -310,7 +310,7 @@ void MuonsEffEta(){
   tText2->Draw();
   //========================================================== 
   TLegend *leg1 = new TLegend(0.60, 0.15, 0.80, 0.30);
-  leg1->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
+  leg1->AddEntry(EleEtDeltaPhiEB,"Z' [M = 5 TeV/c^{2}]","p");
   //leg1->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
   //leg1->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
   leg1->SetBorderSize(0.0);
@@ -457,7 +457,7 @@ void MuonsEffEta(){
   tText2->Draw();
   //========================================================== 
   TLegend *leg2 = new TLegend(0.60, 0.15, 0.80, 0.30);
-  leg2->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
+  leg2->AddEntry(EleEtDeltaPhiEB,"Z' [M = 5 TeV/c^{2}]","p");
   //leg2->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
   //leg2->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
   leg2->SetBorderSize(0.0);
@@ -603,7 +603,7 @@ void MuonsEffEta(){
   tText2->Draw();
   //========================================================== 
   TLegend *leg3 = new TLegend(0.60, 0.15, 0.80, 0.30);
-  leg3->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
+  leg3->AddEntry(EleEtDeltaPhiEB,"Z' [M = 5 TeV/c^{2}]","p");
   //leg3->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
   //leg3->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
   leg3->SetBorderSize(0.0);
@@ -750,7 +750,7 @@ void MuonsEffEta(){
   tText2->Draw();
   //========================================================== 
   TLegend *leg4 = new TLegend(0.60, 0.15, 0.80, 0.30);
-  leg4->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
+  leg4->AddEntry(EleEtDeltaPhiEB,"Z' [M = 5 TeV/c^{2}]","p");
   //leg4->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
   //leg4->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
   leg4->SetBorderSize(0.0);
@@ -898,7 +898,7 @@ void MuonsEffEta(){
   tText2->Draw();
   //========================================================== 
   TLegend *leg5 = new TLegend(0.60, 0.15, 0.80, 0.30);
-  leg5->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
+  leg5->AddEntry(EleEtDeltaPhiEB,"Z' [M = 5 TeV/c^{2}]","p");
   //leg5->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
   //leg5->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
   leg5->SetBorderSize(0.0);
@@ -1045,7 +1045,7 @@ void MuonsEffEta(){
   tText2->Draw();
   //========================================================== 
   TLegend *leg6 = new TLegend(0.60, 0.15, 0.80, 0.30);
-  leg6->AddEntry(EleEtDeltaPhiEB,"Z' [M = 1 TeV/c^{2}]","p");
+  leg6->AddEntry(EleEtDeltaPhiEB,"Z' [M = 5 TeV/c^{2}]","p");
   //leg6->AddEntry(PhotonEtDeltaPhiEB,"#gamma + jets (EB)","p");
   //leg6->AddEntry(QCDEtDeltaPhiEB,"QCD (EB)","p");
   leg6->SetBorderSize(0.0);
