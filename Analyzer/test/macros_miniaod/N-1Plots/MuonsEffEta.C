@@ -82,7 +82,7 @@ void MuonsEffEta(){
   //========================================================== 
   //                 DeltaPhi in EB                                                  
   //==========================================================
-  TFile *f2 = new TFile("CMSSW701-Analyse_MC_GJet_pt_3000_V5_withPF.root","READ");
+  TFile *f2 = new TFile("CMSSW80X-Analyse_MC_GJet_pt_3000_V5_withPF.root","READ");
   PhotonEtDeltaPhiEB->BayesDivide(EtDeltaPhiEB2,EtDeltaPhiEB1);
   //---------------------------------------------------
   cout<<"====================== Gamma Jet EB =============================="<<endl;
@@ -104,7 +104,7 @@ void MuonsEffEta(){
   //========================================================== 
   //                 QCD pfChargedHadron in EB                                                  
   //==========================================================
-  TFile *f3 = new TFile("CMSSW701-Analyse_MC_QCD_15_pt_3000_V5_withPF.root","READ");
+  TFile *f3 = new TFile("CMSSW80X-Analyse_MC_QCD_15_pt_3000_V5_withPF.root","READ");
   QCDEtDeltaPhiEB->BayesDivide(EtDeltaPhiEB2,EtDeltaPhiEB1);
   //---------------------------------------------------
   cout<<"====================== QCD EB =============================="<<endl;
@@ -143,7 +143,7 @@ void MuonsEffEta(){
   Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t2 = tText2->AddText("DeltaPhi");
-  TText *t3 = tText2->AddText("#delta pt/pt<0.3; CMSSW701 [1/fb]"); 
+  TText *t3 = tText2->AddText("#delta pt/pt<0.3; CMSSW80X [1/fb]"); 
   tText2->Draw();
   //========================================================== 
   //TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
@@ -174,9 +174,9 @@ void MuonsEffEta(){
   leg->SetTextSize(tsize2); 
   leg->Draw();
   //======================================================================= 
-  c1->Print("Eff_DeltaPt_HEEP_ID_MC_CMSSW701_Eta.png","png");
-  //c1->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.pdf","pdf");
-  //c1->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.eps","eps");
+  c1->Print("Eff_DeltaPt_HEEP_ID_MC_CMSSW80X_Eta.png","png");
+  //c1->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW80X_Eta_EBEE.pdf","pdf");
+  //c1->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW80X_Eta_EBEE.eps","eps");
   //=======================================================================
   //================================================================== 
   //==================================================================  
@@ -230,7 +230,7 @@ void MuonsEffEta(){
   //========================================================== 
   //                 DeltaPhi in EB                                                  
   //==========================================================
-  TFile *f2 = new TFile("CMSSW701-Analyse_MC_GJet_pt_3000_V5_withPF.root","READ");
+  TFile *f2 = new TFile("CMSSW80X-Analyse_MC_GJet_pt_3000_V5_withPF.root","READ");
   PhotonEtDeltaPhiEB->BayesDivide(EtDeltaPhiEB2,EtDeltaPhiEB1);
   //---------------------------------------------------
   cout<<"====================== Gamma Jet EB =============================="<<endl;
@@ -252,7 +252,7 @@ void MuonsEffEta(){
   //========================================================== 
   //                 QCD pfChargedHadron in EB                                                  
   //==========================================================
-  TFile *f3 = new TFile("CMSSW701-Analyse_MC_QCD_15_pt_3000_V5_withPF.root","READ");
+  TFile *f3 = new TFile("CMSSW80X-Analyse_MC_QCD_15_pt_3000_V5_withPF.root","READ");
   QCDEtDeltaPhiEB->BayesDivide(EtDeltaPhiEB2,EtDeltaPhiEB1);
   //---------------------------------------------------
   cout<<"====================== QCD EB =============================="<<endl;
@@ -291,7 +291,7 @@ void MuonsEffEta(){
   //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t2 = tText2->AddText("DeltaPhi");
-  //TText *t3 = tText2->AddText("NbTrackLayers>5.0; CMSSW701 [1/fb]"); 
+  //TText *t3 = tText2->AddText("NbTrackLayers>5.0; CMSSW80X [1/fb]"); 
   tText2->Draw();
   //========================================================== 
   //TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
@@ -322,9 +322,9 @@ void MuonsEffEta(){
   leg1->SetTextSize(tsize2); 
   leg1->Draw();
   //======================================================================= 
-  c2->Print("Eff_numberOftrackerLayers_HEEP_ID_MC_CMSSW701_Eta.png","png");
-  //c2->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.pdf","pdf");
-  //c2->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.eps","eps");
+  c2->Print("Eff_numberOftrackerLayers_HEEP_ID_MC_CMSSW80X_Eta.png","png");
+  //c2->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW80X_Eta_EBEE.pdf","pdf");
+  //c2->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW80X_Eta_EBEE.eps","eps");
   //=======================================================================
   //================================================================== 
   //==================================================================  
@@ -377,7 +377,7 @@ void MuonsEffEta(){
   //========================================================== 
   //                 DeltaPhi in EB                                                  
   //==========================================================
-  TFile *f2 = new TFile("CMSSW701-Analyse_MC_GJet_pt_3000_V5_withPF.root","READ");
+  TFile *f2 = new TFile("CMSSW80X-Analyse_MC_GJet_pt_3000_V5_withPF.root","READ");
   PhotonEtDeltaPhiEB->BayesDivide(EtDeltaPhiEB2,EtDeltaPhiEB1);
   //---------------------------------------------------
   cout<<"====================== Gamma Jet EB =============================="<<endl;
@@ -399,7 +399,7 @@ void MuonsEffEta(){
   //========================================================== 
   //                 QCD pfChargedHadron in EB                                                  
   //==========================================================
-  TFile *f3 = new TFile("CMSSW701-Analyse_MC_QCD_15_pt_3000_V5_withPF.root","READ");
+  TFile *f3 = new TFile("CMSSW80X-Analyse_MC_QCD_15_pt_3000_V5_withPF.root","READ");
   QCDEtDeltaPhiEB->BayesDivide(EtDeltaPhiEB2,EtDeltaPhiEB1);
   //---------------------------------------------------
   cout<<"====================== QCD EB =============================="<<endl;
@@ -438,7 +438,7 @@ void MuonsEffEta(){
   //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t2 = tText2->AddText("DeltaPhi");
-  //TText *t3 = tText2->AddText("NbOfPixelHits>0.0; CMSSW701 [1/fb]"); 
+  //TText *t3 = tText2->AddText("NbOfPixelHits>0.0; CMSSW80X [1/fb]"); 
   tText2->Draw();
   //========================================================== 
   //TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
@@ -469,9 +469,9 @@ void MuonsEffEta(){
   leg2->SetTextSize(tsize2); 
   leg2->Draw();
   //======================================================================= 
-  c3->Print("Eff_NbOfPixelHits_HEEP_ID_MC_CMSSW701_Eta.png","png");
-  //c3->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.pdf","pdf");
-  //c3->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.eps","eps");
+  c3->Print("Eff_NbOfPixelHits_HEEP_ID_MC_CMSSW80X_Eta.png","png");
+  //c3->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW80X_Eta_EBEE.pdf","pdf");
+  //c3->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW80X_Eta_EBEE.eps","eps");
   //=======================================================================
   //================================================================== 
   //==================================================================  
@@ -523,7 +523,7 @@ void MuonsEffEta(){
   //========================================================== 
   //                 DeltaPhi in EB                                                  
   //==========================================================
-  TFile *f2 = new TFile("CMSSW701-Analyse_MC_GJet_pt_3000_V5_withPF.root","READ");
+  TFile *f2 = new TFile("CMSSW80X-Analyse_MC_GJet_pt_3000_V5_withPF.root","READ");
   PhotonEtDeltaPhiEB->BayesDivide(EtDeltaPhiEB2,EtDeltaPhiEB1);
   //---------------------------------------------------
   cout<<"====================== Gamma Jet EB =============================="<<endl;
@@ -545,7 +545,7 @@ void MuonsEffEta(){
   //========================================================== 
   //                 QCD pfChargedHadron in EB                                                  
   //==========================================================
-  TFile *f3 = new TFile("CMSSW701-Analyse_MC_QCD_15_pt_3000_V5_withPF.root","READ");
+  TFile *f3 = new TFile("CMSSW80X-Analyse_MC_QCD_15_pt_3000_V5_withPF.root","READ");
   QCDEtDeltaPhiEB->BayesDivide(EtDeltaPhiEB2,EtDeltaPhiEB1);
   //---------------------------------------------------
   cout<<"====================== QCD EB =============================="<<endl;
@@ -584,7 +584,7 @@ void MuonsEffEta(){
   //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t2 = tText2->AddText("DeltaPhi");
-  //  TText *t3 = tText2->AddText("NumberOfMuonHits>0.0; CMSSW701 [1/fb]"); 
+  //  TText *t3 = tText2->AddText("NumberOfMuonHits>0.0; CMSSW80X [1/fb]"); 
   tText2->Draw();
   //========================================================== 
   //TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
@@ -615,9 +615,9 @@ void MuonsEffEta(){
   leg3->SetTextSize(tsize2); 
   leg3->Draw();
   //======================================================================= 
-  c4->Print("Eff_NumberOfMuonHits_HEEP_ID_MC_CMSSW701_Eta.png","png");
-  //c4->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.pdf","pdf");
-  //c4->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.eps","eps");
+  c4->Print("Eff_NumberOfMuonHits_HEEP_ID_MC_CMSSW80X_Eta.png","png");
+  //c4->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW80X_Eta_EBEE.pdf","pdf");
+  //c4->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW80X_Eta_EBEE.eps","eps");
   //=======================================================================
   //================================================================== 
   //==================================================================  
@@ -670,7 +670,7 @@ void MuonsEffEta(){
   //========================================================== 
   //                 DeltaPhi in EB                                                  
   //==========================================================
-  TFile *f2 = new TFile("CMSSW701-Analyse_MC_GJet_pt_3000_V5_withPF.root","READ");
+  TFile *f2 = new TFile("CMSSW80X-Analyse_MC_GJet_pt_3000_V5_withPF.root","READ");
   PhotonEtDeltaPhiEB->BayesDivide(EtDeltaPhiEB2,EtDeltaPhiEB1);
   //---------------------------------------------------
   cout<<"====================== Gamma Jet EB =============================="<<endl;
@@ -692,7 +692,7 @@ void MuonsEffEta(){
   //========================================================== 
   //                 QCD pfChargedHadron in EB                                                  
   //==========================================================
-  TFile *f3 = new TFile("CMSSW701-Analyse_MC_QCD_15_pt_3000_V5_withPF.root","READ");
+  TFile *f3 = new TFile("CMSSW80X-Analyse_MC_QCD_15_pt_3000_V5_withPF.root","READ");
   QCDEtDeltaPhiEB->BayesDivide(EtDeltaPhiEB2,EtDeltaPhiEB1);
   //---------------------------------------------------
   cout<<"====================== QCD EB =============================="<<endl;
@@ -731,7 +731,7 @@ void MuonsEffEta(){
   //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t2 = tText2->AddText("DeltaPhi");
-  //TText *t3 = tText2->AddText("NumberOfMatchedStations>1.0; CMSSW701 [1/fb]"); 
+  //TText *t3 = tText2->AddText("NumberOfMatchedStations>1.0; CMSSW80X [1/fb]"); 
   tText2->Draw();
   //========================================================== 
   //TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
@@ -762,9 +762,9 @@ void MuonsEffEta(){
   leg4->SetTextSize(tsize2); 
   leg4->Draw();
   //======================================================================= 
-  c5->Print("Eff_NumberOfMatchedStations_HEEP_ID_MC_CMSSW701_Eta.png","png");
-  //c5->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.pdf","pdf");
-  //c5->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.eps","eps");
+  c5->Print("Eff_NumberOfMatchedStations_HEEP_ID_MC_CMSSW80X_Eta.png","png");
+  //c5->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW80X_Eta_EBEE.pdf","pdf");
+  //c5->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW80X_Eta_EBEE.eps","eps");
   //=======================================================================
   
   //================================================================== 
@@ -818,7 +818,7 @@ void MuonsEffEta(){
   //========================================================== 
   //                 DeltaPhi in EB                                                  
   //==========================================================
-  TFile *f2 = new TFile("CMSSW701-Analyse_MC_GJet_pt_3000_V5_withPF.root","READ");
+  TFile *f2 = new TFile("CMSSW80X-Analyse_MC_GJet_pt_3000_V5_withPF.root","READ");
   PhotonEtDeltaPhiEB->BayesDivide(EtDeltaPhiEB2,EtDeltaPhiEB1);
   //---------------------------------------------------
   cout<<"====================== Gamma Jet EB =============================="<<endl;
@@ -840,7 +840,7 @@ void MuonsEffEta(){
   //========================================================== 
   //                 QCD pfChargedHadron in EB                                                  
   //==========================================================
-  TFile *f3 = new TFile("CMSSW701-Analyse_MC_QCD_15_pt_3000_V5_withPF.root","READ");
+  TFile *f3 = new TFile("CMSSW80X-Analyse_MC_QCD_15_pt_3000_V5_withPF.root","READ");
   QCDEtDeltaPhiEB->BayesDivide(EtDeltaPhiEB2,EtDeltaPhiEB1);
   //---------------------------------------------------
   cout<<"====================== QCD EB =============================="<<endl;
@@ -879,7 +879,7 @@ void MuonsEffEta(){
   //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t2 = tText2->AddText("DeltaPhi");
-  //TText *t3 = tText2->AddText("Track Iso>0.10; CMSSW701 [1/fb]"); 
+  //TText *t3 = tText2->AddText("Track Iso>0.10; CMSSW80X [1/fb]"); 
   tText2->Draw();
   //========================================================== 
   //TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
@@ -910,9 +910,9 @@ void MuonsEffEta(){
   leg5->SetTextSize(tsize2); 
   leg5->Draw();
   //======================================================================= 
-  c6->Print("Eff_Trackiso_HEEP_ID_MC_CMSSW701_Eta.png","png");
-  //c6->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.pdf","pdf");
-  //c6->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.eps","eps");
+  c6->Print("Eff_Trackiso_HEEP_ID_MC_CMSSW80X_Eta.png","png");
+  //c6->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW80X_Eta_EBEE.pdf","pdf");
+  //c6->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW80X_Eta_EBEE.eps","eps");
   //=======================================================================
   //================================================================== 
   //==================================================================  
@@ -965,7 +965,7 @@ void MuonsEffEta(){
   //========================================================== 
   //                 DeltaPhi in EB                                                  
   //==========================================================
-  TFile *f2 = new TFile("CMSSW701-Analyse_MC_GJet_pt_3000_V5_withPF.root","READ");
+  TFile *f2 = new TFile("CMSSW80X-Analyse_MC_GJet_pt_3000_V5_withPF.root","READ");
   PhotonEtDeltaPhiEB->BayesDivide(EtDeltaPhiEB2,EtDeltaPhiEB1);
   //---------------------------------------------------
   cout<<"====================== Gamma Jet EB =============================="<<endl;
@@ -987,7 +987,7 @@ void MuonsEffEta(){
   //========================================================== 
   //                 QCD pfChargedHadron in EB                                                  
   //==========================================================
-  TFile *f3 = new TFile("CMSSW701-Analyse_MC_QCD_15_pt_3000_V5_withPF.root","READ");
+  TFile *f3 = new TFile("CMSSW80X-Analyse_MC_QCD_15_pt_3000_V5_withPF.root","READ");
   QCDEtDeltaPhiEB->BayesDivide(EtDeltaPhiEB2,EtDeltaPhiEB1);
   //---------------------------------------------------
   cout<<"====================== QCD EB =============================="<<endl;
@@ -1026,7 +1026,7 @@ void MuonsEffEta(){
   //Float_t tsize = 0.03;
   tText2->SetTextSize(tsize); 
   //TText *t2 = tText2->AddText("DeltaPhi");
-  //TText *t3 = tText2->AddText("|dxy|<0.2; CMSSW701 [1/fb]"); 
+  //TText *t3 = tText2->AddText("|dxy|<0.2; CMSSW80X [1/fb]"); 
   tText2->Draw();
   //========================================================== 
   //TPaveText* tText2 = new TPaveText(0.20, 0.30, 0.60, 0.45, "brNDC");
@@ -1057,9 +1057,9 @@ void MuonsEffEta(){
   leg6->SetTextSize(tsize2); 
   leg6->Draw();
   //======================================================================= 
-  c7->Print("Eff_Dxy_HEEP_ID_MC_CMSSW701_Eta.png","png");
-  //c7->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.pdf","pdf");
-  //c7->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.eps","eps");
+  c7->Print("Eff_Dxy_HEEP_ID_MC_CMSSW80X_Eta.png","png");
+  //c7->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW80X_Eta_EBEE.pdf","pdf");
+  //c7->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW80X_Eta_EBEE.eps","eps");
   //=======================================================================
 
 
@@ -1296,9 +1296,9 @@ void MuonsEffEta(){
   leg7->SetTextSize(tsize2); 
   leg7->Draw();
   //======================================================================= 
-  c99->Print("Eff_All_Muon_ID_MC_CMSSW720_Et.png","png");
-  //c99->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.pdf","pdf");
-  //c99->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW701_Eta_EBEE.eps","eps");
+  c99->Print("Eff_All_Muon_ID_MC_CMSSW80X_Et.png","png");
+  //c99->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW80X_Eta_EBEE.pdf","pdf");
+  //c99->Print("PlotsDir4/Eff_DeltaPhi_HEEP_ID_MC_CMSSW80X_Eta_EBEE.eps","eps");
   //=======================================================================
 
 
