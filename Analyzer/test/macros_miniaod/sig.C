@@ -4,11 +4,18 @@ using namespace RooStats;
 
 void makeModel(RooWorkspace& w) {
 
+   TFile *_file0 = TFile::Open("plots/htotal_root_ZprimeRecomass.root");
+   TH1F *Histo = (TH1F*)_file0->Get("htotaldata");
+   RooRealVar invm("invm","invm",200.,4000.);    
+   RooDataHist* data = new RooDataHist("data","data",invm,Import(*Histo)) ;
+   
 
-   TTree* tree = new TTree("simple","data from ascii file");
-   Long64_t nlines = tree->ReadFile("list_mll_200_2016.txt","x1:x2:x3:invm:x5:x6");
-   printf(" found %lld pointsn",nlines);
-   tree->Write();
+//   TTree* tree = new TTree("simple","data from ascii file");
+//   Long64_t nlines = tree->ReadFile("list_mll_200_2016.txt","x1:x2:x3:invm:x5:x6");
+//   Long64_t nlines = tree->ReadFile("a.txt","x1:x2:x3:invm:x5:x6");
+//   printf(" found %lld pointsn",nlines);
+//   tree->Write();
+//   tree->GetEntries();
 
    RooRealVar mass("mass","mass", 300., 200., 1600.);
    RooRealVar nsig("nsig","Number of signal events", 0., 5000.);
@@ -16,8 +23,9 @@ void makeModel(RooWorkspace& w) {
    w.import(mass);
    w.import(nsig);
    w.import(nbkg);
-   RooRealVar invm("invm","Invariant mass", 200., 4000.);
-   RooDataSet* data = new RooDataSet("data", "Data", invm, RooFit::Import(*tree));
+
+//   RooRealVar invm("invm","Invariant mass", 200., 4000.);
+//   RooDataSet* data = new RooDataSet("data", "Data", invm, RooFit::Import(*tree));
 
    data->Print("v");
    w.import(invm);
@@ -144,7 +152,7 @@ void significance(RooWorkspace& w ) {
   graph3->GetXaxis()->SetTitle("Mass [GeV]");
   graph3->GetYaxis()->SetTitle("Significance");
   graph3->SetTitle("Significance vs Mass");
-  gPad->SetLogy(false);
+  gPad->SetLogy(true);
 
   c2->SaveAs("significance.pdf");
   c2->SaveAs("significance.png");
