@@ -222,7 +222,7 @@ void TagProbeMuonPlots(){
   tText11->SetFillStyle(0);
   Float_t tsize = 0.035;
   tText11->SetTextSize(tsize); 
-  TText *t111 = tText1->AddText("Pt > 20 GeV/c"); 
+  TText *t111 = tText1->AddText("Pt > 53 GeV/c"); 
   TText *t2 = tText1->AddText("|#eta|<2.4"); 
   tText11->Draw();
   //========================================================== 
@@ -350,7 +350,7 @@ void TagProbeMuonPlots(){
   tText1b->SetFillStyle(0);
   Float_t tsizee = 0.035;
   tText1b->SetTextSize(tsizee); 
-  TText *t11b = tText1b->AddText("Pt > 20 GeV/c"); 
+  TText *t11b = tText1b->AddText("Pt > 53 GeV/c"); 
   TText *t22b = tText1b->AddText("|#eta|<2.4"); 
   tText1b->Draw();
   //========================================================== 
@@ -484,7 +484,7 @@ void TagProbeMuonPlots(){
   tText11b->SetFillStyle(0);
   Float_t tsizeee = 0.035;
   tText11b->SetTextSize(tsizeee); 
-  TText *t1bc = tText11b->AddText("Pt > 20 GeV/c"); 
+  TText *t1bc = tText11b->AddText("Pt > 53 GeV/c"); 
   TText *t2bc = tText11b->AddText("|#eta|<2.4"); 
   tText11b->Draw();
   //==========================================================

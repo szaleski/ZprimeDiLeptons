@@ -86,7 +86,7 @@ void TagProbeMuon::Loop()
   nbTT17 = 0;
   //================================================================================== 
   //                                                                                 =
-  //            Start the histograms for elctrons from Z                             =
+  //            Start the histograms for muons from Z                             =
   //                                                                                 =
   //==================================================================================
   h1_invMassTP_  = new TH1F("invMassTP","",binMass,MassCutMin,MassCutMax);
@@ -207,8 +207,8 @@ void TagProbeMuon::Loop()
   //                         writing Histograms to a file                            =             
   //                                                                                 =
   //==================================================================================
-  TFile *output = new TFile("Analyse_TagAndProbe_CMSSW_8_0_13_ZPRIMEMuMu_13TeV-DataG-V1-JSON-tree.root","recreate");
-  //TFile *output = new TFile("Analyse_TagAndProbe_CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root","recreate");
+  //TFile *output = new TFile("Analyse_TagAndProbe_CMSSW_8_0_13_ZPRIMEMuMu_13TeV-DataG-V1-JSON-tree.root","recreate");
+  TFile *output = new TFile("Analyse_TagAndProbe_CMSSW8012_MC_reHLT_DYtoMuMu120to200_13TeV_tree.root","recreate");
 
   output->cd();
   /** Write the histograms for PF Jets in general */
