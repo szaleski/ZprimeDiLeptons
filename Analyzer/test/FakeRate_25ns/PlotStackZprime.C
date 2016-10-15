@@ -72,7 +72,7 @@ PlotStackZprime::PlotStackZprime(){
   //LoadLib.Load("/cmshome/nicola/slc6/MonoHiggs/Analysis13TeV/CMSSW_7_2_0/lib/slc6_amd64_gcc481/libHiggsHiggs_CS_and_Width.so");
   //getMassWindow(500.);
     
-  inputfile="filelist_zprime_SingleMuon_2016_Spring16_25ns_AN_DESY.txt";
+  inputfile="filelist_zprime_SingleMuon_2016_Spring16_25ns_AN.txt";
 
   setSamplesNames4l(); 
   cout << "\t Analysing samples for " << whichchannel << " analysis" << endl; 
@@ -85,13 +85,13 @@ PlotStackZprime::PlotStackZprime(){
   //std::string histolabel = "hPUvertices_ReWeighted";    // numPY reweighted
 
   //std::string histolabel = "h1_Den_Pt_w"; 
-  std::string histolabel = "h1_Num_Pt_w";
+  //std::string histolabel = "h1_Num_Pt_w";
   
   //std::string histolabel = "h1_Den_Pt_Barrel_w"; 
   //std::string histolabel = "h1_Num_Pt_Barrel_w";
 
   //std::string histolabel = "h1_Den_Pt_EndCap_w"; 
-  //std::string histolabel = "h1_Num_Pt_EndCap_w";
+  std::string histolabel = "h1_Num_Pt_EndCap_w";
   
   
   //std::string histolabel = "h1_mW_T";
@@ -110,7 +110,7 @@ PlotStackZprime::PlotStackZprime(){
 
   correctQCD=false;
 
-  nRebin=10;
+  nRebin=5;
   std::cout << "Histogram label is= " << histolabel << std::endl;
   
   // Final yields
@@ -1264,10 +1264,12 @@ void PlotStackZprime::plotm4l(std::string histlabel){
 	 cout << "Stacking W+jets" << endl;
          htotal->Add(hfourlepbestmass_4l_afterSel_new_Wj);
          htotalHisto->Add(hfourlepbestmass_4l_afterSel_new_Wj);
+         htotalHisto_noQCD->Add(hfourlepbestmass_4l_afterSel_new_Wj);
        }
        if(useWJetsFromFakeRateFromMC==true){
          htotal->Add(hfourlepbestmass_4l_afterSel_WJetsFromFakeRateFromMC_new_new);
          htotalHisto->Add(hfourlepbestmass_4l_afterSel_WJetsFromFakeRateFromMC_new_new);
+         htotalHisto_noQCD->Add(hfourlepbestmass_4l_afterSel_WJetsFromFakeRateFromMC_new_new);
          useWJetsFromFakeRateFromMC=false;
        }
 
