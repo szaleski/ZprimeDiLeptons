@@ -79,6 +79,7 @@ FILE * pFile;
    tree_->Branch("Mu_numberOfValidPixelHits",&Mu_numberOfValidPixelHits);
    tree_->Branch("Mu_numberOfMatchedStations",&Mu_numberOfMatchedStations);
 
+
    // Tree for after the 2 muons cut
   tree_twomuons_ = new TTree("after_twomuons_cut", "Store variables after 2 muons cut");
   tree_twomuons_->SetAutoSave(10000000000);
@@ -228,6 +229,13 @@ FILE * pFile;
    h1_PtResolutionTunePMBT_       =  new TH1F("PtResolutionTunePMBT","",100,-0.5,0.5);
    h1_PtResolutiontuneP_          =  new TH1F("PtResolutiontuneP","",100,-0.5,0.5);
    h1_PtResolutionMBT_            =  new TH1F("PtResolutionMBT","",100,-0.5,0.5);
+
+
+   h1_PtResolutiontuneP_400_600          =  new TH1F("PtResolutiontuneP_400_600","",100,-0.5,0.5);
+   h1_PtResolutiontuneP_900_1100          =  new TH1F("PtResolutiontuneP_900_1100","",100,-0.5,0.5);
+   h1_PtResolutiontuneP_1400_1600          =  new TH1F("PtResolutiontuneP_1400_1600","",100,-0.5,0.5);
+   h1_PtResolutiontuneP_1800_2200          =  new TH1F("PtResolutiontuneP_1800_2200","",100,-0.5,0.5);
+
    //================================================================================== 
    //                                                                                 =
    //                 Start the histograms for N-1 dist                               =  
@@ -500,22 +508,31 @@ FILE * pFile;
 				     float &pTmuonBestTrack1){
    int NbHEEPele = 0;
    unsigned iflag = -10;
+   float highestpt=-999.;
+     
    for(unsigned i=0; i<Mu_nbMuon->size(); i++){
-     if( Mu_isTrackerMuon->at(i) == 1 &&
-	 Mu_isGlobalMuon->at(i) == 1 &&
-         fabs(Mu_etaTunePMuonBestTrack->at(i)) < 2.4 &&
-	 Mu_ptTunePMuonBestTrack->at(i) > 53.0 &&
-	 Mu_absdxyTunePMuonBestTrack->at(i) < 0.2 &&
-	 (Mu_trackiso->at(i)/Mu_ptInnerTrack->at(i)) < 0.10  &&
-	 Mu_numberOftrackerLayersWithMeasurement->at(i) > 5 && 
-	 Mu_numberOfValidPixelHits->at(i) > 0 &&
-	 Mu_numberOfValidMuonHits->at(i) > 0 &&
-	 Mu_numberOfMatchedStations->at(i) > 1 &&
-	 Mu_dPToverPTTunePMuonBestTrack->at(i) < 0.3 ) { 
-       //bool GenRecoMatch1 = GenRecoMatchMu(Mu_etaTunePMuonBestTrack->at(i),Mu_phiTunePMuonBestTrack->at(i));
-       //if(GenRecoMatch1 == 0) continue;
-       iflag  = i;
-       NbHEEPele ++;
+     //cout << " Pt is= " << Mu_ptTunePMuonBestTrack->at(i) << endl;	
+     if( 
+	Mu_isTrackerMuon->at(i) == 1 &&
+	Mu_isGlobalMuon->at(i) == 1 &&
+	fabs(Mu_etaTunePMuonBestTrack->at(i)) < 2.4 &&
+	Mu_ptTunePMuonBestTrack->at(i) > 53.0 &&
+	Mu_absdxyTunePMuonBestTrack->at(i) < 0.2 &&
+	(Mu_trackiso->at(i)/Mu_ptInnerTrack->at(i)) < 0.10  &&
+	Mu_numberOftrackerLayersWithMeasurement->at(i) > 5 && 
+	Mu_numberOfValidPixelHits->at(i) > 0 &&
+	Mu_numberOfValidMuonHits->at(i) > 0 &&
+	Mu_numberOfMatchedStations->at(i) > 1 &&
+	Mu_dPToverPTTunePMuonBestTrack->at(i) < 0.3 ) { 
+       
+       if (Mu_ptTunePMuonBestTrack->at(i)>highestpt) {
+	 highestpt=Mu_ptTunePMuonBestTrack->at(i);
+	 //cout << "Highest PT first lepton has pt= " << highestpt << endl;
+	 //bool GenRecoMatch1 = GenRecoMatchMu(Mu_etaTunePMuonBestTrack->at(i),Mu_phiTunePMuonBestTrack->at(i));
+	 //if(GenRecoMatch1 == 0) continue;
+	 iflag  = i;
+	 NbHEEPele ++;
+       }
      }
      else continue;
    }
@@ -533,7 +550,7 @@ FILE * pFile;
      dxymuon1            = Mu_absdxyTunePMuonBestTrack->at(iflag);
      pTmuon1tuneP        = Mu_ptTunePMuonBestTrack->at(iflag);
      pTmuonBestTrack1    = Mu_ptTunePMuonBestTrack->at(iflag);
-     //cout << "First Muon ChargeMu1= " << ChargeMu1 << " Pt1= " << pTmuonBestTrack1 << endl;
+     cout << "First Muon ChargeMu1= " << ChargeMu1 << " Pt1= " << pTmuonBestTrack1 << endl;
      return true;  
    }
    else return false;
@@ -567,6 +584,7 @@ FILE * pFile;
 	 Mu_numberOfValidMuonHits->at(i) > 0 &&
 	 Mu_numberOfMatchedStations->at(i) > 1 &&
 	 Mu_dPToverPTTunePMuonBestTrack->at(i) < 0.3 ) { 
+       
        if(Mu_ptTunePMuonBestTrack->at(i)>highestpt) {
 	 //bool GenRecoMatch2 = GenRecoMatchMu(Mu_etaTunePMuonBestTrack->at(i),Mu_phiTunePMuonBestTrack->at(i));
 	 //if(GenRecoMatch2 == 0) continue;   
@@ -575,28 +593,29 @@ FILE * pFile;
 	 iflag  = i;
 	 NbHEEPele ++;
        }
-    }
-    else continue;
-  }
-  if( NbHEEPele > 0 ){
-    pTmuon2          = Mu_ptTunePMuonBestTrack->at(iflag);
-    Enmuon2          = Mu_en->at(iflag);
-    Etamuon2         = Mu_etaTunePMuonBestTrack->at(iflag);
-    Phimuon2         = Mu_phiTunePMuonBestTrack->at(iflag);
-    ChargeMu2        = Mu_chargeTunePMuonBestTrack->at(iflag);
-    pxmuon2          = Mu_pxTunePMuonBestTrack->at(iflag);
-    pymuon2          = Mu_pyTunePMuonBestTrack->at(iflag);
-    pzmuon2          = Mu_pzTunePMuonBestTrack->at(iflag);
-    pmuon2           = Mu_pTunePMuonBestTrack->at(iflag);
-    dxymuon2         = Mu_absdxyTunePMuonBestTrack->at(iflag);
-    pTmuon2tuneP     = Mu_ptTunePMuonBestTrack->at(iflag);
-    pTmuonBestTrack2 = Mu_ptTunePMuonBestTrack->at(iflag);
-    //cout << "Second ChargeMu2= " << ChargeMu2 << " Pt2= " << pTmuonBestTrack2 << endl;
-    return true;  
-  }
-  else return false;
-}
-void ZprimeMuMuPatMiniAodNewData::PlotRecoInfo(float CosmicMuonRejec, float vertexMassMu,float MassGenerated,
+     }
+     else continue;
+   }
+   if( NbHEEPele > 0 ){
+     pTmuon2          = Mu_ptTunePMuonBestTrack->at(iflag);
+     Enmuon2          = Mu_en->at(iflag);
+     Etamuon2         = Mu_etaTunePMuonBestTrack->at(iflag);
+     Phimuon2         = Mu_phiTunePMuonBestTrack->at(iflag);
+     ChargeMu2        = Mu_chargeTunePMuonBestTrack->at(iflag);
+     pxmuon2          = Mu_pxTunePMuonBestTrack->at(iflag);
+     pymuon2          = Mu_pyTunePMuonBestTrack->at(iflag);
+     pzmuon2          = Mu_pzTunePMuonBestTrack->at(iflag);
+     pmuon2           = Mu_pTunePMuonBestTrack->at(iflag);
+     dxymuon2         = Mu_absdxyTunePMuonBestTrack->at(iflag);
+     pTmuon2tuneP     = Mu_ptTunePMuonBestTrack->at(iflag);
+     pTmuonBestTrack2 = Mu_ptTunePMuonBestTrack->at(iflag);
+     cout << "Second ChargeMu2= " << ChargeMu2 << " Pt2= " << pTmuonBestTrack2 << endl;
+     return true;  
+   }
+   else return false;
+ }
+
+ void ZprimeMuMuPatMiniAodNewData::PlotRecoInfo(float CosmicMuonRejec, float vertexMassMu,float MassGenerated,
 				 float PtTunePMuBestTrack,float PtTunePMu,float PtMuBestTrack,
 				 float PtGenerated, float EtaGenerated, float PhiGenerated, float etaMu1, float phiMu1, 
 				 float PtTunePMuBestTrack2,float PtTunePMu2,float PtMuBestTrack2,
@@ -705,10 +724,28 @@ void ZprimeMuMuPatMiniAodNewData::PlotRecoInfo(float CosmicMuonRejec, float vert
   h1_3Dangle_->Fill(CosmicMuonRejec,weight);
   //part for Pt resolution
   if (RecoMuMatchedWithGenMu(etaMu1,phiMu1,EtaGenerated,PhiGenerated)==true) {
+
     h1_PtResolutionTunePMBT_->Fill((PtTunePMuBestTrack-PtGenerated)/PtGenerated,weight);
     h1_PtResolutiontuneP_->Fill((PtTunePMu-PtGenerated)/PtGenerated,weight);
     h1_PtResolutionMBT_->Fill((PtMuBestTrack-PtGenerated)/PtGenerated,weight);
+
+    if (PtTunePMuBestTrack>400. && PtTunePMuBestTrack<600.){
+      h1_PtResolutiontuneP_400_600->Fill((PtTunePMu-PtGenerated)/PtGenerated,weight);
+    }
+    if (PtTunePMuBestTrack>900. && PtTunePMuBestTrack<1100.){
+      h1_PtResolutiontuneP_900_1100->Fill((PtTunePMu-PtGenerated)/PtGenerated,weight);
+    }
+    if (PtTunePMuBestTrack>1400. && PtTunePMuBestTrack<1600.){
+      h1_PtResolutiontuneP_1400_1600->Fill((PtTunePMu-PtGenerated)/PtGenerated,weight);
+    }
+    
+    if (PtTunePMuBestTrack>1800. && PtTunePMuBestTrack<2200.){
+      h1_PtResolutiontuneP_1800_2200->Fill((PtTunePMu-PtGenerated)/PtGenerated,weight);
+    }
+
   }
+
+
   //part for mass resolution
   if( vertexMassMu > 0.0 && vertexMassMu < 250.0 ){h1_MassResultionEBEB1_->Fill((vertexMassMu-MassGenerated)/MassGenerated,weight);}
   if( vertexMassMu > 250 && vertexMassMu < 750.0 ){h1_MassResultionEBEB2_->Fill((vertexMassMu-MassGenerated)/MassGenerated,weight);}
@@ -717,9 +754,9 @@ void ZprimeMuMuPatMiniAodNewData::PlotRecoInfo(float CosmicMuonRejec, float vert
   if( vertexMassMu > 1750 && vertexMassMu < 2250.0 ){h1_MassResultionEBEB5_->Fill((vertexMassMu-MassGenerated)/MassGenerated,weight);}
   if( vertexMassMu > 2000 && vertexMassMu < 4000.0 ){h1_MassResultionEBEB6_->Fill((vertexMassMu-MassGenerated)/MassGenerated,weight);}
   if( vertexMassMu > 4000 && vertexMassMu < 6000.0 ){h1_MassResultionEBEB7_->Fill((vertexMassMu-MassGenerated)/MassGenerated,weight);} 
-}
+ }
 //===================== Methode to calculate the mass ========================
-float ZprimeMuMuPatMiniAodNewData::Mass(float Pt1,float Eta1,float Phi1,float En1,
+ float ZprimeMuMuPatMiniAodNewData::Mass(float Pt1,float Eta1,float Phi1,float En1,
 		       float Pt2,float Eta2,float Phi2,float En2){
   float MuMuMass = 0.0;
   TLorentzVector Mu1;
@@ -728,10 +765,10 @@ float ZprimeMuMuPatMiniAodNewData::Mass(float Pt1,float Eta1,float Phi1,float En
   Mu2.SetPtEtaPhiE(Pt2,Eta2,Phi2,En2);
   MuMuMass = (Mu1 + Mu2).M();
   return MuMuMass;
-}
+ }
 
-void ZprimeMuMuPatMiniAodNewData::PickThehighestMass(float &vtxHighestMass,float &vtxHighestChi2,int EvtNb)
-{
+ void ZprimeMuMuPatMiniAodNewData::PickThehighestMass(float &vtxHighestMass,float &vtxHighestChi2,int EvtNb)
+ {
   float Massinv  = -10.0;
   unsigned iflag = -10;
   vtxHighestMass = -10.0;
@@ -743,7 +780,7 @@ void ZprimeMuMuPatMiniAodNewData::PickThehighestMass(float &vtxHighestMass,float
     {
       Nb++;
       countlept=2*i;
-      //cout << "vtx mass" << Mu_vtxMass->at(i) << " Chi2= " << Mu_vtxNormChi2->at(i)<< endl;
+      //cout << "\n vtx mass= " << Mu_vtxMass->at(i) << " Chi2= " << Mu_vtxNormChi2->at(i)<< endl;
       //cout << "vtx Mass lepton= " << Mu_vtxMassLept->at(countlept) << " " <<  Mu_vtxMassLept->at(countlept+1)<< endl;
       float chargepair=0;
       for(unsigned j=0; j<Mu_nbMuon->size(); j++){
@@ -764,6 +801,9 @@ void ZprimeMuMuPatMiniAodNewData::PickThehighestMass(float &vtxHighestMass,float
       //cout << "Chargepair surviving matching for vtxmass= " <<  Mu_vtxMass->at(i) << "   with " << leptmatchBest << " leptons" << endl;
 
       if(Mu_vtxNormChi2->at(i)> 20) continue;
+
+      //cout << "Massinv= " << Massinv << endl;
+
       if(Mu_vtxMass->at(i)>Massinv){
 	Massinv = Mu_vtxMass->at(i);
 	iflag  = i;
@@ -792,15 +832,15 @@ void ZprimeMuMuPatMiniAodNewData::PickThehighestMass(float &vtxHighestMass,float
     vtxHighestMass = Mu_vtxMass->at(iflag);
     vtxHighestChi2 = Mu_vtxNormChi2->at(iflag);
   }
-}
-double ZprimeMuMuPatMiniAodNewData::ThreeDangle(float pxMu1,float pyMu1,float pzMu1,float pMu1,
-       			          float pxMu2,float pyMu2,float pzMu2,float pMu2)
-{
+ }
+ double ZprimeMuMuPatMiniAodNewData::ThreeDangle(float pxMu1,float pyMu1,float pzMu1,float pMu1,
+						 float pxMu2,float pyMu2,float pzMu2,float pMu2)
+ {
   TVector3 Mu1(pxMu1,pyMu1,pzMu1);
   TVector3 Mu2(pxMu2,pyMu2,pzMu2);
   double cos_angle = Mu1.Dot(Mu2) / pMu1 / pMu2;
   return cos_angle;
-}
+ }
 
 //----------------------------------------------------
 //                                                   -
@@ -808,7 +848,7 @@ double ZprimeMuMuPatMiniAodNewData::ThreeDangle(float pxMu1,float pyMu1,float pz
 //                                                   -  
 //----------------------------------------------------
 //========================== Method to select firt Gen Mu =======================
-bool ZprimeMuMuPatMiniAodNewData::SelectFirstGenMu(float &ETMu1,float &PhiSCMu1,
+ bool ZprimeMuMuPatMiniAodNewData::SelectFirstGenMu(float &ETMu1,float &PhiSCMu1,
 					    float &EtaSCMu1,float &EnMu1,
 					    int &IDele1,int &Statele1,
 					    unsigned &GenFlag1){
@@ -836,9 +876,9 @@ bool ZprimeMuMuPatMiniAodNewData::SelectFirstGenMu(float &ETMu1,float &PhiSCMu1,
     return true;
   }         
   else return false;
-}
+ }
 //============================ Method to select second Gen Mu ========================
-bool ZprimeMuMuPatMiniAodNewData::SelectSecondGenMu(unsigned GenFlag1,float ETMu1,float &ETMu2,float &PhiSCMu2,
+ bool ZprimeMuMuPatMiniAodNewData::SelectSecondGenMu(unsigned GenFlag1,float ETMu1,float &ETMu2,float &PhiSCMu2,
 					     float &EtaSCMu2,float &EnMu2,int &IDele2,int &Statele2){
   int NbHEEPele = 0;
   int iflag = -10;
@@ -865,11 +905,11 @@ bool ZprimeMuMuPatMiniAodNewData::SelectSecondGenMu(unsigned GenFlag1,float ETMu
     return true;
   }
   else return false;
-}
+ }
 
 
 //============================ Method to plot Gen Mu ========================
-void ZprimeMuMuPatMiniAodNewData::PlotGenInfo(float ZprimeGenMass,float EtaGenMu1,float EtaGenMu2,float PtGenMu1,
+ void ZprimeMuMuPatMiniAodNewData::PlotGenInfo(float ZprimeGenMass,float EtaGenMu1,float EtaGenMu2,float PtGenMu1,
 				       float PtGenMu2,float EnGenMu1,float EnGenMu2){
   h1_MassGenInAccep_->Fill(ZprimeGenMass,weight);
   h1_ZprimeGenmass_->Fill(ZprimeGenMass,weight);
@@ -879,13 +919,13 @@ void ZprimeMuMuPatMiniAodNewData::PlotGenInfo(float ZprimeGenMass,float EtaGenMu
   h1_ZprimeGenPt2_->Fill(PtGenMu2,weight);
   h1_ZprimeGenEn1_->Fill(EnGenMu1,weight);
   h1_ZprimeGenEn2_->Fill(EnGenMu2,weight);
-}
+ }
 //----------------------------------------------------
 //                                                   -
 //                           N-1 eff.                -
 //                                                   -  
 //----------------------------------------------------
-void ZprimeMuMuPatMiniAodNewData::MuonPassingID(){
+ void ZprimeMuMuPatMiniAodNewData::MuonPassingID(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaTunePMuonBestTrack->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
@@ -903,9 +943,9 @@ void ZprimeMuMuPatMiniAodNewData::MuonPassingID(){
     }
     else continue;
   }
-}
+ }
 
-void ZprimeMuMuPatMiniAodNewData::PlotPterror(){
+ void ZprimeMuMuPatMiniAodNewData::PlotPterror(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaTunePMuonBestTrack->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
@@ -922,9 +962,9 @@ void ZprimeMuMuPatMiniAodNewData::PlotPterror(){
     }
     else continue;
   }
-}
+ }
 
-void ZprimeMuMuPatMiniAodNewData::PlotNbTrackLayers(){
+ void ZprimeMuMuPatMiniAodNewData::PlotNbTrackLayers(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaTunePMuonBestTrack->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
@@ -942,10 +982,10 @@ void ZprimeMuMuPatMiniAodNewData::PlotNbTrackLayers(){
     }
     else continue;
   }
-}
+ }
 
 
-void ZprimeMuMuPatMiniAodNewData::PlotNBValidPixelHits(){
+ void ZprimeMuMuPatMiniAodNewData::PlotNBValidPixelHits(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaTunePMuonBestTrack->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
@@ -963,9 +1003,9 @@ void ZprimeMuMuPatMiniAodNewData::PlotNBValidPixelHits(){
     }
     else continue;
   }
-}
+ }
 
-void ZprimeMuMuPatMiniAodNewData::PlotNbValidMuonHits(){
+ void ZprimeMuMuPatMiniAodNewData::PlotNbValidMuonHits(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaTunePMuonBestTrack->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
@@ -983,10 +1023,10 @@ void ZprimeMuMuPatMiniAodNewData::PlotNbValidMuonHits(){
     }
     else continue;
   }
-}
+ }
 
 
-void ZprimeMuMuPatMiniAodNewData::PlotNbMatchedStations(){
+ void ZprimeMuMuPatMiniAodNewData::PlotNbMatchedStations(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaTunePMuonBestTrack->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
@@ -1004,10 +1044,10 @@ void ZprimeMuMuPatMiniAodNewData::PlotNbMatchedStations(){
     }
     else continue;
   }
-}
+ }
 
 
-void ZprimeMuMuPatMiniAodNewData::PlotTrackiso(){
+ void ZprimeMuMuPatMiniAodNewData::PlotTrackiso(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaTunePMuonBestTrack->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
@@ -1025,10 +1065,10 @@ void ZprimeMuMuPatMiniAodNewData::PlotTrackiso(){
     }
     else continue;
   }
-}
+ }
 
 
-void ZprimeMuMuPatMiniAodNewData::PlotAbsDxy(){
+ void ZprimeMuMuPatMiniAodNewData::PlotAbsDxy(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaTunePMuonBestTrack->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
@@ -1046,9 +1086,9 @@ void ZprimeMuMuPatMiniAodNewData::PlotAbsDxy(){
     }
     else continue;
   }
-}
+ }
 
-void ZprimeMuMuPatMiniAodNewData::PlotPtTuneP(){
+ void ZprimeMuMuPatMiniAodNewData::PlotPtTuneP(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaTunePMuonBestTrack->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
@@ -1063,11 +1103,11 @@ void ZprimeMuMuPatMiniAodNewData::PlotPtTuneP(){
     }
     else continue;
   }
-}
+ }
 
 
 
-void ZprimeMuMuPatMiniAodNewData::plotAllHighPtMuonsID(){
+ void ZprimeMuMuPatMiniAodNewData::plotAllHighPtMuonsID(){
   MuonPassingID();
   PlotPterror();
   PlotNbTrackLayers();
@@ -1079,9 +1119,9 @@ void ZprimeMuMuPatMiniAodNewData::plotAllHighPtMuonsID(){
   MuonPassingNewID();
   MuonPassingTightID();
   PlotPtTuneP();
-}
+ }
 
-void ZprimeMuMuPatMiniAodNewData::MuonPassingNewID(){
+ void ZprimeMuMuPatMiniAodNewData::MuonPassingNewID(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaTunePMuonBestTrack->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
@@ -1099,11 +1139,11 @@ void ZprimeMuMuPatMiniAodNewData::MuonPassingNewID(){
     }
     else continue;
   }
-}
+ }
 
 
 
-void ZprimeMuMuPatMiniAodNewData::MuonPassingTightID(){
+ void ZprimeMuMuPatMiniAodNewData::MuonPassingTightID(){
   for(unsigned i=0; i<Mu_nbMuon->size(); i++){
     if(fabs(Mu_etaTunePMuonBestTrack->at(i)) < 2.4 &&
        Mu_isGlobalMuon->at(i) == 1 &&
@@ -1121,10 +1161,10 @@ void ZprimeMuMuPatMiniAodNewData::MuonPassingTightID(){
     }
     else continue;
   }
-}
+ }
 
 
-void ZprimeMuMuPatMiniAodNewData::CosThetaCollinSoper(float Et1,float Eta1,float Phi1,float En1,
+ void ZprimeMuMuPatMiniAodNewData::CosThetaCollinSoper(float Et1,float Eta1,float Phi1,float En1,
 						  float Et2,float Eta2,float Phi2,float En2,
 						  float ChargeEle1,float RecoMass){
   
@@ -1210,12 +1250,12 @@ void ZprimeMuMuPatMiniAodNewData::CosThetaCollinSoper(float Et1,float Eta1,float
   //double sin2theta = pow(D.Pt()/Q.Mag(), 2)
   //- 1.0/pow(Q.Mag(), 2)/(pow(Q.Mag(), 2) + pow(Q.Pt(), 2))*pow(dt_qt, 2);
   //h1_Sin2AngleCollinSoperCorrect_->Fill(sin2theta,weight);
-}
+ }
 
 
-void ZprimeMuMuPatMiniAodNewData::PrintEventInformation(int runNumber, int lumiNumber, int eventNumber,
+ void ZprimeMuMuPatMiniAodNewData::PrintEventInformation(int runNumber, int lumiNumber, int eventNumber,
 					  float vtxChi2, float vtxMass, float CosmicRejection)
-{
+ {
   if(event_runNo == runNumber && event_lumi == lumiNumber && event_evtNo == eventNumber)
     {
       output_txt << event_runNo
@@ -1244,14 +1284,14 @@ void ZprimeMuMuPatMiniAodNewData::PrintEventInformation(int runNumber, int lumiN
       cout<<"[000] vtxChi2Mu="<<vtxChi2<<endl;
       cout<<"[000] CosAngle="<<CosmicRejection<<endl;
     }
-}
+ }
 
 //----------------------------------------------------
 //                                                   -
 //       Part for HLT & Reco Matching                -
 //                                                   -  
 //----------------------------------------------------
-bool ZprimeMuMuPatMiniAodNewData::isPassHLT(){ 
+ bool ZprimeMuMuPatMiniAodNewData::isPassHLT(){ 
   int nbMatch = 0;
   for(unsigned i=0; i<HLT_nb->size(); i++){
     if( (HLT_name->at(i) == "HLT_Mu50_v1" || 
@@ -1272,9 +1312,9 @@ bool ZprimeMuMuPatMiniAodNewData::isPassHLT(){
     return true;
   }
   else return false;
-}
+ }
 
-bool ZprimeMuMuPatMiniAodNewData::RecoHLTMuonMatching(float RecoEta,float RecoPhi){
+ bool ZprimeMuMuPatMiniAodNewData::RecoHLTMuonMatching(float RecoEta,float RecoPhi){
   int nbMatch = 0;
   float deltaR   = -10000.0;
   for(unsigned i=0; i<HLTObj_nbObj->size(); i++){
@@ -1298,14 +1338,14 @@ bool ZprimeMuMuPatMiniAodNewData::RecoHLTMuonMatching(float RecoEta,float RecoPh
   }
   if(nbMatch>0) return true;
   else return false;
-}
+ }
 
 
 
 //if( flavor==5 ) b jet
 //if( flavor==4 ) c jets
 //else light-flavor jet
-bool ZprimeMuMuPatMiniAodNewData::BTaggingDiscriminator(){
+ bool ZprimeMuMuPatMiniAodNewData::BTaggingDiscriminator(){
   int nbMatch = 0;
   for(unsigned i=0; i<Nb_bDiscriminators->size(); i++){
     if(jet_btag_flavor->at(i)==5 && jet_btag_pfCSVv2IVF_discriminator->at(i)>0.8 ) {
@@ -1315,9 +1355,9 @@ bool ZprimeMuMuPatMiniAodNewData::BTaggingDiscriminator(){
   }
   if(nbMatch>0) return true;
   else return false;
-}
+ }
 
-void ZprimeMuMuPatMiniAodNewData::DrawBTaggingDiscriminator(){
+ void ZprimeMuMuPatMiniAodNewData::DrawBTaggingDiscriminator(){
   int nbMatch = 0;
   for(unsigned i=0; i<Nb_bDiscriminators->size(); i++){
     //printf ("[ %d ] flavor = %d disc_b = %f\n",i,jet_btag_flavor->at(i),jet_btag_pfCSVv2IVF_discriminator->at(i));
@@ -1327,7 +1367,7 @@ void ZprimeMuMuPatMiniAodNewData::DrawBTaggingDiscriminator(){
     else if(jet_btag_flavor->at(i)==5) {h1_jetBTagB_->Fill(jet_btag_pfCSVv2IVF_discriminator->at(i),weight);}
     else {h1_jetBTagUDSG_->Fill(jet_btag_pfCSVv2IVF_discriminator->at(i),weight);}
   }
-}
+ }
 
 /*
 //===================== Methode to calculate the mass ========================
@@ -1373,7 +1413,7 @@ Double_t mW_t = TMath::Sqrt(electron.Et()*electron.Et() +
 metVec.Et()*metVec.Et() 
 - 2*electron.Et()*metVec.Et()*TMath::Cos(electron.DeltaPhi(metVec)));
 */
-void ZprimeMuMuPatMiniAodNewData::Boson(float Px1,float Py1,float Pz1,float En1,
+ void ZprimeMuMuPatMiniAodNewData::Boson(float Px1,float Py1,float Pz1,float En1,
 					float Px2,float Py2,float Pz2,float En2,
 					float ChargeEle1,float MetEt,float MetPx,
 					float MetPy,float MetPz,float MetEn){
@@ -1405,4 +1445,4 @@ void ZprimeMuMuPatMiniAodNewData::Boson(float Px1,float Py1,float Pz1,float En1,
       h1_Mt_->Fill(Mt,weight);
       h1_MissingEt_->Fill(MetEt,weight);
     }
-}
+ }
