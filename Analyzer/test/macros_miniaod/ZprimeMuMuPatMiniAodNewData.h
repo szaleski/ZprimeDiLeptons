@@ -478,6 +478,10 @@ public :
    TH1F* h1_PtResolutionMBT_;
    TH1F* h1_PtResolutionTunePMBT_;
    TH1F* h1_PtResolutiontuneP_;
+   TH1F* h1_PtResolutiontuneP_400_600;
+   TH1F* h1_PtResolutiontuneP_900_1100;
+   TH1F* h1_PtResolutiontuneP_1400_1600;
+   TH1F* h1_PtResolutiontuneP_1800_2200;
    TH1F* h1_MassResultionEBEB1_;
    TH1F* h1_MassResultionEBEB2_;
    TH1F* h1_MassResultionEBEB3_;
