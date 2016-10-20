@@ -3,7 +3,7 @@
 // Author: Sherif Elgammal                             =
 // CMSSW: 8_0_13                                       =
 // Data Format: MINIAOD                                =
-// Date: 16/08/2016                                    =
+// Date: 17/10/2016                                    =
 //======================================================
 #include <memory>
 #include <vector>
@@ -1464,7 +1464,16 @@ void MakeZprimeMiniAodTree::TriggerMatchingTree(const edm::Event& iEvent,const e
   const edm::TriggerNames &names = iEvent.triggerNames(*triggerBits);
   //std::cout << "\n === TRIGGER PATHS === " << std::endl;
   for (unsigned int i = 0, n = triggerBits->size(); i < n; ++i) {
-    if( names.triggerName(i) != "HLT_Mu50_v2" && names.triggerName(i) != "HLT_Mu27_v2" ) continue;
+    if( names.triggerName(i) != "HLT_Mu50_v1" && names.triggerName(i) != "HLT_Mu50_v2"  &&
+        names.triggerName(i) != "HLT_Mu50_v3" && names.triggerName(i) != "HLT_Mu50_v4"  &&
+	names.triggerName(i) != "HLT_Mu50_v5" && names.triggerName(i) != "HLT_Mu50_v6"  &&
+        names.triggerName(i) != "HLT_Mu50_v7" && names.triggerName(i) != "HLT_Mu50_v8"  &&
+        names.triggerName(i) != "HLT_Mu50_v9" && names.triggerName(i) != "HLT_Mu50_v10" &&
+        names.triggerName(i) != "HLT_Mu27_v1" && names.triggerName(i) != "HLT_Mu27_v2"  &&
+        names.triggerName(i) != "HLT_Mu27_v3" && names.triggerName(i) != "HLT_Mu27_v4"  &&
+        names.triggerName(i) != "HLT_Mu27_v5" && names.triggerName(i) != "HLT_Mu27_v6"  &&
+        names.triggerName(i) != "HLT_Mu27_v7" && names.triggerName(i) != "HLT_Mu27_v8"  &&
+        names.triggerName(i) != "HLT_Mu27_v9" && names.triggerName(i) != "HLT_Mu27_v10" ) continue;
     //std::string const& name = names.triggerName(i);
     //full_name = name;
     NbTriggers++;
@@ -1484,9 +1493,17 @@ void MakeZprimeMiniAodTree::TriggerMatchingTree(const edm::Event& iEvent,const e
       //std::cout<<" full_name = "<< pathnames[j] << endl;
       //printf("pt = %f eta = %f phi = %f \n",src.pt(),src.eta(),src.phi());
       if( src.pt() < 20.0 ) continue;
-      if( fabs(src.eta()) > 2.5 ) continue;
-      if( pathnames[j] != "HLT_Mu50_v2" && pathnames[j] != "HLT_Mu27_v2" ) continue;
-      NbTriggerObj++;
+      if( fabs(src.eta()) > 3.0 ) continue;
+      if( pathnames[j] != "HLT_Mu50_v1" && pathnames[j] != "HLT_Mu50_v2"  &&
+          pathnames[j] != "HLT_Mu50_v3" && pathnames[j] != "HLT_Mu50_v4"  &&
+          pathnames[j] != "HLT_Mu50_v5" && pathnames[j] != "HLT_Mu50_v6"  &&
+          pathnames[j] != "HLT_Mu50_v7" && pathnames[j] != "HLT_Mu50_v8"  &&
+          pathnames[j] != "HLT_Mu50_v9" && pathnames[j] != "HLT_Mu50_v10" &&
+          pathnames[j] != "HLT_Mu27_v1" && pathnames[j] != "HLT_Mu27_v2"  &&
+          pathnames[j] != "HLT_Mu27_v3" && pathnames[j] != "HLT_Mu27_v4"  &&
+          pathnames[j] != "HLT_Mu27_v5" && pathnames[j] != "HLT_Mu27_v6"  &&
+          pathnames[j] != "HLT_Mu27_v7" && pathnames[j] != "HLT_Mu27_v8"  &&
+          pathnames[j] != "HLT_Mu27_v9" && pathnames[j] != "HLT_Mu27_v10" ) continue;
       HLTObj_nbObj.push_back(NbTriggerObj);
       HLTObj_pt.push_back(src.pt()); 
       HLTObj_eta.push_back(src.eta());
@@ -2034,9 +2051,12 @@ void MakeZprimeMiniAodTree::BtaggingTree(const edm::Event& iEvent)
       int flavor = std::abs( jet->partonFlavour() );
       for( const std::string &bDiscr : bDiscriminators_ )
 	{
-	  if( flavor==0 ) continue; // skip jets with undefined flavor
-	  if( jet->pt()<20.0 || std::abs(jet->eta())>2.4 ) continue; // skip jets with low pT or outside the tracker acceptance
-	  bDiscriminatorsNumber++;
+	  //cout<<"Btag = "<<jet->bDiscriminator(bDiscr)<<endl;
+          //if( flavor==0 ) continue; // skip jets with undefined flavor
+	  //cout<<"Btag = "<<jet->bDiscriminator(bDiscr)<<endl;
+          if( jet->pt()<20.0 || std::abs(jet->eta())>2.4 ) continue; // skip jets with low pT or outside the tracker acceptance
+	  //cout<<"Btag = "<<jet->bDiscriminator(bDiscr)<<endl;
+          bDiscriminatorsNumber++;
 	  Nb_bDiscriminators.push_back(bDiscriminatorsNumber);
 	  jet_btag_pt.push_back(jet->pt());
 	  jet_btag_eta.push_back(jet->eta());
