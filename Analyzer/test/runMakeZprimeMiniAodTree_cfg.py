@@ -1,21 +1,32 @@
+#==============================================================
+#          Analysis code for Z' boson to dilepton analysis    =  
+#          This python to run the tree producer code          = 
+#          To run over MINIAOD MC or Data with fixed trigger  = 
+#                  Author:  Sherif Elgammal                   = 
+#                       01/01/2016                            = 
+#==============================================================
 import FWCore.ParameterSet.Config as cms
 from RecoMuon.TrackingTools.MuonServiceProxy_cff import *
 from PhysicsTools.PatAlgos.triggerLayer1.triggerProducer_cfi import *
 #from TrackingTools.TransientTrack.TransientTrackBuilder_cfi import *
 
 process = cms.Process("tree")
+process.load("RecoEgamma.ElectronIdentification.heepIdVarValueMapProducer_cfi")
 process.load("TrackingTools/TransientTrack/TransientTrackBuilder_cfi")
 process.load("Configuration.StandardSequences.MagneticField_38T_cff")
 process.load('Configuration/Geometry/GeometryRecoDB_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 process.load("Configuration.StandardSequences.Reconstruction_cff")
-
 process.load("RecoVertex.BeamSpotProducer.BeamSpot_cfi")
 process.load("RecoTracker.Configuration.RecoTracker_cff")
-#process.load("RecoTracker.TransientTrackingRecHit.TransientTrackingRecHitBuilderWithoutRefit_cfi")
-#process.load("TrackingTools.TrackRefitter.TracksToTrajectories_cff")
 process.load('Configuration/StandardSequences/EndOfProcess_cff')
-
+process.load('FWCore.MessageService.MessageLogger_cfi')
+process.load("FWCore.MessageLogger.MessageLogger_cfi")
+#Track isolation correction
+process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi")
+process.load("PhysicsTools.PatAlgos.slimming.packedCandidatesForTrkIso_cfi")
+process.load("PhysicsTools.PatAlgos.slimming.primaryVertexAssociation_cfi")
+process.load("RecoEgamma.ElectronIdentification.heepIdVarValueMapProducer_cfi")
 
 process.options = cms.untracked.PSet(
     Rethrow = cms.untracked.vstring('ProductNotFound'),
@@ -28,20 +39,14 @@ process.maxEvents = cms.untracked.PSet(
 )
 
 # reduce verbosity
-#process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(1000)  
+#process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(200000)  
 
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
-#'/store/mc/RunIISpring16MiniAODv1/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3_ext1-v1/20000/0017320C-7BFC-E511-9B2D-0CC47A4C8E34.root'
-#'/store/mc/RunIISpring16MiniAODv1/TTTo2L2Nu_13TeV-powheg/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3_ext1-v1/00000/004183D9-4A07-E611-B87E-00266CF9BCC4.root'
-#'/store/mc/RunIISpring16MiniAODv1/ZToMuMu_NNPDF30_13TeV-powheg_M_120_200/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/30000/02244373-7E03-E611-B581-003048F5B2B4.root',
-#'/store/mc/RunIISpring16MiniAODv1/ZToMuMu_NNPDF30_13TeV-powheg_M_120_200/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/30000/7ED6B748-F202-E611-8730-0CC47A4D7690.root',
-#'/store/mc/RunIISpring16MiniAODv1/ZToMuMu_NNPDF30_13TeV-powheg_M_120_200/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/30000/88C43FF0-6A03-E611-ABEA-002590E2DDC8.root',
-#'/store/mc/RunIISpring16MiniAODv1/ZToMuMu_NNPDF30_13TeV-powheg_M_120_200/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/30000/B8148C0A-CF03-E611-ACB1-0025905A608C.root'
-'file:pickevents_278957_129_131269573.root'
-#    'file:14A4CA95-F437-E611-B6DC-02163E01387F.root'
-#'/store/data/Run2016G/SingleMuon/MINIAOD/PromptReco-v1/000/278/957/00000/EEA4821F-BE65-E611-8420-02163E0122D9.root'
-    )
+'/store/mc/RunIISpring16MiniAODv1/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3_ext1-v1/20000/0017320C-7BFC-E511-9B2D-0CC47A4C8E34.root'
+#'/store/data/Run2016G/SingleMuon/MINIAOD/23Sep2016-v1/90000/9695BF0B-8E97-E611-A1A4-00259044051C.root',
+#'/store/data/Run2016G/SingleMuon/MINIAOD/23Sep2016-v1/90000/1C603D88-C597-E611-A0BE-008CFAF2931E.root'
+	)
 )
 ##-------- Electron events of interest --------
 process.HLTEle =cms.EDFilter("HLTHighLevel",
@@ -61,18 +66,16 @@ process.noscraping = cms.EDFilter("FilterOutScraping",
 ##################################################################
 #####################################################################
 # Global tag (data)
-from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '80X_dataRun2_Prompt_v11', '')
+#from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
+#process.GlobalTag = GlobalTag(process.GlobalTag, '80X_dataRun2_2016SeptRepro_v4', '')
 
 # Global tag (MC)
-#from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-#process.GlobalTag = GlobalTag(process.GlobalTag, '80X_mcRun2_asymptotic_2016_v3', '')
+from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
+process.GlobalTag = GlobalTag(process.GlobalTag, '80X_mcRun2_asymptotic_2016_v3', '')
 
 process.demo = cms.EDAnalyzer("MakeZprimeMiniAodTree",
-    #outputFile = cms.string('Data.root'),
-    outputFile = cms.string('CMSSW803_pickevents.root'), 
-    #outputFile = cms.string('TTTo2L2Nu_13TeV-powheg.root'),
-    #outputFile = cms.string('CMSSW803_MC_DYtoTauTau_13TeV_pattuple.root'), 
+    outputFile = cms.string('MC.root'),
+    eleTrkPtIsoLabel = cms.InputTag("heepIDVarValueMaps","eleTrkPtIso"),
     scProducer = cms.InputTag("reducedEgamma:reducedSuperClusters"),
     vertices   = cms.InputTag("offlineSlimmedPrimaryVertices"),
     muons      = cms.InputTag("slimmedMuons"),
@@ -100,7 +103,9 @@ process.demo = cms.EDAnalyzer("MakeZprimeMiniAodTree",
     prescales      = cms.InputTag("patTrigger"),
     objects        = cms.InputTag("selectedPatTrigger"),
     GenBosonID     = cms.int32(1000000),
-    ParticleID     = cms.int32(13),
+    ParticleID1    = cms.int32(13),
+    ParticleID2    = cms.int32(11),
+    ParticleID3    = cms.int32(15),
     ParticleStatus = cms.int32(25),
     maxAbsZ  = cms.double(24),
     maxd0    = cms.double(2),
@@ -118,11 +123,10 @@ process.demo = cms.EDAnalyzer("MakeZprimeMiniAodTree",
         #'pfCombinedMVABJetTags'
     ),
 
-    #Analysis = cms.string('ZprimeToEE')
     Analysis = cms.string('ZprimeToMuMu')
 )
 
-process.p = cms.Path(process.demo)
+process.p = cms.Path( process.heepIDVarValueMaps * process.demo )
 
 
 
