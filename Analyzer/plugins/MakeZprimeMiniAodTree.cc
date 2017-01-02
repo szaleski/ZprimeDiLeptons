@@ -1,9 +1,10 @@
 //======================================================
-// Make the root tree for Z boson to Mu Mu analysis    =
+// Make the tree for Z' boson to Di-lepton analysis    =
+// electron & muon common tree                         =
 // Author: Sherif Elgammal                             =
-// CMSSW: 8_0_13                                       =
+// CMSSW: 8_0_20                                       =
 // Data Format: MINIAOD                                =
-// Date: 17/10/2016                                    =
+// Date: 01/01/2017                                    =
 //======================================================
 #include <memory>
 #include <vector>
@@ -81,15 +82,12 @@
 #include "SimDataFormats/GeneratorProducts/interface/LHERunInfoProduct.h"
 #include "SimDataFormats/GeneratorProducts/interface/LHEEventProduct.h"
 #include "SimDataFormats/PileupSummaryInfo/interface/PileupSummaryInfo.h"
-
-
 #include "TrackingTools/Records/interface/TransientTrackRecord.h"
 #include "TrackingTools/TransientTrack/interface/TransientTrack.h"
 #include "TrackingTools/TransientTrack/interface/TransientTrackBuilder.h"
 #include "DataFormats/TrackReco/interface/Track.h"
 #include "DataFormats/TrackReco/interface/TrackFwd.h"
 #include "DataFormats/Common/interface/Handle.h"
-
 #include "DataFormats/TrackerRecHit2D/interface/SiStripRecHit2D.h"
 #include "DataFormats/TrackerRecHit2D/interface/SiStripMatchedRecHit2D.h"
 #include "DataFormats/TrackerRecHit2D/interface/SiPixelRecHit.h"
@@ -100,9 +98,23 @@
 // Jets
 #include "DataFormats/JetReco/interface/GenJet.h"
 #include "DataFormats/JetReco/interface/GenJetCollection.h"
-
-
 #include "TH1.h"
+// New by Sam
+#include "DataFormats/Common/interface/Ptr.h"
+#include "DataFormats/PatCandidates/interface/Electron.h"
+#include "FWCore/Framework/interface/MakerMacros.h"
+#include "DataFormats/Common/interface/ValueMap.h"
+//#include "SHarper/HEEPAnalyzer/interface/HEEPCutCodes.h"
+#include "DataFormats/HepMCCandidate/interface/GenParticleFwd.h"
+#include "DataFormats/HepMCCandidate/interface/GenParticle.h"
+#include "TH1D.h"
+#include "CommonTools/UtilAlgos/interface/TFileService.h"
+#include "FWCore/ServiceRegistry/interface/Service.h"
+#include "DataFormats/Common/interface/ValueMap.h"
+#include "DataFormats/Common/interface/Association.h"
+#include "DataFormats/Common/interface/Wrapper.h"
+#include "DataFormats/Common/interface/PtrVector.h"
+#include "DataFormats/Common/interface/FwdPtr.h"
 using namespace std;
 using namespace edm;
 using namespace reco;
@@ -110,7 +122,6 @@ using namespace pat;
 //
 // class declaration
 //
-
 class MakeZprimeMiniAodTree : public edm::EDAnalyzer {
 public:
   explicit MakeZprimeMiniAodTree(const edm::ParameterSet&);
@@ -164,33 +175,31 @@ private:
   edm::EDGetTokenT<pat::PackedTriggerPrescales> triggerPrescales_;
   edm::EDGetTokenT<pat::PackedCandidateCollection> pfToken_;
   edm::EDGetTokenT<std::vector<PileupSummaryInfo> > PileupSrc_;
-  //edm::EDGetTokenT<reco::TrackCollection> generalTracksToken_;
-  //edm::EDGetTokenT<double> theMETSignificance_;
-  //edm::EDGetTokenT<reco::SuperClusterCollection> scCollection_;
-  //edm::EDGetTokenT<pat::JetCollection> fatjetToken_;
-  //edm::EDGetTokenT<GenEventInfoProduct> genInfoToken_;
+  const std::vector<std::string> bDiscriminators_;
+  // New by Sam
+  edm::EDGetTokenT<edm::ValueMap<float> > eleTrkPtIso_;
   int BosonID_;
-  int ParticleID_;
+  int ParticleID1_;
+  int ParticleID2_;
+  int ParticleID3_;
   int ParticleStatus_;
   double maxAbsZ_;
   double maxd0_;
   int minNdof_;
   int NbGoodPv_;
   std::string Analysis_;
-  const std::vector<std::string> bDiscriminators_;
   //=============================================================
   TFile*  rootFile_;
   std::string outputFile_; // output file
-  
   //=============================================================
   //
   //           Create Branchs for Nb of event,run,lumi
   //
   //=============================================================
-  int Run;
-  int Event;
-  int lumi;
-  int bunch;
+  unsigned int Run;
+  unsigned int Event;
+  unsigned int lumi;
+  unsigned int bunch;
   std::vector<float> m_egClean_E;
   std::vector<float> m_egClean_size;
   std::vector<float> m_egClean_eta;
@@ -258,6 +267,7 @@ private:
   //------------- detector isolation -------------------------
   std::vector<float> Ele_EcalPlusHcald1iso;
   std::vector<float> Ele_dr03TkSumPt;
+  std::vector<float> Ele_dr03TkSumPt_corrected;
   std::vector<float> Ele_dr03EcalRecHitSumEt;
   std::vector<float> Ele_dr03HcalDepth1TowerSumEt;
   std::vector<float> Ele_dr03HcalDepth1TowerSumEtBc;
@@ -538,9 +548,6 @@ private:
   //std::vector<float> pfphoton_PFphoton;
   //std::vector<float> pfphoton_PFPUchAllPart;
   //std::vector<float> pfphoton_PFX_rho;
-  
-
-
 };
 
 MakeZprimeMiniAodTree::MakeZprimeMiniAodTree(const edm::ParameterSet& iConfig):
@@ -568,13 +575,14 @@ MakeZprimeMiniAodTree::MakeZprimeMiniAodTree(const edm::ParameterSet& iConfig):
   pfToken_(consumes<pat::PackedCandidateCollection>(iConfig.getParameter< edm::InputTag >("pfCands"))),
   PileupSrc_(consumes<std::vector<PileupSummaryInfo> >(iConfig.getParameter<edm::InputTag>("PileupSrc"))),
   bDiscriminators_(iConfig.getParameter<std::vector<std::string> >("bDiscriminators")),
-//fatjetToken_(consumes<pat::JetCollection>(iConfig.getParameter<edm::InputTag>("fatjets"))),
-//theMETSignificance_(consumes <double> (iConfig.getParameter<edm::InputTag>("METSignificance"))),
+  eleTrkPtIso_(consumes<edm::ValueMap<float> >(iConfig.getParameter<edm::InputTag>("eleTrkPtIsoLabel"))),
   outputFile_(iConfig.getParameter<std::string>("outputFile"))
 {
   rootFile_   = TFile::Open(outputFile_.c_str(),"RECREATE"); // open output file to store histograms  
   BosonID_            = iConfig.getParameter<int>("GenBosonID");
-  ParticleID_         = iConfig.getParameter<int>("ParticleID");
+  ParticleID1_        = iConfig.getParameter<int>("ParticleID1");
+  ParticleID2_        = iConfig.getParameter<int>("ParticleID2");
+  ParticleID3_        = iConfig.getParameter<int>("ParticleID3");
   ParticleStatus_     = iConfig.getParameter<int>("ParticleStatus");
   maxAbsZ_            = iConfig.getParameter<double>("maxAbsZ");
   maxd0_              = iConfig.getParameter<double>("maxd0");
@@ -806,9 +814,6 @@ void MakeZprimeMiniAodTree::beginJob()
     //
     //=============================================================
     mytree->Branch("MC_weighting",&MC_weighting);
-  }
-  
-  if(Analysis_== "ZprimeToEE"){
     //==================================================
     //
     //      Create Branchs for Electrons variables
@@ -868,7 +873,6 @@ void MakeZprimeMiniAodTree::beginJob()
     mytree->Branch("Ele_Xposition",&Ele_Xposition);
     mytree->Branch("Ele_Yposition",&Ele_Yposition);
     mytree->Branch("Ele_EcalPlusHcald1iso",&Ele_EcalPlusHcald1iso);
-    mytree->Branch("Ele_dr03TkSumPt",&Ele_dr03TkSumPt);
     mytree->Branch("Ele_dr03EcalRecHitSumEt",&Ele_dr03EcalRecHitSumEt);
     mytree->Branch("Ele_dr03HcalDepth1TowerSumEt",&Ele_dr03HcalDepth1TowerSumEt);
     mytree->Branch("Ele_dr03HcalDepth1TowerSumEtBc",&Ele_dr03HcalDepth1TowerSumEtBc);
@@ -890,7 +894,12 @@ void MakeZprimeMiniAodTree::beginJob()
     mytree->Branch("Ele_ieta",&Ele_ieta);
     mytree->Branch("Ele_phiWidth",&Ele_phiWidth);
     mytree->Branch("Ele_etaWidth",&Ele_etaWidth);
-    //=============================================================
+    mytree->Branch("Ele_dr03TkSumPt",&Ele_dr03TkSumPt);
+    mytree->Branch("Ele_dr03TkSumPt_corrected",&Ele_dr03TkSumPt_corrected);
+  }
+  
+  if(Analysis_== "ZprimeToEE"){
+    //============================================================= 
     //  
     //    Create Branchs for ecal rec hits variables
     //      
@@ -985,21 +994,11 @@ void MakeZprimeMiniAodTree::analyze(const edm::Event& iEvent, const edm::EventSe
     fillRho(iEvent);
     BtaggingTree(iEvent);
     TauTree(iEvent);
-  }
-  
-  if(Analysis_== "ZprimeToEE"){
     PatElectronTree(iEvent,iSetup);
-    EBecalRecHitsTree(iEvent,iSetup);
-    EEecalRecHitsTree(iEvent,iSetup);
-    SuperClusterTree(iEvent,iSetup);
-    PrimaryVertexTree(iEvent,iSetup);
-    accessGenInfo(iEvent,iSetup);
-    TriggerMatchingTree(iEvent,iSetup);
-    //ParticleFlowPhotonTree(iEvent,iSetup);
   }
   
-  //
-  //JetsTree(iEvent,iSetup);
+
+  
   //==============================================
   //=        End of the main program             =
   //============================================== 
@@ -1047,7 +1046,7 @@ bool MakeZprimeMiniAodTree::PrimaryVertex(const reco::VertexCollection &vertices
 void MakeZprimeMiniAodTree::PatElectronTree(const edm::Event& iEvent,const edm::EventSetup& es)
 { 
   int NbElectrons = 0;
-  Ele_rawId.clear(); 
+  Ele_rawId.clear();
   Ele_nbElectrons.clear();
   Ele_isEcalDrivenSeed.clear();
   Ele_isPassConversionVeto.clear();
@@ -1066,9 +1065,10 @@ void MakeZprimeMiniAodTree::PatElectronTree(const edm::Event& iEvent,const edm::
   Ele_etaTrack.clear();
   Ele_phiTrack.clear();
   Ele_hadronicOverEm.clear();
+  Ele_deltaEtaInSeedCluster.clear();
+  Ele_deltaPhiInSeedCluster.clear();      
   Ele_deltaEtaInSC.clear();
   Ele_deltaPhiInSC.clear();
-  Ele_deltaEtaInSeedCluster.clear();  
   Ele_sigmaIetaIeta.clear();
   Ele_e2x5Max.clear();
   Ele_e1x5.clear();
@@ -1100,11 +1100,9 @@ void MakeZprimeMiniAodTree::PatElectronTree(const edm::Event& iEvent,const edm::
   Ele_EoverP.clear();
   Ele_Xposition.clear();
   Ele_Yposition.clear();
-  Ele_phiWidth.clear();
-  Ele_etaWidth.clear();
-  //------------- detector isolation -------------------------
   Ele_EcalPlusHcald1iso.clear();
   Ele_dr03TkSumPt.clear();
+  Ele_dr03TkSumPt_corrected.clear();
   Ele_dr03EcalRecHitSumEt.clear();
   Ele_dr03HcalDepth1TowerSumEt.clear();
   Ele_dr03HcalDepth1TowerSumEtBc.clear();
@@ -1113,17 +1111,18 @@ void MakeZprimeMiniAodTree::PatElectronTree(const edm::Event& iEvent,const edm::
   Ele_dr03HcalDepth2TowerSumEt.clear();
   Ele_hcalDepth2TowerSumEtNoVeto.clear();
   Ele_hcalDepth1TowerSumEtNoVeto.clear();                       
-  //------------- PF isolation from pat::ele -------------------------
   Ele_pfSumPhotonEt.clear();
   Ele_pfSumChargedHadronPt.clear();
   Ele_pfSumNeutralHadronEt.clear();
   Ele_pfSumPUPt.clear();
   Ele_pfDeltaBeta.clear();
-  Ele_x.clear();                                     
+  Ele_x.clear();
   Ele_y.clear();
   Ele_z.clear();
   Ele_zTrackPositionAtVtx.clear();
   Ele_ieta.clear();
+  Ele_phiWidth.clear();
+  Ele_etaWidth.clear();
   // rho for isolation
   edm::Handle<double> rhoIso_h;
   iEvent.getByToken(rhoIsoInputTag_, rhoIso_h);
@@ -1137,7 +1136,7 @@ void MakeZprimeMiniAodTree::PatElectronTree(const edm::Event& iEvent,const edm::
   //------------ Rec Hits in EB ----------------
   edm::Handle<EcalRecHitCollection> ecalEB;
   iEvent.getByToken(tok_EB_,ecalEB);
-  //------------ Rec Hits in EE ----------------
+  //------------ Rec Hits in EE ----------------  
   edm::Handle<EcalRecHitCollection> ecalEE;
   iEvent.getByToken(tok_EE_,ecalEE);
   //------------ Rec Hits in ES ----------------
@@ -1148,10 +1147,13 @@ void MakeZprimeMiniAodTree::PatElectronTree(const edm::Event& iEvent,const edm::
   //es.get<CaloTopologyRecord>().get(pTopology);
   //const CaloTopology *topology = pTopology.product();
   //prepare electron cluster shapes extraction
+  //New by Sam
+  edm::Handle<edm::ValueMap<float>> eleTrkPtIsoHandle_;
+  iEvent.getByToken(eleTrkPtIso_,eleTrkPtIsoHandle_);
   std::auto_ptr<EcalClusterLazyTools> lazyTools_;
   lazyTools_ .reset(new EcalClusterLazyTools( iEvent, es, ecalRechitEBToken_, ecalRechitEEToken_ ));  
   for (const pat::Electron &el : *electrons) {
-    if (el.pt() < 5) continue;
+    if(el.caloEnergy() * sin(el.p4().theta()) < 20) continue;
     NbElectrons++;
     Ele_nbElectrons.push_back(NbElectrons); 
     Ele_Et.push_back(el.superCluster()->energy() * sin(el.p4().theta()));
@@ -1235,10 +1237,11 @@ void MakeZprimeMiniAodTree::PatElectronTree(const edm::Event& iEvent,const edm::
     Ele_hcalDepth1TowerSumEtNoVeto.push_back(el.isolationVariables03().hcalDepth1TowerSumEt);// hcaldepht1 iso deposit with 
     // electron footprint removed
     Ele_EcalPlusHcald1iso.push_back(el.dr03EcalRecHitSumEt() + el.dr03HcalDepth1TowerSumEt());
-    Ele_dr03TkSumPt.push_back(el.dr03TkSumPt());
     Ele_dr03EcalRecHitSumEt.push_back(el.dr03EcalRecHitSumEt());
     Ele_dr03HcalDepth1TowerSumEt.push_back(el.dr03HcalDepth1TowerSumEt());
     Ele_dr03HcalDepth1TowerSumEtBc.push_back(el.dr03HcalDepth1TowerSumEtBc());
+    Ele_dr03TkSumPt.push_back(el.dr03TkSumPt());
+    Ele_dr03TkSumPt_corrected.push_back((*eleTrkPtIsoHandle_).get(NbElectrons));
     //------------- PF isolation from pat::ele -------------------------
     Ele_pfSumPhotonEt.push_back(el.pfIsolationVariables().sumPhotonEt);
     Ele_pfSumChargedHadronPt.push_back(el.pfIsolationVariables().sumChargedHadronPt); 
@@ -1252,6 +1255,7 @@ void MakeZprimeMiniAodTree::PatElectronTree(const edm::Event& iEvent,const edm::
     Ele_pfDeltaBeta.push_back(deltaBeta);
   }
 }
+
 //=============================================================
 //
 //     Method for Generated info the variables
@@ -1305,7 +1309,9 @@ void MakeZprimeMiniAodTree::accessGenInfo(const edm::Event& iEvent,const edm::Ev
 	const Candidate * motherInPrunedCollection = (*packed)[j].mother(0) ;
 	if(motherInPrunedCollection != nullptr && isAncestor( Zprime , motherInPrunedCollection)){
 	  if( (*packed)[j].pt() < 20.0 ) continue;
-	  if( fabs((*packed)[j].pdgId()) != ParticleID_ ) continue;
+	  if( fabs((*packed)[j].pdgId()) != ParticleID1_ && 
+	      fabs((*packed)[j].pdgId()) != ParticleID2_ && 
+	      fabs((*packed)[j].pdgId()) != ParticleID3_ ) continue;
 	  if( (*packed)[j].status() > ParticleStatus_ ) continue;
 	  NbGenMuons++;
 	  iGen.push_back(NbGenMuons);
@@ -1469,11 +1475,27 @@ void MakeZprimeMiniAodTree::TriggerMatchingTree(const edm::Event& iEvent,const e
 	names.triggerName(i) != "HLT_Mu50_v5" && names.triggerName(i) != "HLT_Mu50_v6"  &&
         names.triggerName(i) != "HLT_Mu50_v7" && names.triggerName(i) != "HLT_Mu50_v8"  &&
         names.triggerName(i) != "HLT_Mu50_v9" && names.triggerName(i) != "HLT_Mu50_v10" &&
-        names.triggerName(i) != "HLT_Mu27_v1" && names.triggerName(i) != "HLT_Mu27_v2"  &&
-        names.triggerName(i) != "HLT_Mu27_v3" && names.triggerName(i) != "HLT_Mu27_v4"  &&
-        names.triggerName(i) != "HLT_Mu27_v5" && names.triggerName(i) != "HLT_Mu27_v6"  &&
-        names.triggerName(i) != "HLT_Mu27_v7" && names.triggerName(i) != "HLT_Mu27_v8"  &&
-        names.triggerName(i) != "HLT_Mu27_v9" && names.triggerName(i) != "HLT_Mu27_v10" ) continue;
+        names.triggerName(i) != "HLT_TkMu50_v1" && names.triggerName(i) != "HLT_TkMu50_v2"  &&
+        names.triggerName(i) != "HLT_TkMu50_v3" && names.triggerName(i) != "HLT_TkMu50_v4"  &&
+        names.triggerName(i) != "HLT_TkMu50_v5" && names.triggerName(i) != "HLT_TkMu50_v6"  &&
+        names.triggerName(i) != "HLT_TkMu50_v7" && names.triggerName(i) != "HLT_TkMu50_v8"  &&
+        names.triggerName(i) != "HLT_TkMu50_v9" && names.triggerName(i) != "HLT_TkMu50_v10" && 
+	names.triggerName(i) != "HLT_DoubleEle33_CaloIdL_MW_v1" && names.triggerName(i) != "HLT_DoubleEle33_CaloIdL_MW_v2"  &&
+        names.triggerName(i) != "HLT_DoubleEle33_CaloIdL_MW_v3" && names.triggerName(i) != "HLT_DoubleEle33_CaloIdL_MW_v4"  &&
+        names.triggerName(i) != "HLT_DoubleEle33_CaloIdL_MW_v5" && names.triggerName(i) != "HLT_DoubleEle33_CaloIdL_MW_v6"  &&
+        names.triggerName(i) != "HLT_DoubleEle33_CaloIdL_MW_v7" && names.triggerName(i) != "HLT_DoubleEle33_CaloIdL_MW_v8"  &&
+        names.triggerName(i) != "HLT_DoubleEle33_CaloIdL_MW_v9" && names.triggerName(i) != "HLT_DoubleEle33_CaloIdL_MW_v10" &&
+	names.triggerName(i) != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v1" && names.triggerName(i) != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v2"  &&
+        names.triggerName(i) != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v3" && names.triggerName(i) != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v4"  &&
+        names.triggerName(i) != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v5" && names.triggerName(i) != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v6"  &&
+        names.triggerName(i) != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v7" && names.triggerName(i) != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v8"  &&
+        names.triggerName(i) != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v9" && names.triggerName(i) != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v10" &&
+	names.triggerName(i) != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v1" && names.triggerName(i) != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v2"  &&
+        names.triggerName(i) != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v3" && names.triggerName(i) != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v4"  &&
+        names.triggerName(i) != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v5" && names.triggerName(i) != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v6"  &&
+        names.triggerName(i) != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v7" && names.triggerName(i) != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v8"  &&
+        names.triggerName(i) != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v9" && names.triggerName(i) != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v10"
+        ) continue;
     //std::string const& name = names.triggerName(i);
     //full_name = name;
     NbTriggers++;
@@ -1499,11 +1521,27 @@ void MakeZprimeMiniAodTree::TriggerMatchingTree(const edm::Event& iEvent,const e
           pathnames[j] != "HLT_Mu50_v5" && pathnames[j] != "HLT_Mu50_v6"  &&
           pathnames[j] != "HLT_Mu50_v7" && pathnames[j] != "HLT_Mu50_v8"  &&
           pathnames[j] != "HLT_Mu50_v9" && pathnames[j] != "HLT_Mu50_v10" &&
-          pathnames[j] != "HLT_Mu27_v1" && pathnames[j] != "HLT_Mu27_v2"  &&
-          pathnames[j] != "HLT_Mu27_v3" && pathnames[j] != "HLT_Mu27_v4"  &&
-          pathnames[j] != "HLT_Mu27_v5" && pathnames[j] != "HLT_Mu27_v6"  &&
-          pathnames[j] != "HLT_Mu27_v7" && pathnames[j] != "HLT_Mu27_v8"  &&
-          pathnames[j] != "HLT_Mu27_v9" && pathnames[j] != "HLT_Mu27_v10" ) continue;
+          pathnames[j] != "HLT_TkMu50_v1" && pathnames[j] != "HLT_TkMu50_v2"  &&
+          pathnames[j] != "HLT_TkMu50_v3" && pathnames[j] != "HLT_TkMu50_v4"  &&
+          pathnames[j] != "HLT_TkMu50_v5" && pathnames[j] != "HLT_TkMu50_v6"  &&
+          pathnames[j] != "HLT_TkMu50_v7" && pathnames[j] != "HLT_TkMu50_v8"  &&
+          pathnames[j] != "HLT_TkMu50_v9" && pathnames[j] != "HLT_TkMu50_v10" && 
+	  pathnames[j] != "HLT_DoubleEle33_CaloIdL_MW_v1" && pathnames[j] != "HLT_DoubleEle33_CaloIdL_MW_v2"  &&
+          pathnames[j] != "HLT_DoubleEle33_CaloIdL_MW_v3" && pathnames[j] != "HLT_DoubleEle33_CaloIdL_MW_v4"  &&
+          pathnames[j] != "HLT_DoubleEle33_CaloIdL_MW_v5" && pathnames[j] != "HLT_DoubleEle33_CaloIdL_MW_v6"  &&
+          pathnames[j] != "HLT_DoubleEle33_CaloIdL_MW_v7" && pathnames[j] != "HLT_DoubleEle33_CaloIdL_MW_v8"  &&
+          pathnames[j] != "HLT_DoubleEle33_CaloIdL_MW_v9" && pathnames[j] != "HLT_DoubleEle33_CaloIdL_MW_v10" &&
+	  pathnames[j] != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v1" && pathnames[j] != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v2"  &&
+          pathnames[j] != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v3" && pathnames[j] != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v4"  &&
+          pathnames[j] != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v5" && pathnames[j] != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v6"  &&
+          pathnames[j] != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v7" && pathnames[j] != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v8"  &&
+          pathnames[j] != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v9" && pathnames[j] != "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL_v10" &&
+	  pathnames[j] != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v1" && pathnames[j] != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v2"  &&
+          pathnames[j] != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v3" && pathnames[j] != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v4"  &&
+          pathnames[j] != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v5" && pathnames[j] != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v6"  &&
+          pathnames[j] != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v7" && pathnames[j] != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v8"  &&
+          pathnames[j] != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v9" && pathnames[j] != "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL_v10"
+          ) continue;
       HLTObj_nbObj.push_back(NbTriggerObj);
       HLTObj_pt.push_back(src.pt()); 
       HLTObj_eta.push_back(src.eta());
