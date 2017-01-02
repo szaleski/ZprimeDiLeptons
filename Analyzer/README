@@ -1,0 +1,11 @@
+Instructions for CMSSW_8_0_x releases:
+
+git cms-merge-topic Sam-Harper:HEEPV70VID
+git clone https://github.com/cms-analysis/ZprimeDiLeptons 
+
+scramv1 b 
+
+Run the code from the test directory with the python file:
+
+runMakeZprimeMiniAodTree_cfg.py
+
