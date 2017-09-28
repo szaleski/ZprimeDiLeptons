@@ -12,6 +12,7 @@
 !*.cc
 !*.h
 !*.py
+!*.sh
 # Don't ignore build files
 !BuildFile.xml
 # Ignore __init__.py files
