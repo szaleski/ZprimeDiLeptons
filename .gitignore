@@ -1,0 +1,21 @@
+# Ignore everything
+*
+# Don't ignore subdirectories
+!*/
+# Don't ignore special files
+!*.gitignore
+!*.md
+!*.rst
+!LICENSE
+# Don't ignore source files, etc
+!*.C
+!*.cc
+!*.h
+!*.py
+!*.sh
+# Don't ignore build files
+!BuildFile.xml
+# Ignore __init__.py files
+__init__.py
+*.#*
+# Others to ignore
