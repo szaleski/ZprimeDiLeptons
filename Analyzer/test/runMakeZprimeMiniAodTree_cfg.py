@@ -1,18 +1,14 @@
-#==============================================================
-#          Analysis code for Z' boson to dilepton analysis    =  
-#          This python to run the tree producer code          = 
-#          To run over MINIAOD MC or Data with fixed trigger  = 
-#                  Author:  Sherif Elgammal                   = 
-#                       01/01/2016                            = 
-#==============================================================
 import FWCore.ParameterSet.Config as cms
+from FWCore.ParameterSet.VarParsing import VarParsing
 from RecoMuon.TrackingTools.MuonServiceProxy_cff import *
 from PhysicsTools.PatAlgos.triggerLayer1.triggerProducer_cfi import *
 #from TrackingTools.TransientTrack.TransientTrackBuilder_cfi import *
+from PhysicsTools.SelectorUtils.tools.vid_id_tools import switchOnVIDElectronIdProducer
+from PhysicsTools.SelectorUtils.tools.vid_id_tools import setupVIDElectronSelection
+from PhysicsTools.SelectorUtils.tools.vid_id_tools import setupAllVIDIdsInModule
+from PhysicsTools.SelectorUtils.tools.vid_id_tools import DataFormat
 
 process = cms.Process("tree")
-process.load("RecoEgamma.ElectronIdentification.heepIdVarValueMapProducer_cfi")
-process.load("TrackingTools/TransientTrack/TransientTrackBuilder_cfi")
 process.load("Configuration.StandardSequences.MagneticField_38T_cff")
 process.load('Configuration/Geometry/GeometryRecoDB_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
@@ -24,9 +20,17 @@ process.load('FWCore.MessageService.MessageLogger_cfi')
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
 #Track isolation correction
 process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi")
-process.load("PhysicsTools.PatAlgos.slimming.packedCandidatesForTrkIso_cfi")
 process.load("PhysicsTools.PatAlgos.slimming.primaryVertexAssociation_cfi")
 process.load("RecoEgamma.ElectronIdentification.heepIdVarValueMapProducer_cfi")
+
+
+#EGamma VID
+from PhysicsTools.SelectorUtils.tools.vid_id_tools import *
+dataFormat = DataFormat.MiniAOD
+switchOnVIDElectronIdProducer(process, dataFormat)
+
+
+
 
 process.options = cms.untracked.PSet(
     Rethrow = cms.untracked.vstring('ProductNotFound'),
@@ -34,7 +38,7 @@ process.options = cms.untracked.PSet(
 )
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(-1),
+    input = cms.untracked.int32(10000),
     SkipEvent = cms.untracked.vstring('ProductNotFound')
 )
 
@@ -43,7 +47,15 @@ process.maxEvents = cms.untracked.PSet(
 
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
-'/store/mc/RunIISpring16MiniAODv1/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_v3_ext1-v1/20000/0017320C-7BFC-E511-9B2D-0CC47A4C8E34.root'
+
+'/store/mc/RunIISpring16MiniAODv2/ZToEE_NNPDF30_13TeV-powheg_M_200_400/MINIAODSIM/PUSpring16RAWAODSIM_reHLT_80X_mcRun2_asymptotic_v14-v1/20000/0C242E56-BA3A-E611-9B2D-0242AC130004.root',
+
+
+
+#'/store/data/Run2016B/DoubleEG/MINIAOD/03Feb2017_ver2-v2/50000/00054938-CEEA-E611-889E-0CC47A4D7650.root',
+#'/store/data/Run2016B/DoubleEG/MINIAOD/03Feb2017_ver2-v2/50000/001BC16F-90EA-E611-87E2-F04DA27540BB.root',
+#'/store/data/Run2016B/DoubleEG/MINIAOD/03Feb2017_ver2-v2/50000/001EB4EF-D3EA-E611-B94E-0CC47A4C8F26.root'
+
 #'/store/data/Run2016G/SingleMuon/MINIAOD/23Sep2016-v1/90000/9695BF0B-8E97-E611-A1A4-00259044051C.root',
 #'/store/data/Run2016G/SingleMuon/MINIAOD/23Sep2016-v1/90000/1C603D88-C597-E611-A0BE-008CFAF2931E.root'
 	)
@@ -64,22 +76,29 @@ process.noscraping = cms.EDFilter("FilterOutScraping",
                 thresh = cms.untracked.double(0.25)
                 )
 ##################################################################
+#from HEEP.VID.tools import addHEEPV70ElesMiniAOD
+#addHEEPV70ElesMiniAOD(process,useStdName=True)
+
+from HEEP.VID.tools import addHEEPV70ElesMiniAOD
+addHEEPV70ElesMiniAOD(process,useStdName=True)
+
 #####################################################################
 # Global tag (data)
-#from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-#process.GlobalTag = GlobalTag(process.GlobalTag, '80X_dataRun2_2016SeptRepro_v4', '')
+from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
+process.GlobalTag = GlobalTag(process.GlobalTag, '80X_dataRun2_2016SeptRepro_v7', '')
 
 # Global tag (MC)
-from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '80X_mcRun2_asymptotic_2016_v3', '')
+#from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
+#process.GlobalTag = GlobalTag(process.GlobalTag, '80X_mcRun2_asymptotic_2016_v3', '')
 
-process.demo = cms.EDAnalyzer("MakeZprimeMiniAodTree",
-    outputFile = cms.string('MC.root'),
+process.demo = cms.EDAnalyzer("MakeZprimeMiniAodTreeHEEPData",
+    outputFile = cms.string('Data.root'),
     eleTrkPtIsoLabel = cms.InputTag("heepIDVarValueMaps","eleTrkPtIso"),
     scProducer = cms.InputTag("reducedEgamma:reducedSuperClusters"),
     vertices   = cms.InputTag("offlineSlimmedPrimaryVertices"),
     muons      = cms.InputTag("slimmedMuons"),
     electrons  = cms.InputTag("slimmedElectrons"),
+    eles       = cms.InputTag("slimmedElectrons"),
     taus       = cms.InputTag("slimmedTaus"),
     photons    = cms.InputTag("slimmedPhotons"),
     #jets       = cms.InputTag("slimmedJetsCMSTopTagCHSPacked:SubJets"),
@@ -123,6 +142,7 @@ process.demo = cms.EDAnalyzer("MakeZprimeMiniAodTree",
         #'pfCombinedMVABJetTags'
     ),
 
+    #Analysis = cms.string('ZprimeToEE')
     Analysis = cms.string('ZprimeToMuMu')
 )
 
