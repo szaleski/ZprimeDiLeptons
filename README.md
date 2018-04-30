@@ -11,3 +11,8 @@ wget https://raw.githubusercontent.com/wsu-fnal-ci-analysis/ZprimeDiLeptons/<tag
 cd <location where you want to set up the release>
 source setup.sh
 ```
+source getSamples.sh
+
+./multicrab.py -c submit -w <sample description e.g. Lam34-des-ll-dec15>
+
+
